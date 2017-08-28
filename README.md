@@ -1,6 +1,16 @@
 # Car Crash
 
 
+*L’efficacité exceptionnelle des réseaux de neurones les rend intéressant dans de nombreux domaines, en particulier celui de la conduite autonome. Mais est-ce bien raisonnable de leur faire autant confiance ?*
+
+
+## Plan
+
+1. Reconnaissance des panneaux de signalisation
+2. Tromper le réseau : comment hacker un panneau STOP ?
+3. Des pistes pour prémunir contre de telles attaques
+
+
 ## Roadmap
 
 ### PARTIE I (Mise en place des réseaux)
@@ -47,14 +57,3 @@
 - [Recherche de publications](http://www.arxiv-sanity.com)
 - [Très bon glossaire](http://www.wildml.com/deep-learning-glossary/)
 
-
-## Problématique
-
-*L’efficacité exceptionnelle des réseaux de neurones les rend intéressant dans de nombreux domaines, en particulier celui de la conduite autonome. Mais est-ce bien raisonnable de leur faire autant confiance ?*
-
-
-## Plan
-
-1. Reconnaissance des panneaux de signalisation
-2. Tromper le réseau : comment hacker un panneau STOP ?
-3. Comment se prémunir contre de telles attaques
