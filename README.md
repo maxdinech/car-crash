@@ -14,17 +14,17 @@ III. Des pistes pour prémunir contre de telles attaques
 ## Roadmap
 
 ### PARTIE I (Mise en place des réseaux)
-> 1. Comprendre le fonctionnement d'un réseau de neurones basique (*MLP*) : rétropropagation, descente de gradient stochastique... ([1], Ch. 1 et [2]).
-> 2. Mettre en place un MLP de classification des chiffres manuscrits de MNIST, sans framework, en Python. ([1], Ch. 1)
-> 3. Comprendre le fonctionnement des réseau neuronaux convolutifs (*CNN*).
-> 4. Mettre en place un CNN avec TensorFlow pour la reconaîssance de MNIST
+> 1. Comprendre le fonctionnement d'un réseau de neurones basique (***MLP***) ([*1*], Ch. 1 et [*2*]).
+> 2. Mettre en place un MLP de classification des chiffres manuscrits de MNIST, sans framework, en Python. ([*1*], Ch. 1)
+> 3. Comprendre le fonctionnement des réseau neuronaux convolutifs (***CNN***).
+> 4. Mettre en place un CNN avec **TensorFlow** pour la reconaîssance de MNIST
 > 5. Pareil, pour la classification des panneaux (GTSRB) (Réseau A).
 > 7. Trouver (ailleurs) un réseau "sûr" de classification des panneaux de GTSRB qui servira de réference (Réseau B).
 > 8. Faire fonctionner ces réseaux dans une application iOS pour avoir des résultats en temps réel.
 
 ### PARTIE II (Attaque des réseaux)
 > 9. Sur les réseaux A et B, essayer une descente de gradient sur les pixels d'un panneau STOP reconnu par les réseaux jusqu'à les tromper. Étude mathématique de l'efficacité de cette descente.
-> 10. Étudier le fonctionnement des réseaux adversaires (*AN*).
+> 10. Étudier le fonctionnement des réseaux adversaires (***AN***).
 > 11. Essayer de mettre en place une attaque par AN sur les réseaux A et B.
 > 13. Étudier et comparer les résultats.
 
