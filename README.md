@@ -18,8 +18,8 @@
 2. Mettre en place un MLP de classification des chiffres manuscrits de MNIST, sans framework, en Python. ([1], Ch. 1)±
 3. Comprendre le fonctionnement des réseau neuronaux convolutifs (*CNN*).
 4. Mettre en place un CNN avec TensorFlow pour la reconaîssance de MNIST
-5. Pareil, pour la classification des panneaux (GTSDB) (Réseau A).
-7. Trouver (ailleurs) un réseau "sûr" de classification des panneaux de GTSDB qui servira de réference (Réseau B).
+5. Pareil, pour la classification des panneaux (GTSRB) (Réseau A).
+7. Trouver (ailleurs) un réseau "sûr" de classification des panneaux de GTSRB qui servira de réference (Réseau B).
 8. Faire fonctionner ces réseaux dans une application iOS pour avoir des résultats en temps réel.
 
 ### PARTIE II (Attaque des réseaux)
@@ -33,6 +33,10 @@
 14. ? Mettre en place ces stratégies, et nouvelle tentative de "hack"
 15. Conclure
 
+### BONUS
+16. Pourquoi pas commencer par la détection du panneau dans le champ pour ensuite le reconnaître (sur la version iOS) ? Voir GTS**D**B.
+
+---
 
 ## Bibliographie
 
@@ -54,6 +58,7 @@
 
 ## Liens utiles
 
+- [Base de données de panneaux routiers GTSRB](http://benchmark.ini.rub.de)
 - [Recherche de publications](http://www.arxiv-sanity.com)
 - [Très bon glossaire](http://www.wildml.com/deep-learning-glossary/)
 
