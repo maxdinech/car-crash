@@ -45,8 +45,8 @@
 
 ### Livres
 
-1. **Neural Networks and Deep Learning** (2015), Michael A. Nielsen [[www]](http://neuralnetworksanddeeplearning.com)
-2. **Deep Learning** (2016), Ian Goodfellow, Yoshua Bengio and Aaron Courville [[www]](http://www.deeplearningbook.org)
+- [**1**] **Neural Networks and Deep Learning** (2015), Michael A. Nielsen [[www]](http://neuralnetworksanddeeplearning.com)
+- [**2**] **Deep Learning** (2016), Ian Goodfellow, Yoshua Bengio and Aaron Courville [[www]](http://www.deeplearningbook.org)
 
 ### Publications
 
