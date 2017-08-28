@@ -50,11 +50,11 @@
 
 ### Publications
 
-3. **Accessorize to a Crime: Real and Stealthy Attacks on State-of-the-Art Face Recognition** (2016) [[pdf]](https://www.cs.cmu.edu/~sbhagava/papers/face-rec-ccs16.pdf)
-4. **Robust Physical-World Attacks on Machine Learning Models** (2017) [[pdf]](https://arxiv.org/pdf/1707.08945.pdf)
-- **Practical Black-Box Attacks against Machine Learning** [[pdf]](https://arxiv.org/pdf/1602.02697v4.pdf)
-- **Explaining and Harnessing Adversarial Examples** [[pdf]](https://arxiv.org/pdf/1412.6572.pdf)
-- **NIPS 2016 Tutorial: Generative Adversarial Networks** [[pdf]](https://arxiv.org/pdf/1701.00160v4.pdf)
+- [**3**] **Accessorize to a Crime: Real and Stealthy Attacks on State-of-the-Art Face Recognition** (2016) [[pdf]](https://www.cs.cmu.edu/~sbhagava/papers/face-rec-ccs16.pdf)
+- [**4**] **Robust Physical-World Attacks on Machine Learning Models** (2017) [[pdf]](https://arxiv.org/pdf/1707.08945.pdf)
+- [**_**] **Practical Black-Box Attacks against Machine Learning** [[pdf]](https://arxiv.org/pdf/1602.02697v4.pdf)
+- [**_**] **Explaining and Harnessing Adversarial Examples** [[pdf]](https://arxiv.org/pdf/1412.6572.pdf)
+- [**_**] **NIPS 2016 Tutorial: Generative Adversarial Networks** [[pdf]](https://arxiv.org/pdf/1701.00160v4.pdf)
 
 
 ## Liens utiles
