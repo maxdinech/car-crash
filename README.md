@@ -6,9 +6,11 @@
 
 ## Plan
 
-I. Reconnaissance des panneaux de signalisation
-II. Tromper le réseau : comment hacker un panneau STOP ?
-III. Des pistes pour prémunir contre de telles attaques
+**I.** Reconnaissance des panneaux de signalisation
+
+**II.** Tromper le réseau : comment hacker un panneau STOP ?
+
+**III.** Des pistes pour prémunir contre de telles attaques
 
 
 ## Roadmap
