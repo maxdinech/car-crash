@@ -57,7 +57,7 @@ III. Des pistes pour prémunir contre de telles attaques
 
 ## Liens utiles
 
-- [Base de données de panneaux routiers GTSRB](http://benchmark.ini.rub.de)
-- [Recherche de publications](http://www.arxiv-sanity.com)
+- [German Traffic Sign Recognition Benchmark (GTSRB)](http://benchmark.ini.rub.de/?section=gtsrb)
+- [Arxiv Sanity Preserver (Recherche de publications)](http://www.arxiv-sanity.com)
 - [Très bon glossaire](http://www.wildml.com/deep-learning-glossary/)
 
