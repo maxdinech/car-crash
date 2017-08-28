@@ -14,8 +14,8 @@ III. Des pistes pour prémunir contre de telles attaques
 ## Roadmap
 
 ### PARTIE I (Mise en place des réseaux)
-> 1. Comprendre le fonctionnement d'un réseau de neurones basique (***MLP***) ([*1*], Ch. 1 et [*2*]).
-> 2. Mettre en place un MLP de classification des chiffres manuscrits de MNIST, sans framework, en Python. ([*1*], Ch. 1)
+> 1. Comprendre le fonctionnement d'un réseau de neurones basique (***MLP***) ([**1**], Ch. 1 et [**2**]).
+> 2. Mettre en place un MLP de classification des chiffres manuscrits de MNIST, sans framework, en Python. ([**1**], Ch. 1)
 > 3. Comprendre le fonctionnement des réseau neuronaux convolutifs (***CNN***).
 > 4. Mettre en place un CNN avec **TensorFlow** pour la reconaîssance de MNIST
 > 5. Pareil, pour la classification des panneaux (GTSRB) (Réseau A).
