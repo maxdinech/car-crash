@@ -77,7 +77,7 @@
 
 - [**7**] **Robust Physical-World Attacks on Machine Learning Models** (2017) [[pdf]](https://arxiv.org/pdf/1707.08945.pdf)
 
-> Papier om est essayée l'attaque de panneaux STOP.
+> Dans cette publication, des chercheurs explorent l'attaque de réseaux de classification de paneaux routiers.
 
 - [**8**] **Accessorize to a Crime: Real and Stealthy Attacks on State-of-the-Art Face Recognition** (2016) [[pdf]](https://www.cs.cmu.edu/~sbhagava/papers/face-rec-ccs16.pdf)
 
