@@ -8,7 +8,7 @@
 
 **Partie II.** Tromper le réseau : comment hacker un panneau STOP ?
 
-**Partie III.** Des pistes pour prémunir contre de telles attaques
+**Partie III.** Des pistes pour se prémunir contre de telles attaques
 
 
 ## Plan détaillé
@@ -36,10 +36,16 @@
 
 ### Partie III (Renforcement des réseaux)
 - Inventer et mettre en place un renforcement "naïf" contre de telles attaques.
-- Étudier le fonctionnement d'des réseaux adversaires génératifs (***GANs***) comme technique de renforcement possible.
+- Étudier le fonctionnement des réseaux adversaires génératifs (***GANs***) comme technique de renforcement possible.
 - Collecter et expérimenter d'autres stratégies de renforcement existantes.
 - Comparer le succès des attaques sur les trois réseaux, avec diverses techniques de renforcement mises en place. 
 - Conclure
+
+---
+
+## À voir aussi
+
+- Réseaux **RBF** que Ian Goodfellow décrit dans [**6**] comme résistants aux attaques adversaires.
 
 ---
 
@@ -77,7 +83,7 @@
 
 - [**7**] **Robust Physical-World Attacks on Machine Learning Models** (2017) [[pdf]](https://arxiv.org/pdf/1707.08945.pdf)
 
-> Papier om est essayée l'attaque de panneaux STOP.
+> Papier où est essayée l'attaque de panneaux STOP.
 
 - [**8**] **Accessorize to a Crime: Real and Stealthy Attacks on State-of-the-Art Face Recognition** (2016) [[pdf]](https://www.cs.cmu.edu/~sbhagava/papers/face-rec-ccs16.pdf)
 
