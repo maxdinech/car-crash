@@ -91,7 +91,10 @@
 
 ### Sources complémentaires
 
-- [**_**] **Practical Black-Box Attacks against Machine Learning** (2017), I. Goodfellow et al.  [[pdf]](https://arxiv.org/pdf/1602.02697v4.pdf)
+- [**_**] **Dropout: A Simple Way to Prevent Neural Networks from
+Overfitting** (2014), G. Hinton, A. Krizhevsky et al. [[pdf]](http://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf)
+
+- [**_**] **Practical Black-Box Attacks against Machine Learning** (2017), I. Goodfellow et al. [[pdf]](https://arxiv.org/pdf/1602.02697v4.pdf)
 
 - [**_**] **NIPS 2016 Tutorial: Generative Adversarial Networks** [[pdf]](https://arxiv.org/pdf/1701.00160v4.pdf)
 
