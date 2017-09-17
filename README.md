@@ -8,7 +8,7 @@ On cherche à donner à la voiture une forme d'intelligence qui en fasse un agen
 
 On utilise principalement pour ces tâches les réseaux de neurones, qui sont aujourd'hui la meilleure **interface** de compréhension d'images (Computer Vision). Ils consistent à séparer un espace R^n finement : les frontières de classifications -> **ruptures**
 
-**homogénéité**
+**homogénéité** de la base de données ?
 
 ---
 
@@ -112,3 +112,8 @@ Overfitting** (2014), G. Hinton, A. Krizhevsky et al. [[pdf]](http://www.cs.toro
 - [German Traffic Sign Recognition Benchmark (GTSRB)](http://benchmark.ini.rub.de/?section=gtsrb)
 - [Arxiv Sanity Preserver (Recherche de publications)](http://www.arxiv-sanity.com)
 - [Glossaire complet et détaillé](http://www.wildml.com/deep-learning-glossary/)
+
+## Dépendances
+
+- Python 3.6
+- modules : numpy, keras, tensorflow, scikit-image, pandas, glob
