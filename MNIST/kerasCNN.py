@@ -46,7 +46,10 @@ model.compile(loss='categorical_crossentropy',
 # ENTRAÎNEMENT DU RÉSEAU
 # ----------------------
 
-history = model.fit(images, labels, batch_size=128, epochs=20, validation_split=1/6)
+history = model.fit(images, labels,
+					batch_size=128,
+					epochs=12,
+					validation_split=1/6)
 
 
 # PRÉDICTION D'UN CHIFFRE

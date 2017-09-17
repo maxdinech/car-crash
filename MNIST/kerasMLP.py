@@ -42,7 +42,10 @@ model.compile(optimizer=RMSprop(lr=0.001),
 # ENTRAÎNEMENT DU RÉSEAU
 # ----------------------
 
-history = model.fit(images, labels, batch_size=64, epochs=25, validation_split=1/6)
+history = model.fit(images, labels,
+					batch_size=64,
+					epochs=25,
+					validation_split=1/6)
 
 
 # PRÉDICTION D'UN CHIFFRE
