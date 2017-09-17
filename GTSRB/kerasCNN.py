@@ -1,6 +1,8 @@
 """
 GTSRB/kerasCNN.py
 ~~~~~~~~~~~~~~~~~
+
+Résultats attendus : environ 95% de succès.
 """
 
 # BIBLIOTHÈQUES EXTERNES
