@@ -1,3 +1,15 @@
+"""
+gtsrb_loader.py
+~~~~~~~~~~~~~~~
+
+Convertit et normalise les images organisés en 43 dossiers de catégories dans
+'Final_Training/'' en deux tableaux numpy : 'images' et 'labels'.
+
+Les labels sont des tableaux de 0 avec un 1 à la position de la catégorie du
+panneau, les images sont des matrices de 40*40 pixels en nuances de gris (blanc
+= 0, noir = 1).
+"""
+
 # BIBLIOTHÈQUES EXTERNES
 # ----------------------
 

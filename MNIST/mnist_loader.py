@@ -1,3 +1,14 @@
+"""
+mnist_loader.py
+~~~~~~~~~~~~~~~
+
+Convertit la base de données 'train.csv' en deux tableaux numpy : 'images' et
+'labels'.
+
+Les labels sont des tableaux de 0 avec un 1 à la position du chiffre, les images
+sont des matrices de 28*28 pixels en nuances de gris (blanc = 0, noir = 1).
+"""
+
 # BIBLIOTHÈQUES EXTERNES
 # ----------------------
 
