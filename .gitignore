@@ -3,4 +3,5 @@
 *.pyc
 *.npy
 Final_Training
+logs
 __pycache__
