@@ -99,6 +99,10 @@ On utilise principalement pour ces tâches les réseaux de neurones, qui sont au
 
 ### Sources complémentaires
 
+-[**_**] **Traffic Sign Classification Using Deep Inception Based Convolutional Networks** (2015) [[pdf]](https://arxiv.org/pdf/1511.02992.pdf)
+
+> In this work, we propose a novel deep network for traffic sign classification that achieves outstanding performance on GTSRB surpassing all previous methods. Our deep network consists of spatial transformer layers and a modified version of inception module specifically designed for capturing local and global features together. This features adoption allows our network to classify precisely intraclass samples even under deformations. Use of spatial transformer layer makes this network more robust to deformations such as translation, rotation, scaling of input images. Unlike existing approaches that are developed with hand-crafted features, multiple deep networks with huge parameters and data augmentations, our method addresses the concern of exploding parameters and augmentations. We have achieved the state-of-the-art performance of 99.81% on GTSRB dataset.
+
 - [**_**] **Dropout: A Simple Way to Prevent Neural Networks from
 Overfitting** (2014), G. Hinton, A. Krizhevsky et al. [[pdf]](http://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf)
 
