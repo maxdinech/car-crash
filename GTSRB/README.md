@@ -25,38 +25,38 @@ Tous les entraînements sont réalisés avec 12 epochs, et une taille de paquet 
 
 La performance est à chaque fois mesurée sur la même base de validation.
 
-### base `grey`
+- base `grey`
 
-| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
-|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Accuracy |     |     |     |     |     | ... |     |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
+	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+	| Accuracy |     |     |     |     |     | ... |     |
 
-### base `grey` étendue par symétries
+- base `grey` étendue par symétries
 
-| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
-|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Accuracy |     |     |     |     |     | ... |     |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
+	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+	| Accuracy |     |     |     |     |     | ... |     |
 
-### base `grey` étendue par symétries et distorsions
+- base `grey` étendue par symétries et distorsions
 
-| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
-|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Accuracy |     |     |     |     |     | ... |     |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
+	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+	| Accuracy |     |     |     |     |     | ... |     |
 
-### base `clahe`
+- base `clahe`
 
-| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
-|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Accuracy |     |     |     |     |     | ... |     |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
+	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+	| Accuracy |     |     |     |     |     | ... |     |
 
-### base `clahe` étendue par symétries
+- base `clahe` étendue par symétries
 
-| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
-|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Accuracy |91.47|95.30|     |     |     | ... |     |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
+	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+	| Accuracy |91.47|95.30|96.50|     |     | ... |     |
 
-### base `clahe` étendue par symétries et distorsions
+- base `clahe` étendue par symétries et distorsions
 
-| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
-|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Accuracy |     |     |     |     |     | ... |     |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
+	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+	| Accuracy |     |     |     |     |     | ... |     |
