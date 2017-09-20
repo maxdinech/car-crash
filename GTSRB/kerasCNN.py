@@ -2,56 +2,96 @@
 GTSRB/kerasCNN.py
 ~~~~~~~~~~~~~~~~~
 
-Résultats attendus : environ 90% de succès.
+Résultats attendus : environ 98% de succès.
+
+
+Description des données : dossier 'data/'
+
+La base de donnée initiale est constituée de 39203 images de tailles variables.
+Ces images ont été mélangées aléatoirement puis normalisées en taille 40x40 px.
+
+Les 3000 dernières images (val_rgb) servent exclusivement à la validation (test
+de performance) du réseau.
+
+Les autres images peuvent être utilisées à volonté.
+
+Ces images ont été transformées (_grey ou _clahe) et étendues ou non (_ext) pour
+expérimenter la performance du réseau sous dofférents paramètres.
 """
+
+
+# HYPERPARAMÈTRES
+# ---------------
+
+color = 'clahe'  # 'grey' ou 'clahe'
+mode = 'ext'  # 'ext' ou ''
+epochs = 12
+batch_size = 128
+
 
 # BIBLIOTHÈQUES EXTERNES
 # ----------------------
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Convolution2D, MaxPooling2D
 
-import gtsrb_loader
 
 
-# BASE DE DONNÉES
-# ---------------
+# LECTURE DES DONNÉES
+# -------------------
 
-images, labels = gtsrb_loader.gtsrb(11000)
+print('\nCouleur : ' + color + ', Mode : '*(mode!='') + mode + '\n')
+
+train_images = np.load("data/train/train_" + color + "_"*(mode!='') + mode + ".npy")
+train_labels = np.load("data/train/train_labels" + "_"*(mode!='') + mode + ".npy")
+
+val_images = np.load("data/validation/val_" + color + ".npy")
+val_labels = np.load("data/validation/val_labels.npy")
 
 # Il faut ajouter explicitement la dimension RGB, ici 1
-images = images.reshape(images.shape[0], 40, 40, 1)
+train_images = train_images.reshape(train_images.shape[0], 40, 40, 1)
+val_images = val_images.reshape(val_images.shape[0], 40, 40, 1)
+
 
 
 # DÉFINITION ET COMPILATION DU MODÈLE
 # -----------------------------------
 
-model = Sequential()
-
-model.add(Convolution2D(32, (5,5), input_shape=(40,40,1), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2,2)))
-model.add(Dropout(0.2))
-model.add(Flatten())
-model.add(Dense(128, activation='relu'))
-model.add(Dense(43, activation='softmax'))
+model = Sequential([
+	Convolution2D(32, (5,5), input_shape=(40,40,1), activation='relu'),
+	MaxPooling2D(pool_size=(2,2)),
+	Dropout(0.2),
+	Flatten(),
+	Dense(128, activation='relu'),
+	Dense(43, activation='softmax')
+])
 
 model.compile(loss='categorical_crossentropy',
 			  optimizer='adam',
 			  metrics=['accuracy'])
 
 
+
 # ENTRAÎNEMENT DU RÉSEAU
 # ----------------------
 
-def entrainement():
-	history = model.fit(images, labels,
-						batch_size=128,
-						epochs=20,
-						validation_split=1/11)
-	return history
+history = model.fit(train_images, train_labels,
+					batch_size = batch_size,
+					epochs = epochs,
+					validation_data = (val_images, val_labels))
+
+plt.plot(history.history['acc'])
+plt.plot(history.history['val_acc'])
+plt.title('Précision - couleur : ' + color + ', mode : '*(mode!='') + mode)
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['entraînement', 'validation'], loc='upper left')
+plt.show()
+
 
 
 # PRÉDICTIONS
@@ -62,15 +102,11 @@ def prediction(n):
 	resultat = model.predict(images[n].reshape(1, 40, 40, 1))
 	prediction = np.argmax(resultat)
 	proba = resultat[0,prediction]
-	if prediction == np.argmax(labels[n]):
-		color = 'green'
-	else:
-		color = 'red'
-	plt.title("{} -- {}%".format(panneau(prediction), (100*proba).round(2)), color = color)
+	plt.title("{} -- {}%".format(panneau(prediction), (100*proba).round(2)))
 	plt.show()
 
 def panneau(n):
-	panneaux = ["Limitation de vitesse : 20km/h", "Limitation de vitesse : 30km/h", "Limitation de vitesse : 50km/h", "Limitation de vitesse : 60km/h", "Limitation de vitesse : 70km/h", "Limitation de vitesse : 80km/h", "Fin de limitation de vitesse : 80km/h", "Limitation de vitesse : 100km/", "Limitation de vitesse : 120km/", "Interdiction de dépasser", "Interdiction de dépasser (poids lourds)", "Priorité à la prochaine intersection", "Route prioritaire", "Cédez le passage", "Stop", "Circulation interdite", "Circulation interdite aux poids lourds", "Sens interdit", "Danger", "Virage dangereux à gauche", "Virage dangereux à droite", "Succession de virages dangereux", "Dos-d'âne", "Chaussée glissante", "Chaussée rétrécie par la droite", "Travaux", "Feux tricolores", "Traversée de piétons", "Traversée d'enfants", "Traversée de vélos", "Danger : glace/neige", "Traversée d'animaux sauvages", "Fin de toutes limitations", "Tournez à droite", "Tournez à gauche", "Tout droit uniquement", "Tout droit ou à droite", "Tout droit ou à gauche", "Restez à droite", "Restez à gauche", "Giratoire", "Fin d'interdiction de dépasser", "Fin d'interdiction de dépasser (poids lourds)"]
+	panneaux = np.load("data/noms_panneaux.npy")
 	return panneaux[n]
 
 def erreurs(a, b):
