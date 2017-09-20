@@ -1,6 +1,6 @@
 *.csv
 *.zip
 *.pyc
-Final_Test
-Final_Training
+*.npy
+Training
 __pycache__
