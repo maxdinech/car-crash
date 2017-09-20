@@ -42,7 +42,7 @@ http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Training_Images.zip
 
 ## Réseau utilisée
 
-![CNN utilisé](CNN2.png)
+![CNN utilisé](CNN_small.png)
 
 ## Performances obtenues
 
