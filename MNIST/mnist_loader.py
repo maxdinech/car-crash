@@ -20,7 +20,7 @@ from keras.utils.np_utils import to_categorical
 # TRAITEMENT DES DONNÉES
 # ----------------------
 
-data_url = 'train.csv'
+data_url = 'data/train.csv'
 
 
 def mnist():
@@ -29,3 +29,8 @@ def mnist():
 	images = images.reshape(images.shape[0], 28, 28)
 	labels = to_categorical(data.ix[:,0].values.astype('int32'), 10)
 	return images, labels
+
+
+def save_mnist(images, labels):
+	np.save("data/images", images)
+	np.save("data/labels", labels)

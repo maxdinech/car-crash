@@ -20,7 +20,8 @@ import mnist_loader
 # BASE DE DONNÉES
 # ---------------
 
-images, labels = mnist_loader.mnist()
+images = np.load("data.images.npy")
+labels = np.load("data.labels.npy")
 
 
 # DÉFINITION ET COMPILATION DU RÉSEAU
