@@ -23,31 +23,30 @@ On utilise principalement pour ces tâches les réseaux de neurones, qui sont au
 
 ### Partie I.A (Prise en main des outils : entraînements sur *MNIST*)
 
-- Étudier le fonctionnement d'un réseau de neurones basique (***MLP***).
-- Mettre en place un *MLP* de classification des chiffres manuscrits de *MNIST*, sans framework en Python.
-- Même chose en utilisant *TensorFlow*.
-- Étudier le fonctionnement des réseau neuronaux convolutifs (***CNN***).
-- Mettre en place un CNN avec *TensorFlow* pour la reconaîssance de *MNIST*.
+- [x] Étudier le fonctionnement d'un réseau de neurones basique (***MLP***).
+- [x] Mettre en place un *MLP* de classification des chiffres manuscrits de *MNIST*, sans framework en Python.
+- [x] Même chose en utilisant *Keras*.
+- [ ] Étudier le fonctionnement des réseau neuronaux convolutifs (***CNN***).
+- [x] Mettre en place un CNN avec *Keras* pour la reconaîssance de *MNIST*.
 
 ### Partie I.B (Classification des panneaux : *GTSRB*)
 
-- Mettre en place un *MLP* avec *TensorFlow* pour la classification des panneaux (Réseau *A*).
-- Mettre en place un *CNN* avec *TensorFlow* pour la classification des panneaux (Réseau *B*).
-- Trouver un réseau de référence de classification des panneaux qui servira de référence (Réseau *C*), si possible un réseau utilisé dans des voitures du commerce.
-- Optionnel : Faire fonctionner ces réseaux dans une application iOS pour avoir des résultats en temps réel.
+- [x] Mettre en place un *CNN* avec *Keras* pour la classification des panneaux (Réseau *A*).
+- [ ] Trouver un réseau de référence de classification des panneaux qui servira de référence (Réseau *B*), si possible un réseau utilisé dans des voitures du commerce.
+- [ ] Optionnel : Faire fonctionner ces réseaux dans une application iOS pour avoir des résultats en temps réel.
 
 ### Partie II (Attaque des réseaux : *Dodging* puis *Impersonating*)
-- Sur les réseaux collectés (*A*, *B* et *C*), essayer de tromper la reconaîssance de manière "naïve" (par exemple une descente de gradient sur quelques pixels d'un panneau STOP jusqu'à ce qu'il ne soit plus reconnu).
-- Étudier l'état de l'art dans ce domaine : réseaux adversaires (***AN***) et attaques *black-box*.
-- Mettre en place ces attaques sur les trois réseaux.
-- Étudier et comparer les résultats.
+- [ ] Sur les réseaux collectés (*A* et *B*), essayer de tromper la reconaîssance de manière "naïve" (par exemple une descente de gradient sur quelques pixels d'un panneau STOP jusqu'à ce qu'il ne soit plus reconnu).
+- [ ] Étudier l'état de l'art dans ce domaine : réseaux adversaires (***AN***) et attaques *black-box*.
+- [ ] Mettre en place ces attaques sur les trois réseaux.
+- [ ] Étudier et comparer les résultats.
 
 ### Partie III (Renforcement des réseaux)
-- Inventer et mettre en place un renforcement "naïf" contre de telles attaques.
-- Étudier le fonctionnement des réseaux adversaires génératifs (***GANs***) comme technique de renforcement possible.
-- Collecter et expérimenter d'autres stratégies de renforcement existantes.
-- Comparer le succès des attaques sur les trois réseaux, avec diverses techniques de renforcement mises en place. 
-- Conclure
+- [ ] Inventer et mettre en place un renforcement "naïf" contre de telles attaques.
+- [ ] Étudier le fonctionnement des réseaux adversaires génératifs (***GANs***) comme technique de renforcement possible.
+- [ ] Collecter et expérimenter d'autres stratégies de renforcement existantes.
+- [ ] Comparer le succès des attaques sur les trois réseaux, avec diverses techniques de renforcement mises en place. 
+- [ ] Conclure
 
 ---
 
@@ -120,4 +119,4 @@ Overfitting** (2014), G. Hinton, A. Krizhevsky et al. [[pdf]](http://www.cs.toro
 ## Dépendances
 
 - Python 3.6
-- modules : numpy, keras, tensorflow, scikit-image, pandas, glob
+- modules : numpy, tensorflow, keras, scikit-image, pandas, glob
