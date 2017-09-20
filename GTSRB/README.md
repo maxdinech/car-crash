@@ -1,8 +1,8 @@
 # GTSRB
 
-## Structure des données
+## Structure des données : GTSRB/data/
 
-Le dossier `data/Training/` correspond à la base de données officielle de GTSRB.
+Le dossier `data/Training` correspond à la base de données officielle de GTSRB.
 Il est organisé en 43 sous-dossier de catégories, chacun contenant des images au
 format `.ppm`.
 
@@ -19,7 +19,7 @@ l'augmentation par symétries des bases de données.
 
 	data/
 	├── noms_panneaux.npy
-	├── Training.
+	├── Training/
 	│   ├── 00000/
 	│   ├── ...
 	│   └── 00042/
@@ -37,8 +37,9 @@ l'augmentation par symétries des bases de données.
 	    ├── train_clahe.npy
 	    └── train_labels.npy
 
-Les dossiers `Training/`, `train/` et `validation/` peuvent être télechargés à
-l'adresse suivante : 
+Le dossier Final_Training/ est disponible à l'adresse suivante au format zip :
+http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Training_Images.zip
+
 
 ## Performances obtenues
 
@@ -50,36 +51,36 @@ prend la meilleure performance sur trois lancers.
 
 - base `grey`
 
-	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
-	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-	| Accuracy |     |     |     |     |     | ... |     |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
+	| Accuracy |     |     |     |     |     | ... |**     **|
 
 - base `grey` étendue par symétries
 
-	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
-	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-	| Accuracy |     |     |     |     |     | ... |     |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
+	| Accuracy |     |     |     |     |     | ... |**     **|
 
 - base `grey` étendue par symétries et distorsions
 
-	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
-	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-	| Accuracy |     |     |     |     |     | ... |     |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
+	| Accuracy |     |     |     |     |     | ... |**     **|
 
 - base `clahe`
 
-	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
-	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-	| Accuracy |     |     |     |     |     | ... |     |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
+	| Accuracy |     |     |     |     |     | ... |**     **|
 
 - base `clahe` étendue par symétries
 
-	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
-	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-	| Accuracy |91.47|95.30|96.50|97.77|97.03| ... |     |
+	| Epoch(1) |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
+	| Accuracy |91.47|95.30|96.50|97.77|97.03| ... |**98.33**|
 
 - base `clahe` étendue par symétries et distorsions
 
-	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
-	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-	| Accuracy |     |     |     |     |     | ... |     |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
+	| Accuracy |     |     |     |     |     | ... |**     **|
