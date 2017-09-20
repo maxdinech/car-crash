@@ -24,7 +24,7 @@ expérimenter la performance du réseau sous dofférents paramètres.
 # ---------------
 
 color = 'clahe'  # 'grey' ou 'clahe'
-mode = 'ext'  # 'ext' ou ''
+mode = ''  # 'ext' ou ''
 epochs = 12
 batch_size = 128
 
@@ -98,8 +98,8 @@ plt.show()
 # -----------
 
 def prediction(n):
-	plt.imshow(images[n].reshape(40,40), cmap='gray')
-	resultat = model.predict(images[n].reshape(1, 40, 40, 1))
+	plt.imshow(val_images[n].reshape(40,40), cmap='gray')
+	resultat = model.predict(val_images[n].reshape(1, 40, 40, 1))
 	prediction = np.argmax(resultat)
 	proba = resultat[0,prediction]
 	plt.title("{} -- {}%".format(panneau(prediction), (100*proba).round(2)))
@@ -109,11 +109,11 @@ def panneau(n):
 	panneaux = np.load("data/noms_panneaux.npy")
 	return panneaux[n]
 
-def erreurs(a, b):
+def erreurs():
 	l = []
-	for i in range(a, b):
-		resultat = model.predict(images[i].reshape(1, 40, 40, 1))
-		if np.argmax(resultat) != np.argmax(labels[i]):
+	for i in range(len(val_images)):
+		resultat = model.predict(val_images[i].reshape(1, 40, 40, 1))
+		if np.argmax(resultat) != np.argmax(val_labels[i]):
 			l.append(i)
-	print("pourcentage d'erreurs :", 100*len(l)/(b-a), "%")
+	print("pourcentage d'erreurs :", 100*len(l)/len(val_images), "%")
 	return l
