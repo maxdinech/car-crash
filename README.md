@@ -32,7 +32,7 @@ On utilise principalement pour ces tâches les réseaux de neurones, qui sont au
 ### Partie I.B (Classification des panneaux : *GTSRB*)
 
 - [x] Mettre en place un *CNN* avec *Keras* pour la classification des panneaux (Réseau *A*).
-- [ ] Trouver un réseau de référence de classification des panneaux qui servira de référence (Réseau *B*), si possible un réseau utilisé dans des voitures du commerce.
+- [ ] Trouver un réseau de classification des panneaux utilisé dans des voitures du commerce (Réseau *B*).
 - [ ] Optionnel : Faire fonctionner ces réseaux dans une application iOS pour avoir des résultats en temps réel.
 
 ### Partie II (Attaque des réseaux : *Dodging* puis *Impersonating*)
