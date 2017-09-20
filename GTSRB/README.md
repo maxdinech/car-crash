@@ -53,7 +53,7 @@ La performance est à chaque fois mesurée sur la même base de validation.
 
 	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... | 12  |
 	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-	| Accuracy |91.47|95.30|96.50|     |     | ... |     |
+	| Accuracy |91.47|95.30|96.50|97.77|97.03| ... |     |
 
 - base `clahe` étendue par symétries et distorsions
 
