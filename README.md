@@ -8,8 +8,6 @@ On cherche à donner à la voiture une forme d'intelligence qui en fasse un agen
 
 On utilise principalement pour ces tâches les réseaux de neurones, qui sont aujourd'hui la meilleure **interface** de compréhension d'images (Computer Vision). Ils consistent à séparer un espace R^n finement : les frontières de classifications -> **ruptures**
 
-**homogénéité** de la base de données ?
-
 ---
 
 **Partie I.** Classification des panneaux de signalisation
@@ -26,7 +24,7 @@ On utilise principalement pour ces tâches les réseaux de neurones, qui sont au
 - [x] Étudier le fonctionnement d'un réseau de neurones basique (***MLP***).
 - [x] Mettre en place un *MLP* de classification des chiffres manuscrits de *MNIST*, sans framework en Python.
 - [x] Même chose en utilisant *Keras*.
-- [ ] Étudier le fonctionnement des réseau neuronaux convolutifs (***CNN***).
+- [x] Étudier le fonctionnement des réseau neuronaux convolutifs (***CNN***).
 - [x] Mettre en place un CNN avec *Keras* pour la reconaîssance de *MNIST*.
 
 ### Partie I.B (Classification des panneaux : *GTSRB*)
