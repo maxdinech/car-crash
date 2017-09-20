@@ -43,7 +43,7 @@ http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Training_Images.zip
 
 ## Performances obtenues
 
-Tous les entraînements sont réalisés avec 12 epochs, et une taille de paquet de
+Tous les entraînements sont réalisés avec 10 epochs, et une taille de paquet de
 128, sur le même réseau.
 
 La performance est à chaque fois mesurée sur la même base de validation, on
@@ -51,36 +51,36 @@ prend la meilleure performance sur trois lancers.
 
 - base `grey`
 
-	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   10    |
 	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
 	| Accuracy |     |     |     |     |     | ... |**     **|
 
 - base `grey` étendue par symétries
 
-	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   10    |
 	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
 	| Accuracy |     |     |     |     |     | ... |**     **|
 
 - base `grey` étendue par symétries et distorsions
 
-	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   10    |
 	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
 	| Accuracy |     |     |     |     |     | ... |**     **|
 
 - base `clahe`
 
-	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+	| Epoch(1) |  1  |  2  |  3  |  4  |  5  | ... |   10    |
 	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
-	| Accuracy |     |     |     |     |     | ... |**     **|
+	| Accuracy |91.63|95.83|97.40|97.83|98.33| ... |**98.83**|
 
 - base `clahe` étendue par symétries
 
-	| Epoch(1) |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+	| Epoch(1) |  1  |  2  |  3  |  4  |  5  | ... |   10    |
 	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
 	| Accuracy |91.47|95.30|96.50|97.77|97.03| ... |**98.33**|
 
 - base `clahe` étendue par symétries et distorsions
 
-	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+	| Epoch    |  1  |  2  |  3  |  4  |  5  | ... |   10    |
 	|----------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
 	| Accuracy |     |     |     |     |     | ... |**     **|
