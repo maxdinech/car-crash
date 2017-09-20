@@ -17,13 +17,36 @@ disposibles dans différents profils de couleurs : `rgb`, `grey` et `clahe`. Des
 versions `ext` sont disposibles pour chaque profil : elles correspondent à
 l'augmentation par symétries des bases de données.
 
+	data/
+	├── noms_panneaux.npy
+	├── Training.
+	│   ├── 00000/
+	│   ├── ...
+	│   └── 00042/
+	├── train/
+	│   ├── train_rgb.npy
+	│   ├── train_grey.npy
+	│   ├── train_clahe.npy
+	│   ├── train_labels.npy
+	│   ├── train_grey_ext.npy
+	│   ├── train_clahe_ext.npy
+	│   └── train_labels_ext.npy
+	└── validation/
+	    ├── train_rgb.npy
+	    ├── train_grey.npy
+	    ├── train_clahe.npy
+	    └── train_labels.npy
+
+Les dossiers `Training/`, `train/` et `validation/` peuvent être télechargés à
+l'adresse suivante : 
 
 ## Performances obtenues
 
 Tous les entraînements sont réalisés avec 12 epochs, et une taille de paquet de
 128, sur le même réseau.
 
-La performance est à chaque fois mesurée sur la même base de validation.
+La performance est à chaque fois mesurée sur la même base de validation, on
+prend la meilleure performance sur trois lancers.
 
 - base `grey`
 
