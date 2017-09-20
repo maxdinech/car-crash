@@ -23,9 +23,9 @@ expérimenter la performance du réseau sous dofférents paramètres.
 # HYPERPARAMÈTRES
 # ---------------
 
-color = 'clahe'  # 'grey' ou 'clahe'
+color = 'grey'  # 'grey' ou 'clahe'
 mode = ''  # 'ext' ou ''
-epochs = 12
+epochs = 10
 batch_size = 128
 
 
@@ -39,6 +39,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Convolution2D, MaxPooling2D
 
+from keras.callbacks import TensorBoard
 
 
 # LECTURE DES DONNÉES
@@ -79,18 +80,18 @@ model.compile(loss='categorical_crossentropy',
 # ENTRAÎNEMENT DU RÉSEAU
 # ----------------------
 
-history = model.fit(train_images, train_labels,
-					batch_size = batch_size,
-					epochs = epochs,
-					validation_data = (val_images, val_labels))
+tensorboard = TensorBoard(log_dir='./logs',
+						  histogram_freq=10,  # nombre d'hist. par batch
+						  batch_size=batch_size,
+						  write_graph=True,
+						  write_grads=True,
+						  write_images=True)
 
-plt.plot(history.history['acc'])
-plt.plot(history.history['val_acc'])
-plt.title('Précision - couleur : ' + color + ', mode : '*(mode!='') + mode)
-plt.ylabel('accuracy')
-plt.xlabel('epoch')
-plt.legend(['entraînement', 'validation'], loc='upper left')
-plt.show()
+model.fit(train_images, train_labels,
+		  batch_size = batch_size,
+		  epochs = epochs,
+		  validation_data = (val_images, val_labels),
+		  callbacks=[tensorboard])
 
 
 

@@ -58,7 +58,3 @@ def gtsrb(n):
 	images = np.array(images)
 	labels = np.eye(43)[np.array(labels)]  # Conversion entiers -> catégories
 	return images, labels
-
-
-def save_gtsrb(images, labels):
-	
