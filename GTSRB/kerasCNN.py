@@ -26,7 +26,7 @@ expérimenter la performance du réseau sous dofférents paramètres.
 reseau = 'LeNet-5'  # 'réseauA' ou 'LeNet-5'
 color = 'clahe'  # 'grey' ou 'clahe'
 mode = 'ext'  # 'ext' ou ''
-epochs = 12
+epochs = 15
 batch_size = 128
 
 
@@ -81,7 +81,7 @@ if reseau == 'LeNet-5':
 	model = Sequential([
 		Convolution2D(20, (5,5), input_shape=(40,40,1), activation='relu'),
 		MaxPooling2D(pool_size=(2,2)),
-		Convolution2D(32, (5,5), activation='relu'),
+		Convolution2D(40, (5,5), activation='relu'),
 		MaxPooling2D(pool_size=(2,2)),
 		Dropout(0.4),
 		Flatten(),
@@ -91,7 +91,6 @@ if reseau == 'LeNet-5':
 		Dropout(0.4),
 		Dense(43, activation='softmax')
 	])
-
 
 	model.compile(loss='categorical_crossentropy',
 				  optimizer='adam',
