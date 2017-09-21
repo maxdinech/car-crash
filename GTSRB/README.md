@@ -40,39 +40,48 @@ l'augmentation par symétries des bases de données.
 Le dossier Final_Training/ est disponible à l'adresse suivante au format zip :
 http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Training_Images.zip
 
+
 ## Réseau utilisée
 
 ![CNN utilisé](CNN_small.png)
+
 
 ## Performances obtenues
 
 Tous les entraînements sont réalisés avec 10 epochs, et une taille de paquet de
 128, sur le même réseau.
 
-La performance est à chaque fois mesurée sur la même base de validation, on
-prend la meilleure performance sur trois lancers.
+La performance est à chaque fois mesurée sur la même base de validation.
 
 - base `grey`
 
 | Epoch  |  1  |  2  |  3  |  4  |  5  | ... |   10    |
 |--------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
-| Succès |78.83|91.60|93.93|94.87|96.10| ... |**97.53**|
+| Val. 1 |78.83|91.60|93.93|94.87|96.10| ... |**97.53**|
+| Val. 2 |     |     |     |     |     | ... |         |
+| Val. 3 |     |     |     |     |     | ... |         |
 
 - base `grey` étendue par symétries
 
 | Epoch  |  1  |  2  |  3  |  4  |  5  | ... |   10    |
 |--------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
-| Succès |     |     |     |     |     | ... |**     **|
+| Val. 1 |     |     |     |     |     | ... |         |
+| Val. 2 |     |     |     |     |     | ... |         |
+| Val. 3 |     |     |     |     |     | ... |         |
 
 - base `clahe`
 
 | Epoch  |  1  |  2  |  3  |  4  |  5  | ... |   10    |
 |--------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
-| Succès |91.63|95.83|97.40|97.83|98.33| ... |**98.87**|
+| Val. 1 |91.63|95.83|97.40|97.83|98.33| ... |**98.87**|
+| Val. 2 |89.97|95.80|96.63|97.63|98.10| ... |**98.67**|
+| Val. 3 |     |     |     |     |     | ... |         |
 
 - base `clahe` étendue par symétries
 
 | Epoch  |  1  |  2  |  3  |  4  |  5  | ... |   10    |
 |--------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
-| Succès |91.47|95.30|96.50|97.77|97.03| ... |**98.33**|
+| Val. 1 |91.47|95.30|96.50|97.77|97.03| ... |**98.33**|
+| Val. 2 |     |     |     |     |     | ... |         |
+| Val. 3 |     |     |     |     |     | ... |         |
 
