@@ -83,13 +83,15 @@ if reseau == 'LeNet-5':
 		MaxPooling2D(pool_size=(2,2)),
 		Convolution2D(32, (5,5), activation='relu'),
 		MaxPooling2D(pool_size=(2,2)),
+		Dropout(0.4),
 		Flatten(),
 		Dense(128, activation='relu'),
-		Dropout(0.5),
+		Dropout(0.4),
 		Dense(100, activation='relu'),
-		Dropout(0.5),
+		Dropout(0.4),
 		Dense(43, activation='softmax')
 	])
+
 
 	model.compile(loss='categorical_crossentropy',
 				  optimizer='adam',
