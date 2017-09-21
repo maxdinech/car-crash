@@ -65,6 +65,10 @@ def augmente(images, labels):
 			images_ext = np.append(images_ext, images_c[:, ::-1, :], axis=0)
 			nouv_labels = np.full((len(images_ext) - len(labels_ext), 43), np.eye(43)[c-1])
 			labels_ext = np.append(labels_ext, nouv_labels, axis=0)
+		rng_state = np.random.get_state()
+	    np.random.shuffle(images_ext)
+	    np.random.set_state(rng_state)
+	    np.random.shuffle(labels_ext)
 	return images_ext, labels_ext
 
 
