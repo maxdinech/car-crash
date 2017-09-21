@@ -6,7 +6,7 @@ Charge et augmente une base de données
 """
 
 
-mode = 'grey'  # 'rgb', 'grey' ou 'clahe'
+mode = 'clahe'  # 'rgb', 'grey' ou 'clahe'
 
 
 # BIBLIOTHÈQUES EXTERNES
@@ -68,4 +68,8 @@ def augmente(images, labels):
 	return images_ext, labels_ext
 
 
-# images_ext, labels_ext = augmente(images, labels)
+
+images_ext, labels_ext = augmente(images, labels)
+
+np.save("data/images_" + mode + "_ext", images_ext)
+np.save("data/labels_ext", labels_ext)
