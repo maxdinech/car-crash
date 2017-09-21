@@ -79,13 +79,14 @@ if reseau == 'reseau1':
 
 if reseau == 'LeNet-5':
 	model = Sequential([
-		Convolution2D(32, (5,5), input_shape=(40,40,1), activation='relu'),
+		Convolution2D(20, (5,5), input_shape=(40,40,1), activation='relu'),
 		MaxPooling2D(pool_size=(2,2)),
-		Convolution2D(32, (3,3), activation='relu'),
+		Convolution2D(32, (5,5), activation='relu'),
 		MaxPooling2D(pool_size=(2,2)),
-		Dropout(0.2),
 		Flatten(),
 		Dense(128, activation='relu'),
+		Dropout(0.5),
+		Dense(100, activation='relu'),
 		Dropout(0.5),
 		Dense(43, activation='softmax')
 	])
