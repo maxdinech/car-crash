@@ -85,12 +85,14 @@ La performance est à chaque fois mesurée sur la même base de validation.
 
 ## Réseau à deux convolutions
 
-![CNN à deux convolution](CNN2_small.png)
+![CNN à deux convolution](CNN2_small.png), avec des dropout à 0.2 après chaque 
+Pooling.
 
 - base `clahe` étendue par symétries
 
-| Epoch  |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+| Epoch  |  1  |  2  |  3  |  4  |  5  | ... |   10    |
 |--------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
-| Val. 1 |94.57|96.13|97.93|98.37|98.47| ... |**98.80**|
-| Val. 2 |     |     |     |     |     | ... |         |
+| Val. 1 |94.30|96.90|98.23|98.47|98.80| ... |**98.80**|
+| Val. 2 |89.30|95.63|96.97|97.80|97.87| ... |**98.77**|
 | Val. 3 |     |     |     |     |     | ... |         |
+
