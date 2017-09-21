@@ -78,11 +78,6 @@ if reseau == 'reseau1':
 				  metrics=['accuracy'])
 
 if reseau == 'LeNet-5':
-	
-
-
-# ENTRAÎNEMENT DU RÉSEAU
-# ----------------------
 	model = Sequential([
 		Convolution2D(32, (5,5), input_shape=(40,40,1), activation='relu'),
 		MaxPooling2D(pool_size=(2,2)),
@@ -97,6 +92,11 @@ if reseau == 'LeNet-5':
 	model.compile(loss='categorical_crossentropy',
 				  optimizer='adam',
 				  metrics=['accuracy'])
+	
+
+
+# ENTRAÎNEMENT DU RÉSEAU
+# ----------------------
 
 
 tensorboard = TensorBoard(log_dir='./logs',
