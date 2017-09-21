@@ -22,8 +22,8 @@ import matplotlib.pyplot as plt
 # -------------------
 
 
-images = np.load("data/train_" + color + ".npy")
-labels = np.load("data/train_labels.npy")
+images = np.load("data/train/train_" + color + ".npy")
+labels = np.load("data/train/train_labels.npy")
 
 
 # ROTATIONS ET SYMÉTRIES
@@ -71,5 +71,5 @@ def augmente(images, labels):
 
 images_ext, labels_ext = augmente(images, labels)
 
-np.save("data/images_" + color + "_ext", images_ext)
-np.save("data/labels_ext", labels_ext)
+np.save("data/train/images_" + color + "_ext", images_ext)
+np.save("data/train/labels_ext", labels_ext)
