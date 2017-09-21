@@ -71,5 +71,5 @@ def augmente(images, labels):
 
 images_ext, labels_ext = augmente(images, labels)
 
-np.save("data/train/images_" + color + "_ext", images_ext)
+np.save("data/train/train_" + color + "_ext", images_ext)
 np.save("data/train/labels_ext", labels_ext)
