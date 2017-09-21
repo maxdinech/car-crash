@@ -23,9 +23,10 @@ expérimenter la performance du réseau sous dofférents paramètres.
 # HYPERPARAMÈTRES
 # ---------------
 
-color = 'grey'  # 'grey' ou 'clahe'
+reseau = 'LeNet-5'  # 'réseauA' ou 'LeNet-5'
+color = 'clahe'  # 'grey' ou 'clahe'
 mode = ''  # 'ext' ou ''
-epochs = 10
+epochs = 12
 batch_size = 128
 
 
@@ -62,30 +63,48 @@ val_images = val_images.reshape(val_images.shape[0], 40, 40, 1)
 # DÉFINITION ET COMPILATION DU MODÈLE
 # -----------------------------------
 
-model = Sequential([
-	Convolution2D(32, (5,5), input_shape=(40,40,1), activation='relu'),
-	MaxPooling2D(pool_size=(2,2)),
-	Dropout(0.2),
-	Flatten(),
-	Dense(128, activation='relu'),
-	Dense(43, activation='softmax')
-])
+if reseau == 'reseau1':
+	model = Sequential([
+		Convolution2D(32, (5,5), input_shape=(40,40,1), activation='relu'),
+		MaxPooling2D(pool_size=(2,2)),
+		Dropout(0.2),
+		Flatten(),
+		Dense(128, activation='relu'),
+		Dense(43, activation='softmax')
+	])
 
-model.compile(loss='categorical_crossentropy',
-			  optimizer='adam',
-			  metrics=['accuracy'])
+	model.compile(loss='categorical_crossentropy',
+				  optimizer='adam',
+				  metrics=['accuracy'])
 
+if reseau == 'LeNet-5':
+	
 
 
 # ENTRAÎNEMENT DU RÉSEAU
 # ----------------------
+	model = Sequential([
+		Convolution2D(32, (5,5), input_shape=(40,40,1), activation='relu'),
+		MaxPooling2D(pool_size=(2,2)),
+		Convolution2D(32, (3,3), activation='relu'),
+		MaxPooling2D(pool_size=(2,2)),
+		Dropout(0.2),
+		Flatten(),
+		Dense(128, activation='relu'),
+		Dense(43, activation='softmax')
+	])
+
+	model.compile(loss='categorical_crossentropy',
+				  optimizer='adam',
+				  metrics=['accuracy'])
+
 
 tensorboard = TensorBoard(log_dir='./logs',
 						  histogram_freq=10,  # nombre d'hist. par batch
 						  batch_size=batch_size,
 						  write_graph=True,
-						  write_grads=True,
-						  write_images=True)
+						  write_grads=False,
+						  write_images=False)
 
 model.fit(train_images, train_labels,
 		  batch_size = batch_size,
