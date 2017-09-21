@@ -6,7 +6,7 @@ Charge et augmente une base de données
 """
 
 
-mode = 'clahe'  # 'rgb', 'grey' ou 'clahe'
+color = 'clahe'  # 'rgb', 'grey' ou 'clahe'
 
 
 # BIBLIOTHÈQUES EXTERNES
@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 # -------------------
 
 
-images = np.load("data/train_" + mode + ".npy")
+images = np.load("data/train_" + color + ".npy")
 labels = np.load("data/train_labels.npy")
 
 
@@ -71,5 +71,5 @@ def augmente(images, labels):
 
 images_ext, labels_ext = augmente(images, labels)
 
-np.save("data/images_" + mode + "_ext", images_ext)
+np.save("data/images_" + color + "_ext", images_ext)
 np.save("data/labels_ext", labels_ext)

@@ -25,7 +25,7 @@ expérimenter la performance du réseau sous dofférents paramètres.
 
 reseau = 'LeNet-5'  # 'réseauA' ou 'LeNet-5'
 color = 'clahe'  # 'grey' ou 'clahe'
-mode = ''  # 'ext' ou ''
+mode = 'ext'  # 'ext' ou ''
 epochs = 12
 batch_size = 128
 
