@@ -41,12 +41,9 @@ Le dossier Final_Training/ est disponible à l'adresse suivante au format zip :
 http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Training_Images.zip
 
 
-## Réseau utilisée
+## Réseau à une convolution
 
-![CNN utilisé](CNN_small.png)
-
-
-## Performances obtenues
+![CNN à une convolution](CNN1_small.png)
 
 Tous les entraînements sont réalisés avec 10 epochs, et une taille de paquet de
 128, sur le même réseau.
@@ -85,3 +82,15 @@ La performance est à chaque fois mesurée sur la même base de validation.
 | Val. 2 |     |     |     |     |     | ... |         |
 | Val. 3 |     |     |     |     |     | ... |         |
 
+
+## Réseau à deux convolutions
+
+![CNN à deux convolution](CNN2_small.png)
+
+- base `clahe` étendue par symétries
+
+| Epoch  |  1  |  2  |  3  |  4  |  5  | ... |   12    |
+|--------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
+| Val. 1 |94.57|96.13|97.93|98.37|98.47| ... |**98.80**|
+| Val. 2 |     |     |     |     |     | ... |         |
+| Val. 3 |     |     |     |     |     | ... |         |
