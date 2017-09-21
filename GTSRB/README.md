@@ -32,10 +32,10 @@ l'augmentation par symétries des bases de données.
 	│   ├── train_clahe_ext.npy
 	│   └── train_labels_ext.npy
 	└── validation/
-	    ├── train_rgb.npy
-	    ├── train_grey.npy
-	    ├── train_clahe.npy
-	    └── train_labels.npy
+	    ├── val_rgb.npy
+	    ├── val_grey.npy
+	    ├── val_clahe.npy
+	    └── val_labels.npy
 
 Le dossier Final_Training/ est disponible à l'adresse suivante au format zip :
 http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Training_Images.zip
@@ -75,7 +75,7 @@ La performance est à chaque fois mesurée sur la même base de validation.
 |--------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
 | Val. 1 |91.63|95.83|97.40|97.83|98.33| ... |**98.87**|
 | Val. 2 |89.97|95.80|96.63|97.63|98.10| ... |**98.67**|
-| Val. 3 |     |     |     |     |     | ... |         |
+| Val. 3 |93.90|96.60|97.71|98.13|97.93| ... |**98.60**|
 
 - base `clahe` étendue par symétries
 
