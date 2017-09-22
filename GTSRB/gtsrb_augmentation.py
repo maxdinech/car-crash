@@ -52,10 +52,6 @@ def symétries(images, labels):
 			images_ext = np.append(images_ext, images_c[:, ::-1, :], axis=0)
 			nouv_labels = np.full((len(images_ext) - len(labels_ext), 43), np.eye(43)[c-1])
 			labels_ext = np.append(labels_ext, nouv_labels, axis=0)
-		rng_state = np.random.get_state()
-		np.random.shuffle(images_ext)
-		np.random.set_state(rng_state)
-		np.random.shuffle(labels_ext)
 	return images_ext, labels_ext
 
 
@@ -68,29 +64,22 @@ def distorsions(images, labels):
 						[random.randrange(-5, 5), 40 - random.randrange(-5, 5)],
 						[40 - random.randrange(-5, 5),40 - random.randrange(-5, 5)],
 						[40 - random.randrange(-5, 5), random.randrange(-5, 5)]])
-		transformation = transform.ProjectiveTransform()
-		transformation.estimate(src, dst)
-		print(image.shape)
-		image = transform.warp(image, transformation, output_shape=(40, 40), mode="edge")
-		print(image.shape)
+		disto = transform.ProjectiveTransform()
+		disto.estimate(src, dst)
+		image = transform.warp(image, disto, output_shape=(40, 40), mode="edge")
 		images_ext = np.append(images_ext, image.reshape(1,40,40), axis=0)
-		rng_state = np.random.get_state()
-		np.random.shuffle(images_ext)
-		np.random.set_state(rng_state)
-		np.random.shuffle(labels_ext)
 	return images_ext, labels_ext
 	
 
-def transforme(n):
-	image = images[n]
+def transforme(image):
 	src = np.array([[0, 0], [0, 40], [40, 40], [40, 0]])
 	dst = np.array([[random.randrange(-5, 5), random.randrange(-5, 5)],
 					[random.randrange(-5, 5), 40 - random.randrange(-5, 5)],
 					[40 - random.randrange(-5, 5),40 - random.randrange(-5, 5)],
 					[40 - random.randrange(-5, 5), random.randrange(-5, 5)]])
-	transformation = transform.ProjectiveTransform()
-	transformation.estimate(src, dst)
+	disto = transform.ProjectiveTransform()
+	disto.estimate(src, dst)
 	plt.imshow(image, cmap='gray')
 	plt.show()
-	plt.imshow(transform.warp(image, transformation, output_shape=(40, 40), mode="edge"), cmap='gray')
+	plt.imshow(transform.warp(image, disto, output_shape=(40, 40), mode="edge"), cmap='gray')
 	plt.show()
