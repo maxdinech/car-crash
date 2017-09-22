@@ -25,7 +25,8 @@ expérimenter la performance du réseau sous dofférents paramètres.
 
 reseau = 'LeNet-5'  # 'réseauA' ou 'LeNet-5'
 color = 'clahe'  # 'grey' ou 'clahe'
-mode = 'ext'  # 'ext' ou ''
+ext = True
+dist = True
 epochs = 15
 batch_size = 128
 
@@ -40,16 +41,17 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Convolution2D, MaxPooling2D
 
+from keras.models import load_model
 from keras.callbacks import TensorBoard
 
 
 # LECTURE DES DONNÉES
 # -------------------
 
-print('\nCouleur : ' + color + ', Mode : '*(mode!='') + mode + '\n')
+print('\nCouleur : ' + color + ', Mode : ext'*ext + '+dist'*dist + '\n')
 
-train_images = np.load("data/train/train_" + color + "_"*(mode!='') + mode + ".npy")
-train_labels = np.load("data/train/train_labels" + "_"*(mode!='') + mode + ".npy")
+train_images = np.load("data/train/train_" + color + "_ext"*ext + "_dist"*dist + ".npy")
+train_labels = np.load("data/train/train_labels" + "_ext"*ext + "_dist"*dist + ".npy")
 
 val_images = np.load("data/validation/val_" + color + ".npy")
 val_labels = np.load("data/validation/val_labels.npy")
@@ -115,6 +117,8 @@ model.fit(train_images, train_labels,
 		  validation_data = (val_images, val_labels),
 		  callbacks=[tensorboard])
 
+
+model.save('CNN_performant.h5')
 
 
 # PRÉDICTIONS
