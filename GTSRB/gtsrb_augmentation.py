@@ -5,25 +5,14 @@ gtsrb_loader.py
 Charge et augmente une base de données
 """
 
-
-color = 'clahe'  # 'rgb', 'grey' ou 'clahe'
-
-
 # BIBLIOTHÈQUES EXTERNES
 # ----------------------
 
 import numpy as np
+import random
 from skimage import transform
 
 import matplotlib.pyplot as plt
-
-
-# LECTURE DES DONNÉES
-# -------------------
-
-
-images = np.load("data/train/train_" + color + ".npy")
-labels = np.load("data/train/train_labels.npy")
 
 
 # ROTATIONS ET SYMÉTRIES
@@ -39,9 +28,7 @@ mutuel_miroir_vert = [[19,20], [33,34], [36,37], [38,39], [20,19], [34,33], [37,
 # AUGMENTATION
 # ------------
 
-
-
-def augmente(images, labels):
+def symétries(images, labels):
 	labels_num = np.array([np.argmax(i) for i in labels])
 	images_ext = np.empty((0, 40, 40), dtype = images.dtype)
 	labels_ext = np.empty((0, 43), dtype = labels.dtype)
@@ -66,14 +53,44 @@ def augmente(images, labels):
 			nouv_labels = np.full((len(images_ext) - len(labels_ext), 43), np.eye(43)[c-1])
 			labels_ext = np.append(labels_ext, nouv_labels, axis=0)
 		rng_state = np.random.get_state()
-	    np.random.shuffle(images_ext)
-	    np.random.set_state(rng_state)
-	    np.random.shuffle(labels_ext)
+		np.random.shuffle(images_ext)
+		np.random.set_state(rng_state)
+		np.random.shuffle(labels_ext)
 	return images_ext, labels_ext
 
 
+def distorsions(images, labels):
+	labels_ext = np.append(labels, labels, axis=0)
+	images_ext = images
+	for image in images:
+		src = np.array([[0, 0], [0, 40], [40, 40], [40, 0]])
+		dst = np.array([[random.randrange(-5, 5), random.randrange(-5, 5)],
+						[random.randrange(-5, 5), 40 - random.randrange(-5, 5)],
+						[40 - random.randrange(-5, 5),40 - random.randrange(-5, 5)],
+						[40 - random.randrange(-5, 5), random.randrange(-5, 5)]])
+		transformation = transform.ProjectiveTransform()
+		transformation.estimate(src, dst)
+		print(image.shape)
+		image = transform.warp(image, transformation, output_shape=(40, 40), mode="edge")
+		print(image.shape)
+		images_ext = np.append(images_ext, image.reshape(1,40,40), axis=0)
+		rng_state = np.random.get_state()
+		np.random.shuffle(images_ext)
+		np.random.set_state(rng_state)
+		np.random.shuffle(labels_ext)
+	return images_ext, labels_ext
+	
 
-images_ext, labels_ext = augmente(images, labels)
-
-np.save("data/train/train_" + color + "_ext", images_ext)
-np.save("data/train/train_labels_ext", labels_ext)
+def transforme(n):
+	image = images[n]
+	src = np.array([[0, 0], [0, 40], [40, 40], [40, 0]])
+	dst = np.array([[random.randrange(-5, 5), random.randrange(-5, 5)],
+					[random.randrange(-5, 5), 40 - random.randrange(-5, 5)],
+					[40 - random.randrange(-5, 5),40 - random.randrange(-5, 5)],
+					[40 - random.randrange(-5, 5), random.randrange(-5, 5)]])
+	transformation = transform.ProjectiveTransform()
+	transformation.estimate(src, dst)
+	plt.imshow(image, cmap='gray')
+	plt.show()
+	plt.imshow(transform.warp(image, transformation, output_shape=(40, 40), mode="edge"), cmap='gray')
+	plt.show()
