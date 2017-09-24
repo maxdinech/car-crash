@@ -6,9 +6,9 @@ gtsrb_loader.py
 """
 
 
-color = 'grey'  # 'rgb', 'grey' ou 'clahe'
+couleur = 'grey'  # 'rgb', 'grey' ou 'clahe'
 
-source = "training"  # 'training' ou 'test'
+source = "test"  # 'train' ou 'test'
 
 # BIBLIOTHÈQUES EXTERNES
 # ----------------------
@@ -22,7 +22,10 @@ from skimage import io, color, transform, exposure
 # TRAITEMENT DES DONNÉES
 # ----------------------
 
-data_url = 'data/Final_T' + source[1:] + '/Images/'
+if source == 'test':
+	data_url = 'data/Final_Test' + source[1:] + '/Images/'
+if source == 'train':
+	data_url = 'data/Final_Training' + source[1:] + '/Images/'
 
 
 
@@ -32,7 +35,7 @@ def traite_image(chemin_image):
 	# Redimensionnement en 40x40 pixels
 	image = transform.resize(image, (40, 40), mode='wrap')
 	# Ajustement local de l'exposition
-	if color == 'clahe':
+	if couleur == 'clahe':
 		image = exposure.equalize_adapthist(image)
 	# Conversion en nuances de gris
 	image = color.rgb2gray(image)
@@ -56,5 +59,9 @@ def gtsrb(n):
 
 
 def save(images, labels):
-	np.save('data/' + source + '/images_' + color, images)
-	np.save('data/' + source + '/labels_' + color, labels)
+	if source == 'test':
+		np.save('data/test/images_' + couleur, images)
+		np.save('data/test/labels_' + couleur, labels)
+	if source == 'train':
+		np.save('data/train/images_' + couleur, images)
+		np.save('data/train/labels_' + couleur, labels)
