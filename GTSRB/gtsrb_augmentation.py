@@ -81,7 +81,7 @@ def transforme(image):
 	disto.estimate(src, dst)
 	plt.imshow(image, cmap='gray')
 	plt.show()
-	plt.imshow(transform.warp(image, disto, output_shape=(40, 40), mode=''edge''), cmap='gray')
+	plt.imshow(transform.warp(image, disto, output_shape=(40, 40), mode='edge'), cmap='gray')
 	plt.show()
 
 
