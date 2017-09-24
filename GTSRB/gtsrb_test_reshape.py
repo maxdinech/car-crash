@@ -23,4 +23,6 @@ def reshape():
 	for i in range(0, 43):
 		os.makedirs(data_url + str(i).zfill(5))
 	for i in range(len(labels)):
-		os.rename(data_url + str(i).zfill(5) + '.ppm', data_url + str(labels[i]).zfill(5) + '/')
+		image = str(i).zfill(5) + '.ppm'
+		label = str(labels[i]).zfill(5)
+		os.rename(data_url + image, data_url + label + '/' + image)
