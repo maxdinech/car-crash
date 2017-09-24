@@ -91,9 +91,9 @@ model.fit(train_images, train_labels,
 # PRÉDICTIONS
 # -----------
 
-def prediction(n):
-	plt.imshow(test_images[n].reshape(40,40), cmap='gray')
-	resultat = model.predict(test_images[n].reshape(1, 40, 40, 1))
+def prediction(n, images=test_images):
+	plt.imshow(images[n].reshape(40,40), cmap='gray')
+	resultat = model.predict(images[n].reshape(1, 40, 40, 1))
 	prediction = np.argmax(resultat)
 	proba = resultat[0,prediction]
 	plt.title('{} -- {}%'.format(panneau(prediction), (100*proba).round(2)))
@@ -103,11 +103,29 @@ def panneau(n):
 	panneaux = np.load('data/noms_panneaux.npy')
 	return panneaux[n]
 
-def erreurs():
+def erreurs(images=test_images, labels=test_labels):
 	l = []
-	for i in range(len(test_images)):
-		resultat = model.predict(test_images[i].reshape(1, 40, 40, 1))
-		if np.argmax(resultat) != np.argmax(test_labels[i]):
+	for i in range(len(images)):
+		resultat = model.predict(images[i].reshape(1, 40, 40, 1))
+		if np.argmax(resultat) != np.argmax(labels[i]):
 			l.append(i)
-	print("pourcentage d'erreurs :", 100*len(l)/len(test_images), '%')
+	print("pourcentage d'erreurs :", 100*len(l)/len(images), '%')
 	return l
+
+def ascii_print(image):
+	image = image.reshape(40,40)
+	for ligne in image:
+		for pix in ligne:
+			print(2*" ░▒▓█"[int(pix*5-0.001)], end='')
+		print('')
+
+def prediction_ascii(n, images=test_images):
+	ascii_print(images[n])
+	resultat = model.predict(images[n].reshape(1, 40, 40, 1))
+	prediction = np.argmax(resultat)
+	proba = resultat[0,prediction]
+	print('{} -- {}%'.format(panneau(prediction), (100*proba).round(2)))
+
+
+
+
