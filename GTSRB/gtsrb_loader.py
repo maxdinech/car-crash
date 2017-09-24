@@ -4,9 +4,9 @@ gtsrb_loader.py
 '''
 
 
-couleur = 'clahe'  # 'rgb', 'grey' ou 'clahe'
+couleur = 'grey'  # 'rgb', 'grey' ou 'clahe'
 
-source = ''train''  # 'train' ou 'test'
+source = 'train'  # 'train' ou 'test'
 
 # BIBLIOTHÈQUES EXTERNES
 # ----------------------

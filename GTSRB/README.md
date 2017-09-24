@@ -47,7 +47,7 @@ l'augmentation par symétries des bases de données.
 
 - Télecharger et décompresser [Final_Test_Images.zip](http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Test_Images.zip) dans le dissier `data/`
 
-- Télecharget et décompresser les étiquettes de Final_Test : (GT_final_train.zip)[http://benchmark.ini.rub.de/GT-final_train.zip] et le placer dans le dossier Final_Test.
+- Télecharget et décompresser les étiquettes de Final_Test : [GT_final_train.zip](http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Test_GT.zip) et le placer dans le dossier Final_Test.
 
 - se placer dans le dossier `GTSRB/`
 

@@ -8,7 +8,7 @@ GTSRB/kerasCNN.py
 # ---------------
 
 couleur = 'clahe'  # 'grey' ou 'clahe'
-ext, dist = True, False
+ext, dist = False, False
 
 epochs = 15
 batch_size = 128
