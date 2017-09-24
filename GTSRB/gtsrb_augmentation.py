@@ -85,10 +85,8 @@ def transforme(image):
 	plt.show()
 
 
-rng_state = np.random.get_state()
-
-
-np.random.set_state(rng_state)
-np.random.shuffle(images_ext)
-np.random.set_state(rng_state)
-np.random.shuffle(labels_ext)
+# Mélanges synchronisés de deux listes
+# rng_state = np.random.get_state()
+# np.random.shuffle(images_ext)
+# np.random.set_state(rng_state)
+# np.random.shuffle(labels_ext)
