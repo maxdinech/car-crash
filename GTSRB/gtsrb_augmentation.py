@@ -83,3 +83,12 @@ def transforme(image):
 	plt.show()
 	plt.imshow(transform.warp(image, disto, output_shape=(40, 40), mode="edge"), cmap='gray')
 	plt.show()
+
+
+rng_state = np.random.get_state()
+
+
+np.random.set_state(rng_state)
+np.random.shuffle(images_ext)
+np.random.set_state(rng_state)
+np.random.shuffle(labels_ext)
