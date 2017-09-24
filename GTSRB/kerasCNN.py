@@ -50,7 +50,7 @@ from keras.callbacks import TensorBoard
 print('\nCouleur : ' + couleur + ', Mode : ext'*ext + '+dist'*dist + '\n')
 
 train_images = np.load("data/train/images_" + couleur + "_ext"*ext + "_dist"*dist + ".npy")
-train_labels = np.load("data/train/images_" + couleur + "_ext"*ext + "_dist"*dist + ".npy")
+train_labels = np.load("data/train/labels_" + couleur + "_ext"*ext + "_dist"*dist + ".npy")
 
 test_images = np.load("data/test/images_" + couleur + ".npy")
 test_labels = np.load("data/test/labels_" + couleur + ".npy")
