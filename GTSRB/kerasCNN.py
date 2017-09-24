@@ -10,7 +10,7 @@ Description des données : dossier 'data/'
 La base de donnée initiale est constituée de 39203 images de tailles variables.
 Ces images ont été mélangées aléatoirement puis normalisées en taille 40x40 px.
 
-Les 3000 dernières images (val_rgb) servent exclusivement à la validation (test
+Les 3000 dernières images (test_rgb) servent exclusivement à la validation (test
 de performance) du réseau.
 
 Les autres images peuvent être utilisées à volonté.
@@ -99,7 +99,7 @@ model.fit(train_images, train_labels,
 		  shuffle=True,
 		  batch_size = batch_size,
 		  epochs = epochs,
-		  validation_data = (test_images, val_labels))
+		  validation_data = (test_images, test_labels))
 
 
 # PRÉDICTIONS
@@ -121,7 +121,7 @@ def erreurs():
 	l = []
 	for i in range(len(test_images)):
 		resultat = model.predict(test_images[i].reshape(1, 40, 40, 1))
-		if np.argmax(resultat) != np.argmax(val_labels[i]):
+		if np.argmax(resultat) != np.argmax(test_labels[i]):
 			l.append(i)
 	print("pourcentage d'erreurs :", 100*len(l)/len(test_images), "%")
 	return l
