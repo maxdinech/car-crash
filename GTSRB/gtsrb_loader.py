@@ -6,8 +6,9 @@ gtsrb_loader.py
 """
 
 
-color = 'clahe'  # 'rgb', 'grey' ou 'clahe'
+color = 'grey'  # 'rgb', 'grey' ou 'clahe'
 
+source = "training"  # 'training' ou 'test'
 
 # BIBLIOTHÈQUES EXTERNES
 # ----------------------
@@ -21,7 +22,7 @@ from skimage import io, color, transform, exposure
 # TRAITEMENT DES DONNÉES
 # ----------------------
 
-data_url = 'data/Final_Training/Images/'
+data_url = 'data/Final_T' + source[1:] + '/Images/'
 
 
 
@@ -34,8 +35,7 @@ def traite_image(chemin_image):
 	if color == 'clahe':
 		image = exposure.equalize_adapthist(image)
 	# Conversion en nuances de gris
-	if not color == 'rgb':
-		image = color.rgb2gray(image)
+	image = color.rgb2gray(image)
 	return image
 
 
@@ -47,11 +47,14 @@ def gtsrb(n):
 	images = []
 	labels = []
 	chemins_images = glob.glob(os.path.join(data_url, '*/*.ppm'))
-	np.random.shuffle(chemins_images)
-	
 	for chemin_image, _ in zip(chemins_images, range(n)):
 		images.append(traite_image(chemin_image))
 		labels.append(traite_label(chemin_image))
 	images = np.array(images)
 	labels = np.eye(43)[np.array(labels)]  # Conversion entiers -> catégories
 	return images, labels
+
+
+def save(images, labels):
+	np.save('data/' + source + '/images_' + color, images)
+	np.save('data/' + source + '/labels_' + color, labels)
