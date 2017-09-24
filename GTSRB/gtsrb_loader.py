@@ -2,10 +2,6 @@
 gtsrb_loader.py
 ~~~~~~~~~~~~~~~
 
-Convertit et normalise les images organisés en 43 dossiers de catégories dans
-'Final_Training/'' en deux tableaux numpy : 'images' et 'labels'.
-
-Les images sont enregistrées en 40x40 piexls
 
 """
 
@@ -25,7 +21,8 @@ from skimage import io, color, transform, exposure
 # TRAITEMENT DES DONNÉES
 # ----------------------
 
-data_url = 'data/Training/'
+data_url = 'data/Final_Training/Images/'
+
 
 
 def traite_image(chemin_image):
