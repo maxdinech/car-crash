@@ -1,9 +1,9 @@
-"""
+'''
 gtsrb_loader.py
 ~~~~~~~~~~~~~~~
 
 Charge et augmente une base de données
-"""
+'''
 
 # BIBLIOTHÈQUES EXTERNES
 # ----------------------
@@ -66,7 +66,7 @@ def distorsions(images, labels):
 						[40 - random.randrange(-5, 5), random.randrange(-5, 5)]])
 		disto = transform.ProjectiveTransform()
 		disto.estimate(src, dst)
-		image = transform.warp(image, disto, output_shape=(40, 40), mode="edge")
+		image = transform.warp(image, disto, output_shape=(40, 40), mode=''edge'')
 		images_ext = np.append(images_ext, image.reshape(1,40,40), axis=0)
 	return images_ext, labels_ext
 	
@@ -81,7 +81,7 @@ def transforme(image):
 	disto.estimate(src, dst)
 	plt.imshow(image, cmap='gray')
 	plt.show()
-	plt.imshow(transform.warp(image, disto, output_shape=(40, 40), mode="edge"), cmap='gray')
+	plt.imshow(transform.warp(image, disto, output_shape=(40, 40), mode=''edge''), cmap='gray')
 	plt.show()
 
 

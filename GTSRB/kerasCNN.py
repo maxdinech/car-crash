@@ -1,30 +1,14 @@
-"""
+'''
 GTSRB/kerasCNN.py
 ~~~~~~~~~~~~~~~~~
-
-Résultats attendus : environ 98% de succès.
-
-
-Description des données : dossier 'data/'
-
-La base de donnée initiale est constituée de 39203 images de tailles variables.
-Ces images ont été mélangées aléatoirement puis normalisées en taille 40x40 px.
-
-Les 3000 dernières images (test_rgb) servent exclusivement à la validation (test
-de performance) du réseau.
-
-Les autres images peuvent être utilisées à volonté.
-
-Ces images ont été transformées (_grey ou _clahe) et étendues ou non (_ext) pour
-expérimenter la performance du réseau sous dofférents paramètres.
-"""
+'''
 
 
 # HYPERPARAMÈTRES
 # ---------------
 
 couleur = 'clahe'  # 'grey' ou 'clahe'
-ext, dist = False, False
+ext, dist = True, False
 
 epochs = 15
 batch_size = 128
@@ -49,11 +33,13 @@ from keras.callbacks import TensorBoard
 
 print('\nCouleur : ' + couleur + ', Mode : ext'*ext + '+dist'*dist + '\n')
 
-train_images = np.load("data/train/images_" + couleur + "_ext"*ext + "_dist"*dist + ".npy")
-train_labels = np.load("data/train/labels_" + couleur + "_ext"*ext + "_dist"*dist + ".npy")
+nom_images = 'images_' + couleur + '_ext'*ext + '_dist'*dist + '.npy'
 
-test_images = np.load("data/test/images_" + couleur + ".npy")
-test_labels = np.load("data/test/labels_" + couleur + ".npy")
+train_images = np.load('data/train/images_' + couleur + '_ext'*ext + '_dist'*dist + '.npy')
+train_labels = np.load('data/train/labels_' + couleur + '_ext'*ext + '_dist'*dist + '.npy')
+
+test_images = np.load('data/test/images_' + couleur + '.npy')
+test_labels = np.load('data/test/labels_' + couleur + '.npy')
 
 # Il faut ajouter explicitement la dimension RGB, ici 1
 train_images = train_images.reshape(train_images.shape[0], 40, 40, 1)
@@ -110,11 +96,11 @@ def prediction(n):
 	resultat = model.predict(test_images[n].reshape(1, 40, 40, 1))
 	prediction = np.argmax(resultat)
 	proba = resultat[0,prediction]
-	plt.title("{} -- {}%".format(panneau(prediction), (100*proba).round(2)))
+	plt.title('{} -- {}%'.format(panneau(prediction), (100*proba).round(2)))
 	plt.show()
 
 def panneau(n):
-	panneaux = np.load("data/noms_panneaux.npy")
+	panneaux = np.load('data/noms_panneaux.npy')
 	return panneaux[n]
 
 def erreurs():
@@ -123,5 +109,5 @@ def erreurs():
 		resultat = model.predict(test_images[i].reshape(1, 40, 40, 1))
 		if np.argmax(resultat) != np.argmax(test_labels[i]):
 			l.append(i)
-	print("pourcentage d'erreurs :", 100*len(l)/len(test_images), "%")
+	print("pourcentage d'erreurs :", 100*len(l)/len(test_images), '%')
 	return l
