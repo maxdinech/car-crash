@@ -6,9 +6,9 @@ gtsrb_loader.py
 """
 
 
-couleur = 'grey'  # 'rgb', 'grey' ou 'clahe'
+couleur = 'clahe'  # 'rgb', 'grey' ou 'clahe'
 
-source = "test"  # 'train' ou 'test'
+source = "train"  # 'train' ou 'test'
 
 # BIBLIOTHÈQUES EXTERNES
 # ----------------------
@@ -23,9 +23,10 @@ from skimage import io, color, transform, exposure
 # ----------------------
 
 if source == 'test':
-	data_url = 'data/Final_Test' + source[1:] + '/Images/'
+	data_url = 'data/Final_Test/Images/'
+
 if source == 'train':
-	data_url = 'data/Final_Training' + source[1:] + '/Images/'
+	data_url = 'data/Final_Training/Images/'
 
 
 
@@ -54,7 +55,7 @@ def gtsrb(n):
 		images.append(traite_image(chemin_image))
 		labels.append(traite_label(chemin_image))
 	images = np.array(images)
-	labels = np.eye(43)[np.array(labels)]  # Conversion entiers -> catégories
+	labels = np.eye(43)[np.array(labels, dtype=int)]  # Conversion entiers -> catégories
 	return images, labels
 
 

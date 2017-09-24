@@ -1,11 +1,3 @@
-"""
-gtsrb_loader.py
-~~~~~~~~~~~~~~~
-
-
-"""
-
-
 import os
 import numpy as np
 import pandas as pd
@@ -27,3 +19,5 @@ def reshape():
 		image = str(i).zfill(5) + '.ppm'
 		label = str(labels[i]).zfill(5)
 		os.rename(data_url + image, data_url + label + '/' + image)
+
+reshape()

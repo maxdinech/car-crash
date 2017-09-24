@@ -17,29 +17,47 @@ disposibles dans différents profils de couleurs : `rgb`, `grey` et `clahe`. Des
 versions `ext` sont disposibles pour chaque profil : elles correspondent à
 l'augmentation par symétries des bases de données.
 
-	data/
+	data
 	├── noms_panneaux.npy
-	├── Training/
-	│   ├── 00000/
-	│   ├── ...
-	│   └── 00042/
-	├── train/
-	│   ├── train_rgb.npy
-	│   ├── train_grey.npy
-	│   ├── train_clahe.npy
-	│   ├── train_labels.npy
-	│   ├── train_grey_ext.npy
-	│   ├── train_clahe_ext.npy
-	│   └── train_labels_ext.npy
-	└── validation/
-	    ├── val_rgb.npy
-	    ├── val_grey.npy
-	    ├── val_clahe.npy
-	    └── val_labels.npy
+	├── Final_Test
+	│	├── GT-final_test.csv
+	│	└── Images
+	│		├── 00001/
+	│		├── ...
+	│   	└── 00042/
+	├── Final_Training
+	│	└── Images
+	│		├── 00001/
+	│		├── ...
+	│   	└── 00042/
+	├── test
+	│   ├── images_grey.npy
+	│   ├── labels_grey.npy
+	│   ├── images_clahe.npy
+	│   └── labels_clahe.npy
+	└── test
+		├── images_grey.npy
+		├── labels_grey.npy
+		├── images_clahe.npy
+		└── labels_clahe.npy
 
-Le dossier Final_Training/ est disponible à l'adresse suivante au format zip :
-http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Training_Images.zip
+### Construction de la base de données
 
+- Télecharger et décompresser [Final_Training_Images.zip](http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Training_Images.zip) dans le dossier `data/`
+
+- Télecharger et décompresser [Final_Test_Images.zip](http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Test_Images.zip) dans le dissier `data/`
+
+- Télecharget et décompresser les étiquettes de Final_Test : (GT_final_train.zip)[http://benchmark.ini.rub.de/GT-final_train.zip] et le placer dans le dossier Final_Test.
+
+- se placer dans le dossier `GTSRB/`
+
+- Executer le script `gtsrb_test_reshape.py` pour obtenir une structure organisée en sous-dossiers de catégories dans `Final_Test/`
+
+- Exécuter le script `gtsrb_lodader.py` avec les paramètres:
+	- `couleur = grey`, `source = train`
+	- `couleur = grey`, `source = test`
+	- `couleur = clahe`, `source = train`
+	- `couleur = clahe`, `source = test`
 
 ## Réseau à une convolution
 
@@ -49,22 +67,6 @@ Tous les entraînements sont réalisés avec 10 epochs, et une taille de paquet 
 128, sur le même réseau.
 
 La performance est à chaque fois mesurée sur la même base de validation.
-
-- base `grey`
-
-| Epoch  |  1  |  2  |  3  |  4  |  5  | ... |   10    |
-|--------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
-| Val. 1 |78.83|91.60|93.93|94.87|96.10| ... |**97.53**|
-| Val. 2 |     |     |     |     |     | ... |         |
-| Val. 3 |     |     |     |     |     | ... |         |
-
-- base `grey` étendue par symétries
-
-| Epoch  |  1  |  2  |  3  |  4  |  5  | ... |   10    |
-|--------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
-| Val. 1 |     |     |     |     |     | ... |         |
-| Val. 2 |     |     |     |     |     | ... |         |
-| Val. 3 |     |     |     |     |     | ... |         |
 
 - base `clahe`
 
@@ -87,6 +89,14 @@ La performance est à chaque fois mesurée sur la même base de validation.
 
 ![CNN à deux convolution](CNN2_small.png), avec des dropout à 0.2 après chaque 
 Pooling.
+
+- base `clahe`
+
+| Epoch  |  1  |  2  |  3  |  4  |  5  | ... |   10    |
+|--------|:---:|:---:|:---:|:---:|:---:|:---:|:-------:|
+| Val. 1 |     |     |     |     |     | ... |         |
+| Val. 2 |     |     |     |     |     | ... |         |
+| Val. 3 |     |     |     |     |     | ... |         |
 
 - base `clahe` étendue par symétries
 

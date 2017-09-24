@@ -23,10 +23,9 @@ expérimenter la performance du réseau sous dofférents paramètres.
 # HYPERPARAMÈTRES
 # ---------------
 
-reseau = 'LeNet-5'  # 'réseauA' ou 'LeNet-5'
-color = 'clahe'  # 'grey' ou 'clahe'
-ext = True
-dist = True
+couleur = 'clahe'  # 'grey' ou 'clahe'
+ext, dist = False, False
+
 epochs = 15
 batch_size = 128
 
@@ -48,55 +47,40 @@ from keras.callbacks import TensorBoard
 # LECTURE DES DONNÉES
 # -------------------
 
-print('\nCouleur : ' + color + ', Mode : ext'*ext + '+dist'*dist + '\n')
+print('\nCouleur : ' + couleur + ', Mode : ext'*ext + '+dist'*dist + '\n')
 
-train_images = np.load("data/train/train_" + color + "_ext"*ext + "_dist"*dist + ".npy")
-train_labels = np.load("data/train/train_labels" + "_ext"*ext + "_dist"*dist + ".npy")
+train_images = np.load("data/train/images_" + couleur + "_ext"*ext + "_dist"*dist + ".npy")
+train_labels = np.load("data/train/images_" + couleur + "_ext"*ext + "_dist"*dist + ".npy")
 
-val_images = np.load("data/validation/val_" + color + ".npy")
-val_labels = np.load("data/validation/val_labels.npy")
+test_images = np.load("data/test/images_" + couleur + ".npy")
+test_labels = np.load("data/test/labels_" + couleur + ".npy")
 
 # Il faut ajouter explicitement la dimension RGB, ici 1
 train_images = train_images.reshape(train_images.shape[0], 40, 40, 1)
-val_images = val_images.reshape(val_images.shape[0], 40, 40, 1)
+test_images = test_images.reshape(test_images.shape[0], 40, 40, 1)
 
 
 
 # DÉFINITION ET COMPILATION DU MODÈLE
 # -----------------------------------
 
-if reseau == 'reseau1':
-	model = Sequential([
-		Convolution2D(32, (5,5), input_shape=(40,40,1), activation='relu'),
-		MaxPooling2D(pool_size=(2,2)),
-		Dropout(0.2),
-		Flatten(),
-		Dense(128, activation='relu'),
-		Dense(43, activation='softmax')
-	])
+model = Sequential([
+	Convolution2D(20, (5,5), input_shape=(40,40,1), activation='relu'),
+	MaxPooling2D(pool_size=(2,2)),
+	Convolution2D(40, (5,5), activation='relu'),
+	MaxPooling2D(pool_size=(2,2)),
+	Dropout(0.4),
+	Flatten(),
+	Dense(128, activation='relu'),
+	Dropout(0.4),
+	Dense(100, activation='relu'),
+	Dropout(0.4),
+	Dense(43, activation='softmax')
+])
 
-	model.compile(loss='categorical_crossentropy',
-				  optimizer='adam',
-				  metrics=['accuracy'])
-
-if reseau == 'LeNet-5':
-	model = Sequential([
-		Convolution2D(20, (5,5), input_shape=(40,40,1), activation='relu'),
-		MaxPooling2D(pool_size=(2,2)),
-		Convolution2D(40, (5,5), activation='relu'),
-		MaxPooling2D(pool_size=(2,2)),
-		Dropout(0.4),
-		Flatten(),
-		Dense(128, activation='relu'),
-		Dropout(0.4),
-		Dense(100, activation='relu'),
-		Dropout(0.4),
-		Dense(43, activation='softmax')
-	])
-
-	model.compile(loss='categorical_crossentropy',
-				  optimizer='adam',
-				  metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy',
+			  optimizer='adam',
+			  metrics=['accuracy'])
 	
 
 
@@ -104,29 +88,26 @@ if reseau == 'LeNet-5':
 # ----------------------
 
 
-tensorboard = TensorBoard(log_dir='./logs',
-						  histogram_freq=10,  # nombre d'hist. par batch
-						  batch_size=batch_size,
-						  write_graph=True,
-						  write_grads=False,
-						  write_images=False)
+# tensorboard = TensorBoard(log_dir='./logs',
+# 						  histogram_freq=10,  # nombre d'hist. par batch
+# 						  batch_size=batch_size,
+# 						  write_graph=True,
+# 						  write_grads=False,
+# 						  write_images=False)
 
 model.fit(train_images, train_labels,
+		  shuffle=True,
 		  batch_size = batch_size,
 		  epochs = epochs,
-		  validation_data = (val_images, val_labels),
-		  callbacks=[tensorboard])
-
-
-model.save('CNN_performant.h5')
+		  validation_data = (test_images, val_labels))
 
 
 # PRÉDICTIONS
 # -----------
 
 def prediction(n):
-	plt.imshow(val_images[n].reshape(40,40), cmap='gray')
-	resultat = model.predict(val_images[n].reshape(1, 40, 40, 1))
+	plt.imshow(test_images[n].reshape(40,40), cmap='gray')
+	resultat = model.predict(test_images[n].reshape(1, 40, 40, 1))
 	prediction = np.argmax(resultat)
 	proba = resultat[0,prediction]
 	plt.title("{} -- {}%".format(panneau(prediction), (100*proba).round(2)))
@@ -138,9 +119,9 @@ def panneau(n):
 
 def erreurs():
 	l = []
-	for i in range(len(val_images)):
-		resultat = model.predict(val_images[i].reshape(1, 40, 40, 1))
+	for i in range(len(test_images)):
+		resultat = model.predict(test_images[i].reshape(1, 40, 40, 1))
 		if np.argmax(resultat) != np.argmax(val_labels[i]):
 			l.append(i)
-	print("pourcentage d'erreurs :", 100*len(l)/len(val_images), "%")
+	print("pourcentage d'erreurs :", 100*len(l)/len(test_images), "%")
 	return l
