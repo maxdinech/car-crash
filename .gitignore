@@ -2,6 +2,6 @@
 *.zip
 *.pyc
 *.npy
-Final_Training
+data
 logs
 __pycache__
