@@ -8,9 +8,9 @@ GTSRB/kerasCNN.py
 # ---------------
 
 couleur = 'clahe'  # 'grey' ou 'clahe'
-ext, dist = False, False
+ext, dist = True, True
 
-epochs = 15
+epochs = 30
 batch_size = 128
 
 
@@ -50,19 +50,22 @@ test_images = test_images.reshape(test_images.shape[0], 40, 40, 1)
 # DÉFINITION ET COMPILATION DU MODÈLE
 # -----------------------------------
 
-model = Sequential([
-	Convolution2D(20, (5,5), input_shape=(40,40,1), activation='relu'),
-	MaxPooling2D(pool_size=(2,2)),
-	Convolution2D(40, (5,5), activation='relu'),
-	MaxPooling2D(pool_size=(2,2)),
-	Dropout(0.4),
-	Flatten(),
-	Dense(128, activation='relu'),
-	Dropout(0.4),
-	Dense(100, activation='relu'),
-	Dropout(0.4),
-	Dense(43, activation='softmax')
-])
+model = Sequential()
+
+model.add(Convolution2D(32, (3, 3), input_shape=(40, 40, 1), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.2))
+
+model.add(Convolution2D(64, (3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.2))
+
+model.add(Flatten())
+model.add(Dense(512, activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(512, activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(43, activation='softmax'))
 
 model.compile(loss='categorical_crossentropy',
 			  optimizer='adam',
