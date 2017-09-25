@@ -55,12 +55,12 @@ model = Sequential([
 	MaxPooling2D(pool_size=(2,2)),
 	Convolution2D(64, (5,5), activation='relu'),
 	MaxPooling2D(pool_size=(2,2)),
-	Dropout(0.4),
+	Dropout(0.2),
 	Flatten(),
 	Dense(128, activation='relu'),
-	Dropout(0.4),
+	Dropout(0.2),
 	Dense(100, activation='relu'),
-	Dropout(0.4),
+	Dropout(0.2),
 	Dense(43, activation='softmax')
 ])
 
@@ -126,7 +126,4 @@ def prediction_ascii(n, images=test_images):
 	prediction = np.argmax(resultat)
 	proba = resultat[0,prediction]
 	print('{} -- {}%'.format(panneau(prediction), (100*proba).round(2)))
-
-
-
 
