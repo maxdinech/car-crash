@@ -51,16 +51,15 @@ test_images = test_images.reshape(test_images.shape[0], 40, 40, 1)
 # -----------------------------------
 
 model = Sequential([
-	Convolution2D(32, (5,5), input_shape=(40,40,1), activation='relu'),
+	Convolution2D(40, (7,7), input_shape=(40,40,1), activation='relu'),
 	MaxPooling2D(pool_size=(2,2)),
-	Convolution2D(64, (5,5), activation='relu'),
+	Convolution2D(40, (3,3), activation='relu'),
 	MaxPooling2D(pool_size=(2,2)),
-	Dropout(0.2),
 	Flatten(),
 	Dense(128, activation='relu'),
-	Dropout(0.2),
+	Dropout(0.4),
 	Dense(100, activation='relu'),
-	Dropout(0.2),
+	Dropout(0.4),
 	Dense(43, activation='softmax')
 ])
 
