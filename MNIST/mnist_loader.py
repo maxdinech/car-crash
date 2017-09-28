@@ -24,13 +24,13 @@ data_url = 'data/train.csv'
 
 
 def mnist():
-	data = pd.read_csv(data_url, header=None)
-	images = ((data.ix[:,1:]).values).astype('float32') / 255.
-	images = images.reshape(images.shape[0], 28, 28)
-	labels = to_categorical(data.ix[:,0].values.astype('int32'), 10)
-	return images, labels
+    data = pd.read_csv(data_url, header=None)
+    images = ((data.ix[:,1:]).values).astype('float32') / 255.
+    images = images.reshape(images.shape[0], 28, 28)
+    labels = to_categorical(data.ix[:,0].values.astype('int32'), 10)
+    return images, labels
 
 
 def save_mnist(images, labels):
-	np.save("data/images", images)
-	np.save("data/labels", labels)
+    np.save("data/images", images)
+    np.save("data/labels", labels)

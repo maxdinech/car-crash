@@ -35,8 +35,8 @@ model.add(Dense(16, activation='relu'))
 model.add(Dense(10, activation='softmax'))
 
 model.compile(optimizer=RMSprop(lr=0.001),
-			  loss='categorical_crossentropy',
-			  metrics=['accuracy'])
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
 
 
 
@@ -44,17 +44,17 @@ model.compile(optimizer=RMSprop(lr=0.001),
 # ----------------------
 
 history = model.fit(images, labels,
-					batch_size=64,
-					epochs=25,
-					validation_split=1/6)
+                    batch_size=64,
+                    epochs=25,
+                    validation_split=1/6)
 
 
 # PRÉDICTION D'UN CHIFFRE
 # -----------------------
 
 def prediction(model):
-	image = 1 - color.rgb2grey(io.imread('digit.png'))
-	resultat = model.predict(image.reshape(1, 28, 28))
-	prediction = np.argmax(resultat)
-	proba = resultat[0,prediction]
-	return (prediction, proba)
+    image = 1 - color.rgb2grey(io.imread('digit.png'))
+    resultat = model.predict(image.reshape(1, 28, 28))
+    prediction = np.argmax(resultat)
+    proba = resultat[0,prediction]
+    return (prediction, proba)
