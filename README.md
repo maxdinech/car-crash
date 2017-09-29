@@ -1,5 +1,11 @@
 # Car Crash
 
+« *No stop signs*
+  *Speed limit*
+  *Nobody's gonna slow me down* » -- **AC/DC**, *Highway to Hell*
+
+---
+
 *L’efficacité exceptionnelle des réseaux de neurones les rend intéressant dans de nombreux domaines, en particulier celui de la conduite autonome. Mais est-ce bien raisonnable de leur faire autant confiance ?*
 
 ## Thème - Milieux : interactions, interfaces, homogénéité, ruptures
