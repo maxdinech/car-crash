@@ -1,12 +1,13 @@
 """
-Tutoriel d'utilisation de Pytorch
+                        Tutoriel d'utilisation de Pytorch
+                        =================================
 
 Sommaire:
+---------
 
-    1. Manipulation des tenseurs
-    2. Variables et gradients
-    3. Définition d'un MLP
-    4. Traitement des données
+    1. Manipulation des tenseurs ------------------------------------- 15
+    2. Variables et gradients  --------------------------------------- 68
+    3. Définition d'un MLP ------------------------------------------- 119
 
 """
 
@@ -115,7 +116,7 @@ print("x =", x.data[0])
 
 
 
-#=========================== 3. Définition d'un MLP ===========================#
+#============================= 3. Un premier MLP ==============================#
 
 # On va utiliser le module nn de pytorch pour se simplifier la vie :
 
