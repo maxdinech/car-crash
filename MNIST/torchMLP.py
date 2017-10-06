@@ -65,7 +65,7 @@ for e in range(epochs):
         loss = 5 * (y_pred - y).pow(2).mean()
 
         # Calcul et aff de la précision (pourcentage d'images bien classées)
-        accs.append(100 * (torch.eye(10)[y_pred.data.max(1)[1]] * y.data).sum() / batch_size)
+        accs.append(100 * (torch.eye(10).type(dtype)[y_pred.data.max(1)[1]] * y.data).sum() / batch_size)
 
         # Rétropropagation du gradient sur l'erreur
         loss.backward()
