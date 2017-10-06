@@ -1,7 +1,9 @@
+"""Transforme le dossier Test de GTSRB en tableau .npy"""
+
+
 import os
 import numpy as np
 import pandas as pd
-import glob
 
 
 # TRAITEMENT DES DONNÉES
@@ -19,5 +21,3 @@ def reshape():
         image = str(i).zfill(5) + '.ppm'
         label = str(labels[i]).zfill(5)
         os.rename(data_url + image, data_url + label + '/' + image)
-
-reshape()
