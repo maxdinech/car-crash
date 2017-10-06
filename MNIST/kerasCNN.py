@@ -18,8 +18,8 @@ from skimage import io, color
 # BASE DE DONNÉES
 # ---------------
 
-images = np.load("data.images.npy")
-labels = np.load("data.labels.npy")
+images = np.load("data/images.npy")
+labels = np.load("data/labels.npy")
 
 # Il faut ajouter explicitement la dimension RGB, ici 1
 images = images.reshape(images.shape[0], 28, 28, 1)
