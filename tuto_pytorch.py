@@ -5,9 +5,10 @@
 Sommaire:
 ---------
 
-    1. Manipulation des tenseurs ------------------------------------- 15
-    2. Variables et gradients  --------------------------------------- 68
-    3. Définition d'un MLP ------------------------------------------- 119
+    1. Manipulation des tenseurs ------------------------------------- 16
+    2. Variables et gradients  --------------------------------------- 69
+    3. Définition d'un MLP simple ------------------------------------ 120
+    4. Définition d'un MLP avec le module torch.nn ------------------- 176
 
 """
 
@@ -21,7 +22,7 @@ x = torch.Tensor([2])
 y = torch.Tensor([[1,2], [3,4]])
 
 
-# Ou bien le définir uniquement par ses dimensions :
+# Ou bien le définir uniquement par ses dimensions : 
 # matrice 5x3 non initialisée (valeurs VRAIMENT aléatoires)
 x = torch.Tensor(5,3)
 print(x)
@@ -116,49 +117,65 @@ print("x =", x.data[0])
 
 
 
-#============================= 3. Un premier MLP ==============================#
+#======================= 3. Définition d'un MLP simple  =======================#
 
-# On va utiliser le module nn de pytorch pour se simplifier la vie :
+# On applique les mêmes principes que précedemment pour optimiser un réseau MLP
+# à 1000 entrées, une couche cachée de 100 neurones et 10 sorties.
+
+E, C, S = 1000, 100, 10  # Dimension des couches entrée, cachée et sortie
+
+
+# Tenseurs random, dans des Variables, qui représentent la BDD d'entraînement.
+# On spécifie `requires_grad=False` pour dire que les calculs de gradients ne
+# considèreront pas des valeurs commes variables de différentiation
+# Le 64 représente la taille de la base de données.
+x = Variable(torch.rand(64, E), requires_grad=False)
+y = Variable(torch.rand(64, S), requires_grad=False)
+
+# Tenseurs random normalisées, dans des Variables, représentant poids et biais.
+# Cette fois-ci on spécifie `requires_grad=True` : on aimerait calculer les
+# gradients des poids et des biais.
+w1 = Variable(torch.randn(E, C), requires_grad=True)
+b1 = Variable(torch.randn(C), requires_grad=True)
+w2 = Variable(torch.randn(C, S), requires_grad=True)
+b2 = Variable(torch.randn(S), requires_grad=True)
+
+
+# Boucle d'aprentissage
+for t in range(500):
+    # Propagation de x dans le réseau.
+    out = (x @ w1) - b1
+    out = out.clamp(min=0)  # ReLU sur `out`
+    out = (out @ w2) - b2
+    y_pred = out
+
+    # Calcul de l'erreur commise par le réseau : écart-type
+    loss = (y_pred - y).pow(2).mean()
+    print(t, loss.data[0])
+
+    # autograd va maintenant calculer les gradients de toutes les variables
+    # intervenant dans l'expression de loss et pour lesquelles on a spécifié
+    # `requires_grad=True` : création de w1.grad, b1.grad, w2.grad et b2.grad
+    # qui contiennent les dérivées partielles de loss.
+    loss.backward()
+
+    # Ajustement des poids selon la méthode de la descente de gradient.
+    w1.data -= 1e-3 * w1.grad.data
+    w2.data -= 1e-3 * w2.grad.data
+    b1.data -= 1e-3 * b1.grad.data
+    b2.data -= 1e-3 * b2.grad.data
+
+    # Remise à zéro des gradients avant tout recalcul !
+    w1.grad.data.zero_()
+    w2.grad.data.zero_()
+    b1.grad.data.zero_()
+    b2.grad.data.zero_()
+
+
+
+#=============== 4. Définition d'un MLP avec le module torch.nn ===============#
+
+# Pour se smiplifier la vie, on utilise torch.nn :
 
 from torch import nn
 
-
-# Donées fictives d'entraînement : 5 valeurs.
-# Les entrées sont dans R^3 et les sorties dans R^2
-# Par convention les entrées s'appellent `x` et les sorties attendues `y`.
-x = Variable(torch.randn(5, 3))
-y = Variable(torch.randn(5, 2))
-
-
-# Construction d'un réseau (modèle) sans couches cachées :
-modele = nn.Linear(3, 2)
-# Remarque : on aurait pu écrire directement modele = nn.Linear(3, 2) ici, mais
-# la forme ci-dessus permet de généraliser 
-
-
-# Acces direct aux poids et biais du modèle via .weight et .bias
-print ('poids: ', modele.weight)
-print ('biais: ', modele.bias)
-
-
-# Calcul de la sortie du réseau (difficile de faire plus simple)
-sortie = modele(x)
-
-
-# Choix de la fonction d'erreur (criterion). Ici l'écart-type (MSE)
-criterion = nn.MSELoss()
-
-
-# Boucle de descente du gradient :
-for i in range(100):
-    # Calcul de l'erreur (loss).
-    loss = criterion(modele(x), y)
-    print('loss: ', loss.data[0])
-    # Rétropropagation.
-    loss.backward()
-    # Ajustement des poids et des biais.
-    modele.weight.data.sub_(0.01 * modele.weight.grad.data)
-    modele.bias.data.sub_(0.01 * modele.bias.grad.data)
-    # Remise à zéro des gradients
-    modele.weight.grad.zero_()
-    modele.bias.grad.zero_()
