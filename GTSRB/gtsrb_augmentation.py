@@ -1,4 +1,3 @@
-
 """Diverses fonctions d'augmentation des BDD de panneaux."""
 
 

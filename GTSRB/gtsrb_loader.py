@@ -1,7 +1,4 @@
-'''
-gtsrb_loader.py
-~~~~~~~~~~~~
-'''
+"""Charge la base de données GTSRB"""
 
 
 couleur = 'clahe'  # 'rgb', 'grey' ou 'clahe'
