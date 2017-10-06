@@ -30,14 +30,11 @@ images = Variable(torch.from_numpy(images[:50000]).type(dtype), requires_grad=Fa
 labels = Variable(torch.from_numpy(labels[:50000]).type(dtype), requires_grad=False)
 
 
-# On définit à la main un MLP avec deux couches cachées de 50 neurones
-w1 = Variable(torch.randn(28*28, 50).type(dtype), requires_grad=True)
-b1 = Variable(torch.randn(50).type(dtype), requires_grad=True)
-w2 = Variable(torch.randn(50, 50).type(dtype), requires_grad=True)
-b2 = Variable(torch.randn(50).type(dtype), requires_grad=True)
-w3 = Variable(torch.randn(50, 10).type(dtype), requires_grad=True)
-b3 = Variable(torch.randn(10).type(dtype), requires_grad=True)
-
+# On définit à la main un MLP avec une couche cachée de 128 neurones
+w1 = Variable(torch.randn(28*28, 128).type(dtype), requires_grad=True)
+b1 = Variable(torch.randn(128).type(dtype), requires_grad=True)
+w2 = Variable(torch.randn(128, 10).type(dtype), requires_grad=True)
+b2 = Variable(torch.randn(10).type(dtype), requires_grad=True)
 
 start = timeit.default_timer()
 
@@ -55,8 +52,7 @@ for e in range(epochs):
 
         # Propagation de x dans le réseau. 
         a = F.relu(x @ w1 + b1)
-        a = F.relu(a @ w2 + b2)
-        a = F.softmax(a @ w3 + b3)
+        a = F.softmax(a @ w2 + b2)
         y_pred = a
 
         # Calcul de l'erreur commise par le réseau : écart-type
@@ -69,22 +65,17 @@ for e in range(epochs):
         # Ajustement des poids selon la méthode de la descente de gradient.
         w1.data -= lr * w1.grad.data
         w2.data -= lr * w2.grad.data
-        w3.data -= lr * w3.grad.data
         b1.data -= lr * b1.grad.data
         b2.data -= lr * b2.grad.data
-        b3.data -= lr * b3.grad.data
 
         # Remise à zéro des gradients
         w1.grad.data.zero_()
         w2.grad.data.zero_()
-        w3.grad.data.zero_()
         b1.grad.data.zero_()
         b2.grad.data.zero_()
-        b3.grad.data.zero_()
     
     a = F.relu(images @ w1 + b1)
-    a = F.relu(a @ w2 + b2)
-    a = F.softmax(a @ w3 + b3)
+    a = F.softmax(a @ w2 + b2)
     y_pred = a
 
     val_acc = (torch.eye(10).type(dtype)[y_pred.data.max(1)[1]] * labels.data).sum() / 500
