@@ -43,7 +43,7 @@ start = timeit.default_timer()
 for e in range(epochs):
     print("\nEpoch", e, ":")
     # Mélange de la BDD.
-    ordre = torch.randperm(50000)
+    ordre = torch.randperm(50000).type(dtype)
     images = images[ordre]
     labels = labels[ordre]
 
