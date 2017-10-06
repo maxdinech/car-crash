@@ -52,7 +52,6 @@ for e in range(epochs):
     for i in range(0, 50000, batch_size):
         x = images[i:i+batch_size]
         y = labels[i:i+batch_size]
-        accs = []
 
         # Propagation de x dans le réseau. 
         a = F.relu(x @ w1 + b1)
@@ -63,9 +62,6 @@ for e in range(epochs):
         # Calcul de l'erreur commise par le réseau : écart-type
         # loss = 1/(2n) * Somme(|y - y_pred|^2 pour y dans Y)
         loss = 5 * (y_pred - y).pow(2).mean()
-
-        # Calcul et aff de la précision (pourcentage d'images bien classées)
-        accs.append(100 * (torch.eye(10).type(dtype)[y_pred.data.max(1)[1]] * y.data).sum() / batch_size)
 
         # Rétropropagation du gradient sur l'erreur
         loss.backward()
@@ -86,16 +82,14 @@ for e in range(epochs):
         b2.grad.data.zero_()
         b3.grad.data.zero_()
     
-    print(sum(accs)/len(accs), "%")
+    a = F.relu(images @ w1 + b1)
+    a = F.relu(a @ w2 + b2)
+    a = F.softmax(a @ w3 + b3)
+    y_pred = a
+
+    val_acc = 100 * (torch.eye(10).type(dtype)[y_pred.data.max(1)[1]] * labels.data).sum() / batch_size
+    print(val_acc, "%")
 
 stop = timeit.default_timer()
 
 print("\n\ntemps écoulé :", stop - start)
-
-a = F.relu(images @ w1 + b1)
-a = F.relu(a @ w2 + b2)
-a = F.softmax(a @ w3 + b3)
-y_pred = a
-
-val_acc = 100 * (torch.eye(10)[y_pred.data.max(1)[1]] * labels.data).sum() / batch_size
-print(val_acc)
