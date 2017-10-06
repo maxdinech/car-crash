@@ -22,9 +22,10 @@ else:
 
 # Importation de la base de données et conversion npy -> tenseur
 images = np.load('data/images.npy')
+images.resize(60000, 28*28)
 labels = np.load('data/labels.npy')
-images = Variables(torch(images[:50000]).type(dtype), requires_grad=False)
-labels = Variables(torch(labels[:50000]).type(dtype), requires_grad=False)
+images = Variable(torch.from_numpy(images[:50000]).type(dtype), requires_grad=False)
+labels = Variable(torch.from_numpy(labels[:50000]).type(dtype), requires_grad=False)
 
 
 # On définit à la main un MLP avec deux couches cachées de 16 neurones
@@ -39,9 +40,10 @@ b3 = Variable(torch.randn(10).type(dtype), requires_grad=True)
 start = timeit.default_timer()
 
 
-for t in range(epochs):
+for e in range(epochs):
+    print("\nEpoch", e, ":")
     # Mélange de la BDD.
-    ordre = torch.randperm(100)
+    ordre = torch.randperm(50000)
     images = images[ordre]
     labels = labels[ordre]
 
@@ -57,7 +59,7 @@ for t in range(epochs):
 
         # Calcul de l'erreur commise par le réseau : écart-type
         loss = (y_pred - y).pow(2).mean()
-        print(loss[0])
+        print(loss.data[0], end="\r")
 
         # Rétropropagation du gradient sur l'erreur
         loss.backward()
