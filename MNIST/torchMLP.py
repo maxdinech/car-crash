@@ -87,7 +87,7 @@ for e in range(epochs):
     a = F.softmax(a @ w3 + b3)
     y_pred = a
 
-    val_acc = 100 * (torch.eye(10).type(dtype)[y_pred.data.max(1)[1]] * labels.data).sum() / batch_size
+    val_acc = (torch.eye(10).type(dtype)[y_pred.data.max(1)[1]] * labels.data).sum() / 500
     print(val_acc, "%")
 
 stop = timeit.default_timer()
