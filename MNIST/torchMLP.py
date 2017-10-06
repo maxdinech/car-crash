@@ -8,7 +8,7 @@ import torch.nn.functional as F
 
 # Hyperparamètres
 # ---------------
-lr = 1e-3  # taux d'aprentissage
+lr = 0.1  # taux d'aprentissage
 epochs = 10
 batch_size = 50
 
