@@ -1,5 +1,6 @@
 """Réseau MLP simple avec Torch"""
 
+import timeit
 
 import torch
 from torch.autograd import Variable
@@ -31,16 +32,17 @@ b1 = Variable(torch.randn(C).type(dtype), requires_grad=True)
 w2 = Variable(torch.randn(C, S).type(dtype), requires_grad=True)
 b2 = Variable(torch.randn(S).type(dtype), requires_grad=True)
 
+start = timeit.default_timer()
 
 learning_rate = 1e-3
 
-for t in range(500):
+for t in range(5000):
     # Propagation de x dans le réseau ; le `.clamp(min=0)` représente ReLU. 
     y_pred = ((x @ w1 - b1).clamp(min=0)) @ w2 - b2
 
     # Calcul de l'erreur commise par le réseau : écart-type
     loss = (y_pred - y).pow(2).mean()
-    print(t, loss.data[0])
+    # print(t, loss.data[0])
 
     # autograd va maintenant calculer les gradients de toutes les variables
     # intervenant dans l'expression de loss et pour lesquelles on a spécifié
@@ -59,3 +61,7 @@ for t in range(500):
     w2.grad.data.zero_()
     b1.grad.data.zero_()
     b2.grad.data.zero_()
+
+stop = timeit.default_timer()
+
+print(stop - start)
