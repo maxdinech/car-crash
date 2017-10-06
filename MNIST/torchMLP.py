@@ -4,24 +4,36 @@
 import torch
 from torch.autograd import Variable
 
+
+# Utilise automatiquement le GPU si CUDA est disponible
+if torch.cuda.is_available():
+    dtype = torch.cuda.FloatTensor
+else:
+    dtype = torch.FloatTensor
+
+
 E, C, S = 1000, 100, 10  # Dimension des couches entrée, cachée et sortie
-taille_données = 64
+taille_données = 1000
+
 
 # Tenseurs random, dans des Variables, qui représentent la BDD d'entraînement.
 # On spécifie `requires_grad=False` pour dire que les calculs de gradients ne
 # considèreront pas des valeurs commes variables de différentiation
-x = Variable(torch.rand(taille_données, E), requires_grad=False)
-y = Variable(torch.rand(taille_données, S), requires_grad=False)
+x = Variable(torch.rand(taille_données, E).type(dtype), requires_grad=False)
+y = Variable(torch.rand(taille_données, S).type(dtype), requires_grad=False)
+
 
 # Tenseurs random normalisées, dans des Variables, représentant poids et biais.
 # Cette fois-ci on spécifie `requires_grad=True` : on aimerait calculer les
 # gradients des poids et des biais.
-w1 = Variable(torch.randn(E, C), requires_grad=True)
-b1 = Variable(torch.randn(C), requires_grad=True)
-w2 = Variable(torch.randn(C, S), requires_grad=True)
-b2 = Variable(torch.randn(S), requires_grad=True)
+w1 = Variable(torch.randn(E, C).type(dtype), requires_grad=True)
+b1 = Variable(torch.randn(C).type(dtype), requires_grad=True)
+w2 = Variable(torch.randn(C, S).type(dtype), requires_grad=True)
+b2 = Variable(torch.randn(S).type(dtype), requires_grad=True)
+
 
 learning_rate = 1e-3
+
 for t in range(500):
     # Propagation de x dans le réseau ; le `.clamp(min=0)` représente ReLU. 
     y_pred = ((x @ w1 - b1).clamp(min=0)) @ w2 - b2
