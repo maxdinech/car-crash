@@ -16,8 +16,10 @@ batch_size = 50
 # Utilise automatiquement le GPU si CUDA est disponible
 if torch.cuda.is_available():
     dtype = torch.cuda.FloatTensor
+    ltype = torch.cuda.LongTensor
 else:
     dtype = torch.FloatTensor
+    ltype = torch.LongTensor
 
 
 # Importation de la base de données et conversion npy -> tenseur
@@ -43,7 +45,7 @@ start = timeit.default_timer()
 for e in range(epochs):
     print("\nEpoch", e, ":")
     # Mélange de la BDD.
-    ordre = torch.randperm(50000).type(dtype)
+    ordre = torch.randperm(50000).type(ltype)
     images = images[ordre]
     labels = labels[ordre]
 
