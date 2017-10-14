@@ -10,7 +10,7 @@ import torch.nn.functional as F
 # Hyperparamètres
 # ---------------
 eta = 3  # taux d'aprentissage initial
-epochs = 30
+epochs = 60
 batch_size = 128
 nb_train = 50_000
 nb_val = 10_000
@@ -135,36 +135,3 @@ def prediction_img(img):
     pred = model.forward(img)
     print("prédiction :", pred.max(0)[1].data[0])
     ascii_print(img.view(28,28).data)
-
-
-# Descente de gradient sur une image !
-
-w1_bis = Variable(w1.data, requires_grad=False)
-w2_bis = Variable(w2.data, requires_grad=False)
-b1_bis = Variable(b1.data, requires_grad=False)
-b2_bis = Variable(b2.data, requires_grad=False)
-
-
-def propagation_bis(x):
-    a = F.sigmoid(x @ w1_bis + b1_bis)
-    a = F.sigmoid(a @ w2_bis + b2_bis)
-    return a
-
-def prediction_bis(x):
-    return propagation_bis(x).max(0)[1].data[0]
-
-def loss_fn_bis(y_pred, n):
-    return (y_pred - Variable(torch.eye(10)[n])).pow(2).sum()
-
-def adversaire(num_image, n):
-    image = Variable(val_images[num_image].data.clone(), requires_grad=True)
-    while prediction_bis(image) != n:
-        loss_bis = loss_fn_bis(propagation_bis(image), n)
-        loss_bis.backward()
-        pos_max = image.grad.data.max(0)[1][0]
-        image[pos_max].data -= 10 * image.grad.data[pos_max]
-        image.grad.data = torch.zeros(28*28)
-        print(pos_max)
-    prediction_img(image)
-
-adversaire(2, 0)
