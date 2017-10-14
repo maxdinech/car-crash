@@ -10,7 +10,7 @@ import torch.nn.functional as F
 # Hyperparamètres
 # ---------------
 eta = 3  # taux d'aprentissage initial
-epochs = 60
+epochs = 30
 batch_size = 128
 nb_train = 50_000
 nb_val = 10_000
@@ -34,8 +34,10 @@ val_images = Variable(torch.from_numpy(np_images[-nb_val:]).type(dtype), require
 val_labels = Variable(torch.from_numpy(np_labels[-nb_val:]).type(dtype), requires_grad=False)
 np_images, np_labels = 0, 0
 
-images = images.view(len(images), 1, 28, 28)
-val_images = val_images.view(len(val_images), 1, 28, 28)
+images = images.view(nb_train, 1, 28, 28)
+val_images = val_images.view(nb_val, 1, 28, 28)
+
+
 
 class Net(nn.Module):
 
@@ -57,6 +59,7 @@ class Net(nn.Module):
         x = self.fc2(x)
         return x
 
+
 if torch.cuda.is_available():
     model = Net().cuda()
 else:
@@ -74,7 +77,7 @@ print()
 for e in range(epochs):
     print("Epoch {}/{} - eta: {:5.3f}".format(e+1, epochs, eta))
     # Mélange de la BDD.
-    ordre = torch.randperm(nb_train).type(ltype)
+    perm = torch.randperm(nb_train).type(ltype)
 
     for i in range(0, nb_train, batch_size):
         indice = str(min(i+batch_size, nb_train)).zfill(5)
@@ -82,8 +85,8 @@ for e in range(epochs):
         p = int(20 * i / (nb_train - batch_size))
         print('▰'*p + '▱'*(20-p), end='\r')
 
-        x = images[ordre[i:i+batch_size]]
-        y = labels[ordre[i:i+batch_size]]
+        x = images[perm[i:i+batch_size]]
+        y = labels[perm[i:i+batch_size]]
 
         # Propagation de x dans le réseau. 
         y_pred = model.forward(x)
@@ -118,9 +121,10 @@ for e in range(epochs):
 
 
 def ascii_print(image):
+    image = image.view(28,28)
     for ligne in image:
         for pix in ligne:
-            print(2*" ░▒▓█"[int(pix*5-0.001)%5], end='')
+            print(2*" ░▒▓█"[int(pix*0.4999)%5], end='')
         print('')
 
 
@@ -128,10 +132,28 @@ def prediction(n):
     img = val_images[n].view(1, 28*28)
     pred = model.forward(img)
     print("prédiction :", pred.max(1)[1].data[0])
-    ascii_print(img.view(28,28).data)
+    ascii_print(img.data)
 
 
 def prediction_img(img):
     pred = model.forward(img)
     print("prédiction :", pred.max(0)[1].data[0])
-    ascii_print(img.view(28,28).data)
+    ascii_print(img.data)
+
+
+# ------------------------------
+
+# image = Variable(val_images[0].data.clone(), requires_grad=True)
+# for param in model.parameters():
+#     param.data -= eta * param.grad.data
+
+# def adversaire(image, n):
+#     image = Variable(val_images[num_image].data.clone(), requires_grad=True)
+#     while prediction_bis(image) != n:
+#         loss_bis = loss_fn_bis(propagation_bis(image), n)
+#         loss_bis.backward()
+#         pos_max = image.grad.data.max(0)[1][0]
+#         image[pos_max].data -= 10 * image.grad.data[pos_max]
+#         image.grad.data = torch.zeros(28*28)
+#         print(pos_max)
+#     prediction_img(image)
