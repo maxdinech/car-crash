@@ -57,7 +57,10 @@ class Net(nn.Module):
         x = self.fc2(x)
         return x
 
-model = Net()
+if torch.cuda.is_available():
+    model = Net().cuda()
+else:
+    model = Net()
 
 loss_fn = F.mse_loss
 
