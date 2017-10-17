@@ -19,7 +19,7 @@ else:
     ltype = torch.LongTensor
 
 
-epochs = 50
+epochs = 200
 batch_size = 10
 eta = 0.1
 
@@ -165,3 +165,9 @@ for e in range(epochs):
     print("G : loss: {:6.4f} - acc: {:5.2f}%".format(G_loss, G_acc))
 
     ascii_print(G.forward(entropy(1)).data)
+
+
+while True:
+    print("\033[H\033[J")
+    ascii_print(G.forward(entropy(1)).data)
+    time.sleep(0.7)
