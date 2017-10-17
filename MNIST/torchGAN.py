@@ -66,19 +66,18 @@ if torch.cuda.is_available():
 loss_fn = F.mse_loss
 
 def acc_fn(y_pred, y):
-    return 100 * uns(len(y))[(y_pred - y).abs() < 0.5
-    ].sum() / len(y)
+    return 100 * uns(len(y))[(y_pred - y).abs() < 0.5].sum() / len(y)
 
 
 
 def zeros(n):
-    return Variable(torch.zeros(n, 1), requires_grad=False)
+    return Variable(torch.zeros(n, 1).type(dtype), requires_grad=False)
 
 def uns(n):
-    return Variable(torch.ones(n, 1), requires_grad=False)
+    return Variable(torch.ones(n, 1).type(dtype), requires_grad=False)
 
 def entropy(n):
-    return Variable(torch.randn(n, 100), requires_grad=False)
+    return Variable(torch.randn(n, 100).type(dtype), requires_grad=False)
 
 
 def ascii_print(image):
