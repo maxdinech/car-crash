@@ -21,7 +21,7 @@ mode = 'train'  # 'train' ou 'test'
 # TRAITEMENT DES DONNÉES
 # ----------------------
 
-data_url = 'data/' + mode + '.csv'
+data_url = 'data/train.csv'
 
 
 def mnist():
@@ -33,5 +33,5 @@ def mnist():
 
 
 def save_mnist(images, labels):
-    np.save("data/" + mode + "_images", images)
-    np.save("data/" + mode + "_labels", labels)
+    np.save('data/images', images)
+    np.save('data/labels', labels)

@@ -9,11 +9,11 @@ import torch.nn.functional as F
 
 # Hyperparamètres
 # ---------------
-eta = 3  # taux d'aprentissage initial
+eta = 0.3  # taux d'aprentissage initial
 epochs = 30
-batch_size = 128
-nb_train = 50_000
-nb_val = 10_000
+batch_size = 10
+nb_train = 1_000
+nb_val = 1_000
 
 
 # Utilise automatiquement le GPU si CUDA est disponible
@@ -43,15 +43,14 @@ class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
         # convolutions : nb_canaux_entree, nb_canaux_sortie, dim_kernel
-        self.conv1 = nn.Conv2d(1, 20, 5)
+        self.conv1 = nn.Conv2d(1, 10, 5)
         self.pool1 = nn.MaxPool2d(2)
-        self.fc1 = nn.Linear(20*12*12, 120)
+        self.fc1 = nn.Linear(1440, 120)
         self.fc2 = nn.Linear(120, 10)
     def forward(self, x):
-        x = F.elu(self.conv1(x))
-        x = self.pool1(x)
+        x = self.pool1(F.relu(self.conv1(x)))
         x = x.view(len(x), -1)
-        x = F.elu(self.fc1(x))
+        x = F.relu(self.fc1(x))
         x = self.fc2(x)
         return x
 
@@ -143,21 +142,3 @@ def affichages():
         print("\033[H\033[J")
         prediction(random.randrange(1000))
         time.sleep(0.7)
-
-
-# ------------------------------
-
-# image = Variable(val_images[0].data.clone(), requires_grad=True)
-# for param in model.parameters():
-#     param.data -= eta * param.grad.data
-
-# def adversaire(image, n):
-#     image = Variable(val_images[num_image].data.clone(), requires_grad=True)
-#     while prediction_bis(image) != n:
-#         loss_bis = loss_fn_bis(propagation_bis(image), n)
-#         loss_bis.backward()
-#         pos_max = image.grad.data.max(0)[1][0]
-#         image[pos_max].data -= 10 * image.grad.data[pos_max]
-#         image.grad.data = torch.zeros(28*28)
-#         print(pos_max)
-#     prediction_img(image)
