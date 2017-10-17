@@ -30,7 +30,7 @@ labels = np.load('data/labels.npy')
 images = np.array([images[i] for i in range(len(images)) if labels[i,6] == 1])
 images = torch.from_numpy(images).type(dtype)
 images = Variable(images, requires_grad=False)
-print(images.shape)
+
 
 class Generator(nn.Module):
     def __init__(self, e, c, s):
