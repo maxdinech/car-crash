@@ -122,7 +122,7 @@ print("x =", x.data[0])
 # On applique les mêmes principes que précedemment pour optimiser un réseau MLP
 # à 1000 entrées, une couche cachée de 100 neurones et 10 sorties.
 
-E, C, S = 1000, 100, 10  # Dimension des couches entrée, cachée et sortie
+E, C, S = 30, 100, 10  # Dimension des couches entrée, cachée et sortie
 
 
 # Tenseurs random, dans des Variables, qui représentent la BDD d'entraînement.
@@ -131,6 +131,7 @@ E, C, S = 1000, 100, 10  # Dimension des couches entrée, cachée et sortie
 # Le 64 représente la taille de la base de données.
 x = Variable(torch.rand(64, E), requires_grad=False)
 y = Variable(torch.rand(64, S), requires_grad=False)
+
 
 # Tenseurs random normalisées, dans des Variables, représentant poids et biais.
 # Cette fois-ci on spécifie `requires_grad=True` : on aimerait calculer les
@@ -144,9 +145,9 @@ b2 = Variable(torch.randn(S), requires_grad=True)
 # Boucle d'aprentissage
 for t in range(500):
     # Propagation de x dans le réseau.
-    out = (x @ w1) - b1
+    out = (x @ w1) + b1
     out = out.clamp(min=0)  # ReLU sur `out`
-    out = (out @ w2) - b2
+    out = (out @ w2) + b2
     y_pred = out
 
     # Calcul de l'erreur commise par le réseau : écart-type
@@ -170,12 +171,3 @@ for t in range(500):
     w2.grad.data.zero_()
     b1.grad.data.zero_()
     b2.grad.data.zero_()
-
-
-
-#=============== 4. Définition d'un MLP avec le module torch.nn ===============#
-
-# Pour se smiplifier la vie, on utilise torch.nn :
-
-from torch import nn
-
