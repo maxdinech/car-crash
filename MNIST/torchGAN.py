@@ -1,5 +1,5 @@
 """
-Réseau générateur adversaire avec PyTorch
+Réseau générateur adversaire avec PyTorch sur MNIST.
 """
 
 import numpy as np
@@ -21,13 +21,12 @@ else:
 
 epochs = 200
 batch_size = 10
-eta = 0.1
+eta = 0.01
 
-# On travaille sur des données aléatoires : un carré décentré en (3,0)
 
 images = np.load('data/images.npy')
 labels = np.load('data/labels.npy')
-images = np.array([images[i] for i in range(len(images)) if labels[i,6] == 1])
+images = np.array([images[i] for i in range(len(images)) if labels[i,3] == 1])
 images = torch.from_numpy(images).type(dtype)
 images = Variable(images, requires_grad=False)
 
@@ -63,7 +62,8 @@ if torch.cuda.is_available():
     G = G.cuda()
     D = D.cuda()
 
-loss_fn = F.mse_loss
+loss_fn = F.binary_cross_entropy
+
 
 def acc_fn(y_pred, y):
     return 100 * uns(len(y))[(y_pred - y).abs() < 0.5].sum() / len(y)
@@ -82,6 +82,17 @@ def entropy(n):
 
 def ascii_print(image):
     image = image.view(28,28)
+    for ligne in image:
+        for pix in ligne:
+            print(2*" ░▒▓█"[int(pix*4.999)%5], end='')
+        print('')
+
+
+def ascii_print_sided(img1, img2, img3):
+    img1 = img1.view(28,28)
+    img2 = img2.view(28,28)
+    img3 = img3.view(28,28)
+    image = torch.cat((img1, img2, img3), dim = 1)
     for ligne in image:
         for pix in ligne:
             print(2*" ░▒▓█"[int(pix*4.999)%5], end='')
@@ -164,10 +175,16 @@ for e in range(epochs):
     print("D : loss: {:6.4f} - acc: {:5.2f}%  ─  ".format(D_loss, D_acc), end='')
     print("G : loss: {:6.4f} - acc: {:5.2f}%".format(G_loss, G_acc))
 
-    ascii_print(G.forward(entropy(1)).data)
+    img1 = G.forward(entropy(1)).data
+    img2 = G.forward(entropy(1)).data
+    img3 = G.forward(entropy(1)).data
+    ascii_print_sided(img1, img2, img3)
 
 
 while True:
     print("\033[H\033[J")
-    ascii_print(G.forward(entropy(1)).data)
+    img1 = G.forward(entropy(1)).data
+    img2 = G.forward(entropy(1)).data
+    img3 = G.forward(entropy(1)).data
+    ascii_print_sided(img1, img2, img3)
     time.sleep(0.7)
