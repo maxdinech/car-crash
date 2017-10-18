@@ -123,6 +123,7 @@ Overfitting** (2014), G. Hinton, A. Krizhevsky et al. [[pdf]](http://www.cs.toro
 - [German Traffic Sign Recognition Benchmark (GTSRB)](http://benchmark.ini.rub.de/?section=gtsrb)
 - [Arxiv Sanity Preserver (Recherche de publications)](http://www.arxiv-sanity.com)
 - [Glossaire complet et détaillé](http://www.wildml.com/deep-learning-glossary/)
+- [Comparaison des différents GANs](https://github.com/znxlwm/pytorch-generative-model-collections)
 
 ## Dépendances
 
