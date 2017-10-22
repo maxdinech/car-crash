@@ -43,42 +43,22 @@ def to_var(x):
 
 # Discriminateur
 D = nn.Sequential(
-        nn.Linear(784, 100),
-        nn.ReLU(),
-        nn.Linear(100, 100),
-        nn.ReLU(),
-        nn.Linear(100, 1),
+        nn.Linear(784, 256),
+        nn.LeakyReLU(0.2),
+        nn.Linear(256, 256),
+        nn.LeakyReLU(0.2),
+        nn.Linear(256, 1),
         nn.Sigmoid())
 
 
-# Générateur 
+# Générateur
 G = nn.Sequential(
-        nn.Linear(64, 100),
-        nn.ReLU(),
-        nn.Linear(100, 100),
-        nn.ReLU(),
-        nn.Linear(100, 784),
+        nn.Linear(64, 256),
+        nn.LeakyReLU(0.2),
+        nn.Linear(256, 256),
+        nn.LeakyReLU(0.2),
+        nn.Linear(256, 784),
         nn.Sigmoid())
-
-
-# # Discriminateur
-# D = nn.Sequential(
-#         nn.Linear(784, 256),
-#         nn.LeakyReLU(0.2),
-#         nn.Linear(256, 256),
-#         nn.LeakyReLU(0.2),
-#         nn.Linear(256, 1),
-#         nn.Sigmoid())
-
-
-# # Générateur 
-# G = nn.Sequential(
-#         nn.Linear(64, 256),
-#         nn.LeakyReLU(0.2),
-#         nn.Linear(256, 256),
-#         nn.LeakyReLU(0.2),
-#         nn.Linear(256, 784),
-#         nn.Sigmoid())
 
 
 # Déplacement vers le GPU si possible
