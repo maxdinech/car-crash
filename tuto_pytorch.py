@@ -171,3 +171,32 @@ for t in range(500):
     w2.grad.data.zero_()
     b1.grad.data.zero_()
     b2.grad.data.zero_()
+
+
+
+#======================= 4. MLP avec le module torch.nn =======================#
+
+# On se simplifie la vie en utilisant le module torch.nn, et on définit la
+# classe Net du réseau voulu comme sous-classe de nn.Module. Par exemple :
+
+class Net(nn.Module):
+
+    def __init__(self, e, c, s):
+        super(Net, self).__init__()
+        # convolutions : nb_canaux_entree, nb_canaux_sortie, dim_kernel
+        self.couche1 = nn.Linear(e, c)
+        self.couche2 = nn.Linear(c, s)
+
+    def forward(self, x):
+        x = F.relu(self.fc1(x))
+        x = F.sigmoid(self.fc2(x))
+        return x
+
+reseau_de_neurones = Net(30, 100, 10)
+
+# Tout se fait exactement comme précedemment. les sorties calculées pour une
+# entrée x s'obtiennent par reseau_de_neurones.forward(x)
+# Pour l'ajustement des paramètres, on utilise :
+
+for param in reseau_de_neurones.parameters():
+    param.data -= 1e-3 * param.grad.data
