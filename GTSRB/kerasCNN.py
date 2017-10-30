@@ -116,7 +116,7 @@ def ascii_print(image):
     image = image.reshape(40,40)
     for ligne in image:
         for pix in ligne:
-            print(2*" ░▒▓█"[int(pix*5-0.001)], end='')
+            print(2*" ░▒▓█"[int(pix*4.999)], end='')
         print('')
 
 def prediction_ascii(n, images=test_images):
