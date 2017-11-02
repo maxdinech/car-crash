@@ -27,7 +27,7 @@ def create_MNIST():
     shutil.rmtree('data/processed')
 
 
-def train(nb_train, flatten=False):
+def train(nb_train=60000, flatten=False):
     if not os.path.exists('data/train.pt'):
         create_MNIST()
     train = torch.load('data/train.pt')
@@ -41,7 +41,7 @@ def train(nb_train, flatten=False):
 
 
 
-def test(nb_val, flatten=False):
+def test(nb_val=10000, flatten=False):
     if not os.path.exists('data/train.pt'):
         create_MNIST()
     train = torch.load('data/train.pt')
