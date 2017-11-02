@@ -14,8 +14,8 @@ import mnist_loader
 eta = 3  # taux d'aprentissage initial
 epochs = 30
 batch_size = 128
-nb_train = 60_000
-nb_val = 10_000
+nb_train = 60000
+nb_val = 10000
 
 
 # Utilise automatiquement le GPU si CUDA est disponible
