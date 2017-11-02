@@ -4,8 +4,9 @@
 import torch
 import torchvision.datasets as dsets
 import torchvision.transforms as transforms
-import os
+import os.path
 import shutil
+
 
 # Utilise automatiquement le GPU si CUDA est disponible
 if torch.cuda.is_available():
@@ -13,17 +14,22 @@ if torch.cuda.is_available():
 else:
     dtype = torch.FloatTensor
 
-def créer_MNIST():
+
+# Création des fichiers train.pt et test.pt de MNIST
+def create_MNIST():
     _ = dsets.MNIST(root='data/',
                     train=True, 
                     transform=transforms.ToTensor(),
                     download=True)
     shutil.move('data/processed/training.pt', 'data/train.pt')
     shutil.move('data/processed/test.pt', 'data/test.pt')
-    os.remove('data/raw')
-    os.remove('data/processed')
+    shutil.rmtree('data/raw')
+    shutil.rmtree('data/processed')
+
 
 def train(nb_train, flatten=False):
+    if not os.path.exists('data/train.pt'):
+        create_MNIST()
     train = torch.load('data/train.pt')
     images, labels = train[0][:nb_train], train[1][:nb_train]
     images = images.type(dtype) / 255
@@ -34,7 +40,10 @@ def train(nb_train, flatten=False):
     return images, labels
 
 
+
 def test(nb_val, flatten=False):
+    if not os.path.exists('data/train.pt'):
+        create_MNIST()
     train = torch.load('data/train.pt')
     images, labels = train[0][:nb_val], train[1][:nb_val]
     images = images.type(dtype) / 255
@@ -43,3 +52,5 @@ def test(nb_val, flatten=False):
     else:
         images = images.view(len(images), 1, 28, 28)
     return images, labels
+
+
