@@ -36,6 +36,13 @@ train_loader = DataLoader(TensorDataset(train_images, train_labels),
                           shuffle=True)
 
 
+# Transformation des BDD en Variables
+train_images = to_Var(train_images)
+train_labels = to_Var(train_labels)
+test_images = to_Var(test_images)
+test_labels = to_Var(test_labels)
+
+
 # Définition du réseau : CNN à deux convolutions
 class Net(nn.Module):
 
