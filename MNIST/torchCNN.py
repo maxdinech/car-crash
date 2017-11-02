@@ -74,7 +74,7 @@ loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=eta)
 
 def accuracy(y_pred, y):
-    return 100 * (y_pred.max(1)[1] == y.max(1)[1]).data.sum() / len(y)
+    return 100 * (y_pred.max(1)[1] == y).data.sum() / len(y)
 
 
 print("Train on {} samples, validate on {} samples.".format(nb_train, nb_val))
