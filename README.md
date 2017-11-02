@@ -3,18 +3,27 @@
     « No stop signs,
       Speed limit,
       Nobody's gonna slow me down »
-    
+	
     -- **AC/DC**, *Highway to Hell*
 
 ---
 
-*L’efficacité exceptionnelle des réseaux de neurones les rend intéressant dans de nombreux domaines, en particulier celui de la conduite autonome. Mais est-ce bien raisonnable de leur faire autant confiance ?*
+*L’efficacité exceptionnelle des réseaux de neurones les rend intéressant dans
+de nombreux domaines, en particulier celui de la conduite autonome. Mais est-ce 
+bien raisonnable de leur faire autant confiance ?*
 
 ## Thème - Milieux : interactions, interfaces, homogénéité, ruptures
 
-On cherche à donner à la voiture une forme d'intelligence qui en fasse un agent quasi-autonome au sein de son **milieu** : identification des autres agents, prédiction de leurs trajectoires et **interactions**, identification et reconaîssance des informations routières (panneaux, marquages au sol, voies de circulation).
+On cherche à donner à la voiture une forme d'intelligence qui en fasse un agent
+quasi-autonome au sein de son **milieu** : identification des autres agents,
+prédiction de leurs trajectoires et **interactions**, identification et
+reconaîssance des informations routières (panneaux, marquages au sol, voies de
+circulation).
 
-On utilise principalement pour ces tâches les réseaux de neurones, qui sont aujourd'hui la meilleure **interface** de compréhension d'images (Computer Vision). Ils consistent à séparer un espace R^n finement : les frontières de classifications -> **ruptures**
+On utilise principalement pour ces tâches les réseaux de neurones, qui sont
+aujourd'hui la meilleure **interface** de compréhension d'images (Computer
+Vision). Ils consistent à séparer un espace R^n finement : les frontières de
+classifications -> **ruptures**
 
 ---
 
