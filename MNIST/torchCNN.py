@@ -95,13 +95,13 @@ for e in range(epochs):
 
     # Calcul et affichage de loss et acc à chaque fin d'epoch
     
-    y_pred = model.forward(images)
-    acc = accuracy(y_pred, labels)
-    loss = loss_fn(y_pred, labels).data[0]
+    y_pred = model.forward(train_images)
+    acc = accuracy(y_pred, train_labels)
+    loss = loss_fn(y_pred, train_labels).data[0]
     
-    y_pred = model.forward(val_images)
-    val_acc = accuracy(y_pred, val_labels)
-    val_loss = loss_fn(y_pred, val_labels).data[0]
+    y_pred = model.forward(test_images)
+    val_acc = accuracy(y_pred, test_labels)
+    val_loss = loss_fn(y_pred, test_labels).data[0]
 
     print("└─ ({0}/{0}) {1} ".format(nb_train, '▰'*20), end='')
     print("loss: {:6.4f} - acc: {:5.2f}%  ─  ".format(loss, acc), end='')
@@ -117,7 +117,7 @@ def ascii_print(image):
 
 
 def prediction(n):
-    img = val_images[n].view(1, 1, 28, 28)
+    img = test_images[n].view(1, 1, 28, 28)
     pred = model.forward(img)
     print("prédiction :", pred.max(1)[1].data[0])
     ascii_print(img.data)
