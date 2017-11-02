@@ -1,10 +1,12 @@
 """Réseau CNN simple avec Torch pour la reconaissance de MNIST"""
 
-import numpy as np
+
 import torch
 from torch import nn
 from torch.autograd import Variable
+from torch.utils.data import TensorDataset, DataLoader
 import torch.nn.functional as F
+import mnist_loader
 
 
 # Hyperparamètres
@@ -12,59 +14,61 @@ import torch.nn.functional as F
 eta = 3  # taux d'aprentissage initial
 epochs = 30
 batch_size = 128
-nb_train = 50_000
+nb_train = 60_000
 nb_val = 10_000
 
 
 # Utilise automatiquement le GPU si CUDA est disponible
-if torch.cuda.is_available():
-    dtype = torch.cuda.FloatTensor
-    ltype = torch.cuda.LongTensor
-else:
-    dtype = torch.FloatTensor
-    ltype = torch.LongTensor
+def to_Var(x, requires_grad=False):
+    if torch.cuda.is_available():
+        x = x.cuda()
+    return Variable(x, requires_grad=requires_grad)
 
 
-# Importation de la base de données et conversion npy -> tenseur
-np_images = np.load('data/images.npy')
-np_labels = np.load('data/labels.npy')
-images = Variable(torch.from_numpy(np_images[:nb_train]).type(dtype), requires_grad=False)
-labels = Variable(torch.from_numpy(np_labels[:nb_train]).type(dtype), requires_grad=False)
-val_images = Variable(torch.from_numpy(np_images[-nb_val:]).type(dtype), requires_grad=False)
-val_labels = Variable(torch.from_numpy(np_labels[-nb_val:]).type(dtype), requires_grad=False)
-np_images, np_labels = 0, 0
-
-images = images.view(nb_train, 1, 28, 28)
-val_images = val_images.view(nb_val, 1, 28, 28)
+# Chargement des bases de données
+train_images, train_labels = mnist_loader.train(nb_train)
+test_images, test_labels = mnist_loader.test(nb_val)
 
 
+# Création du DataLodaer de train
+train_loader = DataLoader(TensorDataset(train_images, train_labels),
+                          batch_size=batch_size,
+                          shuffle=True)
 
+
+# Définition du réseau : CNN à deux convolutions
 class Net(nn.Module):
+
     def __init__(self):
         super(Net, self).__init__()
         # convolutions : nb_canaux_entree, nb_canaux_sortie, dim_kernel
         self.conv1 = nn.Conv2d(1, 20, 5)
         self.pool1 = nn.MaxPool2d(2)
-        self.fc1 = nn.Linear(20*12*12, 120)
+        self.conv2 = nn.Conv2d(20, 40, 3)
+        self.pool2 = nn.MaxPool2d(2)
+        self.fc1 = nn.Linear(5*5*40, 120)
         self.fc2 = nn.Linear(120, 10)
+
     def forward(self, x):
-        x = F.elu(self.conv1(x))
-        x = self.pool1(x)
-        x = x.view(len(x), -1)
-        x = F.elu(self.fc1(x))
-        x = self.fc2(x)
+        x = self.pool1(F.relu(self.conv1(x)))
+        x = self.pool2(F.relu(self.conv2(x)))
+        x = x.view(len(x), -1)  # Flatten
+        x = F.relu(self.fc1(x))
+        x = F.softmax(self.fc2(x))
         return x
 
+model = Net()
 
 if torch.cuda.is_available():
-    model = Net().cuda()
-else:
-    model = Net()
+    model = model.cuda()
 
-loss_fn = F.mse_loss
+loss_fn = nn.CrossEntropyLoss()
+
+optimizer = torch.optim.Adam(model.parameters(), lr=eta)
 
 def accuracy(y_pred, y):
     return 100 * (y_pred.max(1)[1] == y.max(1)[1]).data.sum() / len(y)
+
 
 print("Train on {} samples, validate on {} samples.".format(nb_train, nb_val))
 print("Epochs: {}, batch_size: {}, eta: {}".format(epochs, batch_size, eta))
@@ -72,35 +76,22 @@ print()
 
 
 for e in range(epochs):
+
     print("Epoch {}/{} - eta: {:5.3f}".format(e+1, epochs, eta))
-    # Mélange de la BDD.
-    perm = torch.randperm(nb_train).type(ltype)
 
-    for i in range(0, nb_train, batch_size):
-        indice = str(min(i+batch_size, nb_train)).zfill(5)
-        print("└─ ({}/{}) ".format(indice, nb_train), end='')
-        p = int(20 * i / (nb_train - batch_size))
+    for i, (x, y) in enumerate(train_loader):
+
+        indice = str((i+1)).zfill(3)
+        print("└─ ({}/{}) ".format(indice, len(train_loader)), end='')
+        p = int(20 * i / len(train_loader))
         print('▰'*p + '▱'*(20-p), end='\r')
+        
+        y_pred = model.forward(to_Var(x))
+        loss = loss_fn(y_pred, to_Var(y))
 
-        x = images[perm[i:i+batch_size]]
-        y = labels[perm[i:i+batch_size]]
-
-        # Propagation de x dans le réseau. 
-        y_pred = model.forward(x)
-
-        # Calcul de l'erreur commise par le réseau : écart-type
-        loss = loss_fn(y_pred, y)
-
-        # Remise à zéro des gradients avent la rétrop
         model.zero_grad()
-
-        # Rétropropagation du gradient sur l'erreur
         loss.backward()
-
-        # Ajustement des poids selon la méthode de la descente de gradient.
-        for param in model.parameters():
-            param.data -= eta * param.grad.data
-
+        optimizer.step()
 
     # Calcul et affichage de loss et acc à chaque fin d'epoch
     

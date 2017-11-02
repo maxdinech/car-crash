@@ -1,20 +1,12 @@
-"""
-Réseau générateur adversaire avec PyTorch sur MNIST.
-"""
+""" Réseau générateur adversaire avec PyTorch sur MNIST."""
+
 
 import torch
 import torchvision
 from torch import nn
 from torch.autograd import Variable
-import numpy as np
-
-if torch.cuda.is_available():
-    dtype = torch.cuda.FloatTensor
-    ltype = torch.cuda.LongTensor
-else:
-    dtype = torch.FloatTensor
-    ltype = torch.LongTensor
-
+from torch.utils.data import DataLoader
+import mnist_loader
 
 # Hyperparamètres
 epochs = 200
@@ -23,30 +15,31 @@ G_lr = 0.0003
 D_lr = 0.0003
 chiffre = 3
 
-# Chargement de la BDD
-images = np.load('data/images.npy')
-labels = np.load('data/labels.npy')
-images = np.array([images[i] for i in range(len(images)) if labels[i,chiffre] == 1])
-images = torch.from_numpy(images).type(dtype)
-labels = 0
 
-data_loader = torch.utils.data.DataLoader(images,
-                                          batch_size=10,
-                                          shuffle=True)
-
-# Conversion simple tensor -> Variable
-def to_var(x):
+# Utilise automatiquement le GPU si CUDA est disponible
+def to_Var(x):
     if torch.cuda.is_available():
         x = x.cuda()
     return Variable(x)
 
 
+# Chargement de la BDD
+images, labels = mnist_loader.train(60_000, flatten=True)
+indices = [i for i in range(len(images)) if labels[i] == chiffre]
+images = images[indices]
+
+data_loader = DataLoader(images,
+                         batch_size=batch_size,
+                         shuffle=True,
+                         drop_last=True)
+
+
 # Discriminateur
 D = nn.Sequential(
         nn.Linear(784, 256),
-        nn.LeakyReLU(0.2),
+        nn.ReLU(),
         nn.Linear(256, 256),
-        nn.LeakyReLU(0.2),
+        nn.ReLU(),
         nn.Linear(256, 1),
         nn.Sigmoid())
 
@@ -54,9 +47,9 @@ D = nn.Sequential(
 # Générateur
 G = nn.Sequential(
         nn.Linear(64, 256),
-        nn.LeakyReLU(0.2),
+        nn.ReLU(),
         nn.Linear(256, 256),
-        nn.LeakyReLU(0.2),
+        nn.ReLU(),
         nn.Linear(256, 784),
         nn.Sigmoid())
 
@@ -79,7 +72,7 @@ G_optimizer = torch.optim.Adam(G.parameters(), lr=G_lr)
 
 # Générateur de bruit aléatoire z
 def entropy(n):
-    return Variable(torch.randn(n, 64).type(dtype), requires_grad=False)
+    return to_Var(torch.randn(n, 64))
 
 
 # Affichage d'image
@@ -111,21 +104,18 @@ for epoch in range(epochs):
         indice = str((i+1)).zfill(3)
         print("└─ ({}/{}) ".format(indice, len(data_loader)), end='')
         p = int(20 * i / len(data_loader))
-        print('▰'*p + '▱'*(20-p), end='   ')
-        
-        # taille locale du mini-batch
-        local_batch_size = len(images)
+        print('▰'*p + '▱'*(20-p), end='    ')
 
         # Labels des vraies et fausses entrées
-        real_labels = to_var(torch.ones(local_batch_size, 1))
-        fake_labels = to_var(torch.zeros(local_batch_size, 1))
+        real_labels = to_Var(torch.ones(batch_size, 1))
+        fake_labels = to_Var(torch.zeros(batch_size, 1))
 
         #=============== entraînement de D ===============#
-        real_images = to_var(images.view(local_batch_size, -1))
+        real_images = to_Var(images.view(batch_size, -1))
         D_pred_real = D(real_images)
         D_loss_real = loss_fn(D_pred_real, real_labels)
 
-        fake_images = G(entropy(local_batch_size))
+        fake_images = G(entropy(batch_size))
         D_pred_fake = D(fake_images)
         D_loss_fake = loss_fn(D_pred_fake, fake_labels)
         
@@ -137,7 +127,7 @@ for epoch in range(epochs):
 
         #=============== entraînement de G ===============#
 
-        fake_images = G(entropy(local_batch_size))
+        fake_images = G(entropy(batch_size))
         D_pred_fake = D(fake_images)
         G_loss = loss_fn(D_pred_fake, real_labels)
 
