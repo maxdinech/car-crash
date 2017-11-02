@@ -61,7 +61,7 @@ l'augmentation par symétries des bases de données.
 
 ## Réseau à une convolution
 
-![CNN à une convolution](CNN1_small.png)
+![CNN à une convolution](../docs/images/CNN1_small.png)
 
 Tous les entraînements sont réalisés avec 10 epochs, et une taille de paquet de
 128, sur le même réseau.
@@ -87,7 +87,7 @@ La performance est à chaque fois mesurée sur la même base de validation.
 
 ## Réseau à deux convolutions
 
-![CNN à deux convolution](CNN2_small.png), avec des dropout à 0.2 après chaque 
+![CNN à deux convolution](../docs/images/CNN2_small.png), avec des dropout à 0.2 après chaque 
 Pooling.
 
 - base `clahe`
