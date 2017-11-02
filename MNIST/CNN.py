@@ -11,7 +11,7 @@ import mnist_loader
 
 # Hyperparamètres
 # ---------------
-eta = 0.0003  # taux d'aprentissage initial
+eta = 0.0003
 epochs = 30
 batch_size = 128
 nb_train = 60000
@@ -124,6 +124,10 @@ for e in range(epochs):
     print("└─ ({0}/{0}) {1} ".format(nb_batches, '▰'*20), end='')
     print("loss: {:6.4f} - acc: {:5.2f}%  ─  ".format(loss, acc), end='')
     print("val_loss: {:6.4f} - val_acc: {:5.2f}%".format(val_loss, val_acc))
+
+
+# Enregistrement du réseau
+torch.save(model, 'model.pt')
 
 
 def ascii_print(image):
