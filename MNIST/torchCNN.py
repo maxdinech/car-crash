@@ -11,7 +11,7 @@ import mnist_loader
 
 # Hyperparamètres
 # ---------------
-eta = 0.003  # taux d'aprentissage initial
+eta = 0.0003  # taux d'aprentissage initial
 epochs = 30
 batch_size = 128
 nb_train = 60000
