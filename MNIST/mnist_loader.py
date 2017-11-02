@@ -11,8 +11,8 @@ else:
 
 
 def train(nb_train, flatten=False):
-    images = torch.load('data/train_images.pt')[:nb_train]
-    labels = torch.load('data/train_labels.pt')[:nb_train]
+    train = torch.load('data/train.pt')
+    images, labels = train[0][:nb_train], train[1][:nb_train]
     images = images.type(dtype) / 255
     if flatten:
         images = images.view(len(images), -1)
@@ -22,8 +22,8 @@ def train(nb_train, flatten=False):
 
 
 def test(nb_val, flatten=False):
-    images = torch.load('data/test_images.pt')[:nb_val]
-    labels = torch.load('data/test_labels.pt')[:nb_val]
+    train = torch.load('data/train.pt')
+    images, labels = train[0][:nb_train], train[1][:nb_val]
     images = images.type(dtype) / 255
     if flatten:
         images = images.view(len(images), -1)
