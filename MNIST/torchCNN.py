@@ -35,6 +35,7 @@ train_loader = DataLoader(TensorDataset(train_images, train_labels),
                           batch_size=batch_size,
                           shuffle=True)
 
+nb_batches = len(train_loader)
 
 # Transformation des BDD en Variables
 train_images = to_Var(train_images)
@@ -43,11 +44,10 @@ test_images = to_Var(test_images)
 test_labels = to_Var(test_labels)
 
 
-# Définition du réseau : CNN à deux convolutions
-class Net(nn.Module):
-
+# Définition du modèle : CNN à deux convolutions
+class CNN(nn.Module):
     def __init__(self):
-        super(Net, self).__init__()
+        super(CNN, self).__init__()
         # convolutions : nb_canaux_entree, nb_canaux_sortie, dim_kernel
         self.conv1 = nn.Conv2d(1, 20, 5)
         self.pool1 = nn.MaxPool2d(2)
@@ -64,53 +64,64 @@ class Net(nn.Module):
         x = F.softmax(self.fc2(x))
         return x
 
-model = Net()
+
+# Génération d'un modèle
+model = CNN()
 
 if torch.cuda.is_available():
     model = model.cuda()
 
+
+# Fonction de coût
 loss_fn = nn.CrossEntropyLoss()
 
+
+# Optimiseur (méthode utilisée pour diminuer l'erreur)
 optimizer = torch.optim.Adam(model.parameters(), lr=eta)
 
+
+# Fonction de calcul de la précision du réseau
 def accuracy(y_pred, y):
     return 100 * (y_pred.max(1)[1] == y).data.sum() / len(y)
 
 
 print("Train on {} samples, validate on {} samples.".format(nb_train, nb_val))
-print("Epochs: {}, batch_size: {}, eta: {}".format(epochs, batch_size, eta))
-print()
+print("Epochs: {}, batch_size: {}, eta: {}\n".format(epochs, batch_size, eta))
 
 
+# Boucle principale sur chaque epoch
 for e in range(epochs):
 
-    print("Epoch {}/{} - eta: {:5.3f}".format(e+1, epochs, eta))
+    print("Epoch {}/{}".format(e+1, epochs))
 
+    # Boucle secondaire sur chaque mini-batch
     for i, (x, y) in enumerate(train_loader):
 
-        indice = str((i+1)).zfill(3)
-        print("└─ ({}/{}) ".format(indice, len(train_loader)), end='')
-        p = int(20 * i / len(train_loader))
+        batch = str((i+1)).zfill(len(str(nb_batches)))
+        print("└─ ({}/{}) ".format(batch, nb_batches), end='')
+        p = int(20 * i / nb_batches)
         print('▰'*p + '▱'*(20-p), end='\r')
         
+        # Propagation dans le réseau et calcul de l'erreur
         y_pred = model.forward(to_Var(x))
         loss = loss_fn(y_pred, to_Var(y))
 
+        # Ajustement des paramètres
         model.zero_grad()
         loss.backward()
         optimizer.step()
 
-    # Calcul et affichage de loss et acc à chaque fin d'epoch
-    
+    # Calcul de l'erreur totale et de la précision sur la base d'entraînement
     y_pred = model.forward(train_images)
     acc = accuracy(y_pred, train_labels)
     loss = loss_fn(y_pred, train_labels).data[0]
     
+    # Calcul de l'erreur totale et de la précision sur la base de validation
     y_pred = model.forward(test_images)
     val_acc = accuracy(y_pred, test_labels)
     val_loss = loss_fn(y_pred, test_labels).data[0]
 
-    print("└─ ({0}/{0}) {1} ".format(nb_train, '▰'*20), end='')
+    print("└─ ({0}/{0}) {1} ".format(nb_batches, '▰'*20), end='')
     print("loss: {:6.4f} - acc: {:5.2f}%  ─  ".format(loss, acc), end='')
     print("val_loss: {:6.4f} - val_acc: {:5.2f}%".format(val_loss, val_acc))
 
@@ -136,26 +147,9 @@ def prediction_img(img):
     ascii_print(img.data)
 
 
+import random, time
 def affichages():
     while True:
         print("\033[H\033[J")
         prediction(random.randrange(1000))
         time.sleep(0.7)
-
-
-# ------------------------------
-
-# image = Variable(val_images[0].data.clone(), requires_grad=True)
-# for param in model.parameters():
-#     param.data -= eta * param.grad.data
-
-# def adversaire(image, n):
-#     image = Variable(val_images[num_image].data.clone(), requires_grad=True)
-#     while prediction_bis(image) != n:
-#         loss_bis = loss_fn_bis(propagation_bis(image), n)
-#         loss_bis.backward()
-#         pos_max = image.grad.data.max(0)[1][0]
-#         image[pos_max].data -= 10 * image.grad.data[pos_max]
-#         image.grad.data = torch.zeros(28*28)
-#         print(pos_max)
-#     prediction_img(image)
