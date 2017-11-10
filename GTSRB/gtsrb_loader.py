@@ -21,21 +21,21 @@ from joblib import Parallel, delayed
 # Téléchargement et décompression des images
 
 def get_train_folder():
-    train_url = 'http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Training_Images.zip'
-    if not os.path.exists('data'):
-        os.makedirs('data')
-    if not os.path.exists('data/Final_Training'):
-        print("Downloading the train database...")
-        wget.download(train_url, 'data/train.zip')
-        print("\nDownload complete.")
-        print("Unzipping the train database...")
-        zip_ref = zipfile.ZipFile('data/train.zip', 'r')
-        zip_ref.extractall('data/')
-        zip_ref.close()
-        print("Unzip complete.")
-        shutil.move('data/GTSRB/Final_Training', 'data/')
-        shutil.rmtree('data/GTSRB')
-        os.remove('data/train.zip')
+train_url = 'http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Training_Images.zip'
+if not os.path.exists('data'):
+    os.makedirs('data')
+if not os.path.exists('data/Final_Training'):
+    print("Downloading the train database...")
+    wget.download(train_url, 'data/train.zip')
+    print("\nDownload complete.")
+    print("Unzipping the train database...")
+    zip_ref = zipfile.ZipFile('data/train.zip', 'r')
+    zip_ref.extractall('data/')
+    zip_ref.close()
+    print("Unzip complete.")
+    shutil.move('data/GTSRB/Final_Training', 'data/')
+    shutil.rmtree('data/GTSRB')
+    os.remove('data/train.zip')
 
 def get_test_folder():
     test_url = 'http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Test_Images.zip'
@@ -52,7 +52,7 @@ def get_test_folder():
         zip_ref.extractall('data/')
         zip_ref.close()
         zip_ref2 = zipfile.ZipFile('data/test_labels.zip', 'r')
-        zip_ref2.extractall('data/Final_Test')
+        zip_ref2.extractall('data/')
         zip_ref2.close()
         print("Unzip complete.")
         shutil.move('data/GTSRB/Final_Test', 'data/')
