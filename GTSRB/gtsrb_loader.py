@@ -56,7 +56,7 @@ def get_test_folder():
         print("Unzip complete.")
         shutil.move('data/GTSRB/Final_Test', 'data/Final_Test')
         shutil.rmtree('data/GTSRB')
-        shutil.rmtree('data/test.zip')
+        os.remove('data/test.zip')
         # Réorganisation du dossier Images/ en sous-dossiers
         data_url = 'data/Final_Test/Images/'
         labels = np.array(pd.read_csv('data/Final_Test/GT-final_test.csv', sep=';'))[:,7]
