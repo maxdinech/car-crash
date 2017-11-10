@@ -97,7 +97,7 @@ def save_train(images, labels, couleur):
 
 def save_test(images, labels, couleur):
     if not os.path.exists('data/' + couleur):
-        os.makedirs('data' + couleur)
+        os.makedirs('data/' + couleur)
     torch.save((images, labels), 'data/' + couleur + '/test.pt')
 
 
