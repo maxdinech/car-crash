@@ -10,6 +10,7 @@ import wget
 import shutil
 import zipfile
 import numpy as np
+import pandas as pd
 import glob
 import torch
 from skimage import io, color, transform, exposure
@@ -38,20 +39,35 @@ def get_train_folder():
 
 def get_test_folder():
     test_url = 'http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Test_Images.zip'
+    test_labels_url = 'http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Test_GT.zip'
     if not os.path.exists('data'):
         os.makedirs('data')
     if not os.path.exists('data/Final_Test'):
         print("Downloading the test database...")
         wget.download(test_url, 'data/test.zip')
+        wget.download(test_labels_url, 'data/test_labels.zip')
         print("\nDownload complete.")
         print("Unzipping the test database...")
         zip_ref = zipfile.ZipFile('data/test.zip', 'r')
         zip_ref.extractall('data/')
+        zip_ref = zipfile.ZipFile('data/test_labels.zip', 'r')
+        zip_ref.extractall('data/Final_Test')
         zip_ref.close()
         print("Unzip complete.")
         shutil.move('data/GTSRB/Final_Test', 'data/Final_Test')
         shutil.rmtree('data/GTSRB')
-        os.remove('data/test.zip')
+        shutil.rmtree('data/test.zip')
+        # Réorganisation du dossier Images/ en sous-dossiers
+        data_url = 'data/Final_Test/Images/'
+        labels = np.array(pd.read_csv('data/Final_Test/GT-final_test.csv', sep=';'))[:,7]
+        for i in range(0, 43):
+            if not os.path.exists(data_url + str(i).zfill(5)):
+                os.makedirs(data_url + str(i).zfill(5))
+        for i in range(len(labels)):
+            image = str(i).zfill(5) + '.ppm'
+            label = str(labels[i]).zfill(5)
+            os.rename(data_url + image, data_url + label + '/' + image)
+
 
 # Transformation en tenseur
 
@@ -82,7 +98,7 @@ def save_train(images, labels, couleur):
 def save_test(images, labels, couleur):
     if not os.path.exists('data/' + couleur):
         os.makedirs('data' + couleur)
-    torch.save((images, labels), 'data' + couleur + '/test.pt')
+    torch.save((images, labels), 'data/' + couleur + '/test.pt')
 
 
 # Chargement des tenseurs 
@@ -94,7 +110,7 @@ def train(couleur):
         images = Parallel(n_jobs=16)(delayed(traite_image)(path, couleur) for path in chemins_images)
         labels = Parallel(n_jobs=16)(delayed(traite_label)(path) for path in chemins_images)
         images = torch.Tensor(images)
-        labels = torch.Tensor(labels)
+        labels = torch.Tensor(labels, )
         save_train(images, labels, couleur)
     images, labels = torch.load('data/' + couleur + '/train.pt')
     return images, labels
@@ -106,7 +122,7 @@ def test(couleur):
         images = Parallel(n_jobs=16)(delayed(traite_image)(path, couleur) for path in chemins_images)
         labels = Parallel(n_jobs=16)(delayed(traite_label)(path) for path in chemins_images)
         images = torch.Tensor(images)
-        labels = torch.Tensor(labels)
+        labels = torch.Tensor(labels, )
         save_test(images, labels, couleur)
     images, labels = torch.load('data/' + couleur + '/test.pt')
     return images, labels
