@@ -50,6 +50,7 @@ def get_test_folder():
         print("Unzipping the test database...")
         zip_ref = zipfile.ZipFile('data/test.zip', 'r')
         zip_ref.extractall('data/')
+        zip_ref.close()
         zip_ref = zipfile.ZipFile('data/test_labels.zip', 'r')
         zip_ref.extractall('data/Final_Test')
         zip_ref.close()
