@@ -50,13 +50,10 @@ def get_test_folder():
         print("Unzipping the test database...")
         zip_ref = zipfile.ZipFile('data/test.zip', 'r')
         zip_ref.extractall('data/')
+        zip_ref = zipfile.ZipFile('data/test_labels.zip', 'r')
+        zip_ref.extractall('data/Final_Test')
         zip_ref.close()
-        zip_ref2 = zipfile.ZipFile('data/test_labels.zip', 'r')
-        zip_ref2.extractall('data/')
-        zip_ref2.close()
         print("Unzip complete.")
-        shutil.move('data/GTSRB/Final_Test', 'data/')
-        shutil.rmtree('data/GTSRB')
         os.remove('data/test.zip')
         # Réorganisation du dossier Images/ en sous-dossiers
         data_url = 'data/Final_Test/Images/'
