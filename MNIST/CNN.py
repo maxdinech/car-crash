@@ -1,10 +1,18 @@
-"""Réseau CNN simple avec Torch pour la reconaissance de MNIST"""
+"""
+CNN avec PyTorch sur MNIST.
+
+Résultats attendus : 99.5 %
+
+TODO:
+    - Mettre en place un dropout après chaque Dense.
+
+"""
 
 
 import torch
 from torch import nn
 from torch.autograd import Variable
-from torch.utils.data import TensorDataset, DataLoader
+from torch.utils.data import DataLoader, TensorDataset
 import torch.nn.functional as F
 import mnist_loader
 
@@ -18,7 +26,7 @@ nb_train = 60000
 nb_val = 10000
 
 
-# Utilise automatiquement le GPU si CUDA est disponible
+# Création de variable sur GPU si possible, CPU sinon
 def to_Var(x, requires_grad=False):
     if torch.cuda.is_available():
         x = x.cuda()
@@ -29,15 +37,14 @@ def to_Var(x, requires_grad=False):
 train_images, train_labels = mnist_loader.train(nb_train)
 test_images, test_labels = mnist_loader.test(nb_val)
 
-
-# Création du DataLodaer de train
+# Création du DataLoader
 train_loader = DataLoader(TensorDataset(train_images, train_labels),
                           batch_size=batch_size,
                           shuffle=True)
 
 nb_batches = len(train_loader)
 
-# Transformation des BDD en Variables
+# Conversion des BDD en Variables
 train_images = to_Var(train_images)
 train_labels = to_Var(train_labels)
 test_images = to_Var(test_images)
@@ -65,14 +72,15 @@ class CNN(nn.Module):
         return x
 
 
-# Génération d'un modèle
+# Génération d'un CNN initialisé aléatoirement
 model = CNN()
 
+# Déplacement vers le GPU si possible
 if torch.cuda.is_available():
     model = model.cuda()
 
 
-# Fonction de coût
+# Fonction d'erreur
 loss_fn = nn.CrossEntropyLoss()
 
 
