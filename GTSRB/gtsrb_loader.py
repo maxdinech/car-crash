@@ -86,7 +86,7 @@ def save_test(images, labels, couleur):
 def train(couleur):
     if not os.path.exists('data/' + couleur + '/train.pt'):
         get_train_folder()
-        chemins_images = glob.glob(os.path.join('data/Final_Training', '*/*.ppm'))
+        chemins_images = glob.glob(os.path.join('data/Final_Training/Images/', '*/*.ppm'))
         images = Parallel(n_jobs=16)(delayed(traite_image)(path, couleur) for path in chemins_images)
         labels = Parallel(n_jobs=16)(delayed(traite_label)(path) for path in chemins_images)
         images = torch.Tensor(images)
@@ -98,7 +98,7 @@ def train(couleur):
 def test(couleur):
     if not os.path.exists('data/' + couleur + '/test.pt'):
         get_test_folder()
-        chemins_images = glob.glob(os.path.join('data/Final_Test', '*/*.ppm'))
+        chemins_images = glob.glob(os.path.join('data/Final_Test/Images/', '*/*.ppm'))
         images = Parallel(n_jobs=16)(delayed(traite_image)(path, couleur) for path in chemins_images)
         labels = Parallel(n_jobs=16)(delayed(traite_label)(path) for path in chemins_images)
         images = torch.Tensor(images)
