@@ -111,7 +111,7 @@ def train(couleur):
         images = Parallel(n_jobs=16)(delayed(traite_image)(path, couleur) for path in chemins_images)
         labels = Parallel(n_jobs=16)(delayed(traite_label)(path) for path in chemins_images)
         images = torch.Tensor(images)
-        labels = torch.Tensor(labels, )
+        labels = torch.Tensor(labels)
         save_train(images, labels, couleur)
     images, labels = torch.load('data/' + couleur + '/train.pt')
     return images, labels
@@ -123,7 +123,7 @@ def test(couleur):
         images = Parallel(n_jobs=16)(delayed(traite_image)(path, couleur) for path in chemins_images)
         labels = Parallel(n_jobs=16)(delayed(traite_label)(path) for path in chemins_images)
         images = torch.Tensor(images)
-        labels = torch.Tensor(labels, )
+        labels = torch.Tensor(labels)
         save_test(images, labels, couleur)
     images, labels = torch.load('data/' + couleur + '/test.pt')
     return images, labels
