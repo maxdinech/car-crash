@@ -1,32 +1,61 @@
-"""Charge la base de données GTSRB"""
+"""
+Charge la base de données GTSRB
+
+"""
 
 
-couleur = 'clahe'  # 'rgb', 'grey' ou 'clahe'
-
-source = 'train'  # 'train' ou 'test'
-
-# BIBLIOTHÈQUES EXTERNES
-# ----------------------
 
 import os
+import wget
+import shutil
+import zipfile
 import numpy as np
 import glob
+import torch
 from skimage import io, color, transform, exposure
 from joblib import Parallel, delayed
 
 
-# TRAITEMENT DES DONNÉES
-# ----------------------
 
-if source == 'test':
-    data_url = 'data/Final_Test/Images/'
+# Téléchargement et décompression des images
 
-if source == 'train':
-    data_url = 'data/Final_Training/Images/'
+def get_train_folder():
+    train_url = 'http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Training_Images.zip'
+    if not os.path.exists('data'):
+        os.makedirs('data')
+    if not os.path.exists('data/Final_Training'):
+        print("Downloading the train database...")
+        wget.download(train_url, 'data/train.zip')
+        print("\nDownload complete.")
+        print("Unzipping the train database...")
+        zip_ref = zipfile.ZipFile('data/train.zip', 'r')
+        zip_ref.extractall('data/')
+        zip_ref.close()
+        print("Unzip complete.")
+        shutil.move('data/GTSRB/Final_Training', 'data/Final_Training')
+        shutil.rmtree('data/GTSRB')
+        shutil.rmtree('data/train.zip')
 
+def get_test_folder():
+    test_url = 'http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Test_Images.zip'
+    if not os.path.exists('data'):
+        os.makedirs('data')
+    if not os.path.exists('data/Final_Test'):
+        print("Downloading the test database...")
+        wget.download(test_url, 'data/test.zip')
+        print("\nDownload complete.")
+        print("Unzipping the test database...")
+        zip_ref = zipfile.ZipFile('data/test.zip', 'r')
+        zip_ref.extractall('data/')
+        zip_ref.close()
+        print("Unzip complete.")
+        shutil.move('data/GTSRB/Final_Test', 'data/Final_Test')
+        shutil.rmtree('data/GTSRB')
+        shutil.rmtree('data/test.zip')
 
+# Transformation en tenseur
 
-def traite_image(chemin_image):
+def traite_image(chemin_image, couleur):
     # Lecture de l'image
     image = io.imread(chemin_image)
     # Redimensionnement en 40x40 pixels
@@ -35,28 +64,43 @@ def traite_image(chemin_image):
     if couleur == 'clahe':
         image = exposure.equalize_adapthist(image)
     # Conversion en nuances de gris
-    image = color.rgb2gray(image)
+    if not couleur == 'rgb':
+        image = color.rgb2gray(image)
     return image
-
 
 def traite_label(chemin_image):
     return int(chemin_image.split('/')[-2])
 
 
-def gtsrb():
-    chemins_images = glob.glob(os.path.join(data_url, '*/*.ppm'))
-    images = Parallel(n_jobs=16)(delayed(traite_image)(path) for path in chemins_images)
-    labels = Parallel(n_jobs=16)(delayed(traite_label)(path) for path in chemins_images)
-    images = np.array(images)
-    labels = np.eye(43)[np.array(labels, dtype=int)]  # Conversion entiers -> catégories
+# Enregistrement des tenseurs
+
+def save_train(images, labels, couleur):
+    torch.save('data/' + couleur + '/train.pt' , (images, labels))
+
+def save_test(images, labels, couleur):
+    torch.save('data/' + couleur + '/test.pt' , (images, labels))
+
+
+# Chargement des tenseurs 
+
+def train(couleur):
+    if not os.path.exists('data/' + couleur + '/train.pt'):
+        chemins_images = glob.glob(os.path.join(data_url, '*/*.ppm'))
+        images = Parallel(n_jobs=16)(delayed(traite_image)(path, couleur) for path in chemins_images)
+        labels = Parallel(n_jobs=16)(delayed(traite_label)(path, couleur) for path in chemins_images)
+        images = torch.Tensor(images)
+        labels = torch.Tensor(labels)
+        save_train(images, labels, couleur)
+    images, labels = torch.load('data/' + couleur + '/train.pt')
     return images, labels
 
-
-def save(images, labels):
-    os.makedirs('data' + source)
-    if source == 'test':
-        np.save('data/test/images_' + couleur, images)
-        np.save('data/test/labels_' + couleur, labels)
-    if source == 'train':
-        np.save('data/train/images_' + couleur, images)
-        np.save('data/train/labels_' + couleur, labels)
+def test(couleur):
+    if not os.path.exists('data/' + couleur + '/test.pt'):
+        chemins_images = glob.glob(os.path.join(data_url, '*/*.ppm'))
+        images = Parallel(n_jobs=16)(delayed(traite_image)(path, couleur) for path in chemins_images)
+        labels = Parallel(n_jobs=16)(delayed(traite_label)(path, couleur) for path in chemins_images)
+        images = torch.Tensor(images)
+        labels = torch.Tensor(labels)
+        save_test(images, labels, couleur)
+    images, labels = torch.load('data/' + couleur + '/test.pt')
+    return images, labels
