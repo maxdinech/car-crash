@@ -2,7 +2,8 @@
 
 """Script d'automatisation des manipulations sur GTSRB"""
 
-import os
+import os.path
+import shutil
 import wget
 import zipfile
 
@@ -17,12 +18,15 @@ def get_train_folder():
     if not os.path.exists('data/Final_Training'):
         print("Downloading the train database...")
         wget.download(train_url, 'data/train.zip')
-        print("Download complete.")
+        print("\nDownload complete.")
         print("Unzipping the train database...")
         zip_ref = zipfile.ZipFile('data/train.zip', 'r')
         zip_ref.extractall('data/')
         zip_ref.close()
         print("Unzip complete.")
+        shutil.move('data/GTSRB/Final_Training', 'data/Final_Training')
+        shutil.rmtree('data/GTSRB')
+
 
 
 def get_test_folder():
@@ -32,9 +36,11 @@ def get_test_folder():
     if not os.path.exists('data/Final_Test'):
         print("Downloading the test database...")
         wget.download(test_url, 'data/test.zip')
-        print("Download complete.")
+        print("\nDownload complete.")
         print("Unzipping the test database...")
         zip_ref = zipfile.ZipFile('data/test.zip', 'r')
         zip_ref.extractall('data/')
         zip_ref.close()
         print("Unzip complete.")
+        shutil.move('data/GTSRB/Final_Test', 'data/Final_Test')
+        shutil.rmtree('data/GTSRB')
