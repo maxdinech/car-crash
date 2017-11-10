@@ -33,7 +33,7 @@ def get_train_folder():
         zip_ref.extractall('data/')
         zip_ref.close()
         print("Unzip complete.")
-        shutil.move('data/GTSRB/Final_Training', 'data/Final_Training')
+        shutil.move('data/GTSRB/Final_Training', 'data/')
         shutil.rmtree('data/GTSRB')
         os.remove('data/train.zip')
 
@@ -55,7 +55,7 @@ def get_test_folder():
         zip_ref2.extractall('data/Final_Test')
         zip_ref2.close()
         print("Unzip complete.")
-        shutil.move('data/GTSRB/Final_Test', 'data/Final_Test')
+        shutil.move('data/GTSRB/Final_Test', 'data/')
         shutil.rmtree('data/GTSRB')
         os.remove('data/test.zip')
         # Réorganisation du dossier Images/ en sous-dossiers
