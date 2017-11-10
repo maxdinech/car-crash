@@ -34,7 +34,7 @@ def get_train_folder():
         print("Unzip complete.")
         shutil.move('data/GTSRB/Final_Training', 'data/Final_Training')
         shutil.rmtree('data/GTSRB')
-        shutil.rmtree('data/train.zip')
+        os.remove('data/train.zip')
 
 def get_test_folder():
     test_url = 'http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Test_Images.zip'
@@ -51,7 +51,7 @@ def get_test_folder():
         print("Unzip complete.")
         shutil.move('data/GTSRB/Final_Test', 'data/Final_Test')
         shutil.rmtree('data/GTSRB')
-        shutil.rmtree('data/test.zip')
+        os.remove('data/test.zip')
 
 # Transformation en tenseur
 
