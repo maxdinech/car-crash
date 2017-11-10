@@ -30,17 +30,20 @@ l'augmentation par symétries des bases de données.
 	│		├── 00001/
 	│		├── ...
 	│   	└── 00042/
-	├── test
-	│   ├── images_grey.npy
-	│   ├── labels_grey.npy
-	│   ├── images_clahe.npy
-	│   └── labels_clahe.npy
-	└── test
-		├── images_grey.npy
-		├── labels_grey.npy
-		├── images_clahe.npy
-		└── labels_clahe.npy
+ 	├── rgb
+ 	│	├── test.pt
+	│   ├── train.pt
+	│   └── train_ext.pt
+ 	├── grey
+ 	│	├── test.pt
+	│   ├── train.pt
+	│   └── train_ext.pt
+ 	└── clahe
+ 	 	├── test.pt
+	    ├── train.pt
+	    └── train_ext.pt
 
+	
 ### Construction de la base de données
 
 - Télecharger et décompresser [Final_Training_Images.zip](http://benchmark.ini.rub.de/Dataset/GTSRB_Final_Training_Images.zip) dans le dossier `data/`
