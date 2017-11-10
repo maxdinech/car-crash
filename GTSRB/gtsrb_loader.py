@@ -75,10 +75,16 @@ def traite_label(chemin_image):
 # Enregistrement des tenseurs
 
 def save_train(images, labels, couleur):
-    torch.save((images, labels), 'data/' + couleur + '/train.pt')
+    if not os.path.exists('data/' + couleur):
+        os.makedirs('data/' + couleur)
+    train = (images, labels)
+    torch.save(train, 'data/' + couleur + 'train.pt')
 
 def save_test(images, labels, couleur):
-    torch.save((images, labels), 'data/' + couleur + '/test.pt')
+    if not os.path.exists('data/' + couleur):
+        os.makedirs('data' + couleur)
+    test = (images, labels)
+    torch.save(test, 'data' + couleur + 'test.pt')
 
 
 # Chargement des tenseurs 
