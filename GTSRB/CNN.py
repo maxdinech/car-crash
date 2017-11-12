@@ -9,6 +9,7 @@ TODO:
 """
 
 
+import sys
 import torch
 from torch import nn
 from torch.autograd import Variable
@@ -20,7 +21,7 @@ import gtsrb_loader
 # Hyperparamètres
 # ---------------
 couleur = 'grey'
-eta = 1e-5
+eta = sys.argv[1]
 epochs = 100
 batch_size = 128
 nb_train = 39209
