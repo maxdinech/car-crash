@@ -23,6 +23,8 @@ couleur = 'clahe'
 eta = 0.0003
 epochs = 30
 batch_size = 128
+nb_train = 39209
+nb_val = 12630
 
 
 # Création de variable sur GPU si possible, CPU sinon
