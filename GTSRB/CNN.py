@@ -139,16 +139,16 @@ for e in range(epochs):
     for image, label in zip(train_images, train_labels):
         if model.forward(image.view(1, 1, 40, 40)).max(1)[1].data[0] == label.data[0]:
             predictions_justes += 1
-    acc = predictions_justes / len(train_labels)
+    acc = 100 * predictions_justes / len(train_labels)
 
     predictions_justes = 0
     for image, label in zip(test_images, test_labels):
         if model.forward(image.view(1, 1, 40, 40)).max(1)[1].data[0] == label.data[0]:
             predictions_justes += 1
-    val_acc = predictions_justes / len(test_labels)
+    val_acc = 100 * predictions_justes / len(test_labels)
 
     print("└─ ({0}/{0}) {1} ".format(nb_batches, '▰'*20), end='')
-    print("acc: {:5.4f} - val_acc: {:5.2f}%  ─  ".format(acc, val_acc))
+    print("acc: {:5.4f}% - val_acc: {:5.2f}%  ─  ".format(acc, val_acc))
 
 
 
