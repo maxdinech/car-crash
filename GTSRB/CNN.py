@@ -128,7 +128,7 @@ for e in range(epochs):
     for i, (x, y) in enumerate(train_loader):
 
         for img in x:
-            ascii_print(x)
+            ascii_print(img)
 
         batch = str((i+1)).zfill(len(str(nb_batches)))
         print("└─ ({}/{}) ".format(batch, nb_batches), end='')
