@@ -20,7 +20,7 @@ import gtsrb_loader
 # Hyperparamètres
 # ---------------
 couleur = 'clahe'
-eta = 1e-4
+eta = 1e-6
 epochs = 30
 batch_size = 128
 nb_train = 39209
