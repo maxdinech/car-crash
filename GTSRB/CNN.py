@@ -137,13 +137,13 @@ for e in range(epochs):
 
     predictions_justes = 0
     for image, label in zip(train_images, train_labels):
-        if model.forward(image.view(1, 1, 40, 40)).max(1)[1] == label:
+        if model.forward(image.view(1, 1, 40, 40)).max(1)[1].data[0] == label.data[0]:
             predictions_justes += 1
     acc = predictions_justes / len(train_labels)
 
     predictions_justes = 0
     for image, label in zip(test_images, test_labels):
-        if model.forward(image.view(1, 1, 40, 40)).max(1)[1] == label:
+        if model.forward(image.view(1, 1, 40, 40)).max(1)[1].data[0] == label.data[0]:
             predictions_justes += 1
     val_acc = predictions_justes / len(test_labels)
 
