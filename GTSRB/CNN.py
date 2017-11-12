@@ -147,7 +147,7 @@ for e in range(epochs):
         images = test_images[i : min(i+100, nb_val)]
         labels = test_labels[i : min(i+100, nb_val)]
         predictions_justes += (model.forward(images).max(1)[1] == labels).data.sum()
-    acc = 100 * predictions_justes / len(test_labels)
+    val_acc = 100 * predictions_justes / len(test_labels)
 
     print("└─ ({0}/{0}) {1} ".format(nb_batches, '▰'*20), end='')
     print("acc: {:5.2f}% - val_acc: {:5.2f}%  ─  ".format(acc, val_acc))
