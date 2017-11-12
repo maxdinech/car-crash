@@ -65,7 +65,6 @@ class CNN(nn.Module):
         self.fc2 = nn.Linear(120, 43)
 
     def forward(self, x):
-        x = x.view(len(x), 1, 40, 40)
         x = self.pool1(F.relu(self.conv1(x)))
         x = self.pool2(F.relu(self.conv2(x)))
         x = x.view(len(x), -1)  # Flatten
