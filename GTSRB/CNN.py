@@ -94,6 +94,27 @@ def accuracy(y_pred, y):
     return 100 * (y_pred.max(1)[1] == y).data.sum() / len(y)
 
 
+def ascii_print(image):
+    image = image.view(40,40)
+    for ligne in image:
+        for pix in ligne:
+            print(2*" ░▒▓█"[int(pix*4.999)%5], end='')
+        print('')
+
+
+def prediction(n):
+    img = test_images[n].view(1, 1, 40, 40)
+    pred = model.forward(img)
+    print("prédiction :", pred.max(1)[1].data[0])
+    ascii_print(img.data)
+
+
+def prediction_img(img):
+    pred = model.forward(img)
+    print("prédiction :", pred.max(0)[1].data[0])
+    ascii_print(img.data)
+
+
 print("Train on {} samples, validate on {} samples.".format(nb_train, nb_val))
 print("Epochs: {}, batch_size: {}, eta: {}\n".format(epochs, batch_size, eta))
 
@@ -161,26 +182,6 @@ for e in range(epochs):
 # Enregistrement du réseau
 torch.save(model, 'model.pt')
 
-
-def ascii_print(image):
-    image = image.view(40,40)
-    for ligne in image:
-        for pix in ligne:
-            print(2*" ░▒▓█"[int(pix*4.999)%5], end='')
-        print('')
-
-
-def prediction(n):
-    img = test_images[n].view(1, 1, 40, 40)
-    pred = model.forward(img)
-    print("prédiction :", pred.max(1)[1].data[0])
-    ascii_print(img.data)
-
-
-def prediction_img(img):
-    pred = model.forward(img)
-    print("prédiction :", pred.max(0)[1].data[0])
-    ascii_print(img.data)
 
 
 import random, time
