@@ -17,6 +17,13 @@ from skimage import io, color, transform, exposure
 from joblib import Parallel, delayed
 
 
+# Utilise automatiquement le GPU si CUDA est disponible
+
+if torch.cuda.is_available():
+    ltype = torch.cuda.LongTensor
+else:
+    ltype = torch.LongTensor
+
 
 # Téléchargement et décompression des images
 
@@ -103,26 +110,36 @@ def save_test(images, labels, couleur):
 
 # Chargement des tenseurs 
 
-def train(couleur):
+def train(couleur, nb_train=39209):
     if not os.path.exists('data/' + couleur + '/train.pt'):
         get_train_folder()
         chemins_images = glob.glob(os.path.join('data/Final_Training/Images/', '*/*.ppm'))
         images = Parallel(n_jobs=16)(delayed(traite_image)(path, couleur) for path in chemins_images)
         labels = Parallel(n_jobs=16)(delayed(traite_label)(path) for path in chemins_images)
         images = torch.Tensor(images)
-        labels = torch.Tensor(labels)
+        labels = torch.Tensor(labels).type(ltype)
+        if couleur == 'rgb':
+            images = images.permute(0, 3, 1, 2)
+        else:
+            images = images.view(nb_train, 1, 40, 40)
         save_train(images, labels, couleur)
     images, labels = torch.load('data/' + couleur + '/train.pt')
+    images, labels = images[:nb_train], labels[:nb_train]
     return images, labels
 
-def test(couleur):
+def test(couleur, nb_val=12630):
     if not os.path.exists('data/' + couleur + '/test.pt'):
         get_test_folder()
         chemins_images = glob.glob(os.path.join('data/Final_Test/Images/', '*/*.ppm'))
         images = Parallel(n_jobs=16)(delayed(traite_image)(path, couleur) for path in chemins_images)
         labels = Parallel(n_jobs=16)(delayed(traite_label)(path) for path in chemins_images)
         images = torch.Tensor(images)
-        labels = torch.Tensor(labels)
+        labels = torch.Tensor(labels).type(ltype)
+        if couleur == 'rgb':
+            images = images.permute(0, 3, 1, 2)
+        else:
+            images = images.view(nb_val, 1, 40, 40)
         save_test(images, labels, couleur)
     images, labels = torch.load('data/' + couleur + '/test.pt')
+    images, labels = images[:nb_val], labels[:nb_val]
     return images, labels
