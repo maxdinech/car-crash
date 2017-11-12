@@ -106,6 +106,9 @@ for e in range(epochs):
     # Boucle secondaire sur chaque mini-batch
     for i, (x, y) in enumerate(train_loader):
 
+        for img in x:
+            ascii_print(x)
+
         batch = str((i+1)).zfill(len(str(nb_batches)))
         print("└─ ({}/{}) ".format(batch, nb_batches), end='')
         p = int(20 * i / nb_batches)
