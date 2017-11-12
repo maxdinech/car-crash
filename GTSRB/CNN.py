@@ -136,14 +136,15 @@ for e in range(epochs):
     
 
     predictions_justes = 0
-    for i in range(100 + len(train_labels) // 100):
+    for i in range(0, len(train_labels), 100):
         images = train_images[i : min(i+100, nb_train)]
         labels = train_labels[i : min(i+100, nb_train)]
         predictions_justes += (model.forward(images).max(1)[1] == labels).data.sum()
+
     acc = 100 * predictions_justes / len(train_labels)
 
     predictions_justes = 0
-    for i in range(100 + len(test_labels) // 100):
+    for i in range(0, len(test_labels), 100):
         images = test_images[i : min(i+100, nb_val)]
         labels = test_labels[i : min(i+100, nb_val)]
         predictions_justes += (model.forward(images).max(1)[1] == labels).data.sum()
