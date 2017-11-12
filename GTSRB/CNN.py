@@ -23,8 +23,6 @@ couleur = 'clahe'
 eta = 0.0003
 epochs = 30
 batch_size = 128
-nb_train = 6000
-nb_val = 1000
 
 
 # Création de variable sur GPU si possible, CPU sinon
@@ -62,7 +60,7 @@ class CNN(nn.Module):
         self.conv2 = nn.Conv2d(20, 40, 3)
         self.pool2 = nn.MaxPool2d(2)
         self.fc1 = nn.Linear(8*8*40, 120)
-        self.fc2 = nn.Linear(120, 10)
+        self.fc2 = nn.Linear(120, 43)
 
     def forward(self, x):
         x = x.view(len(x), 1, 40, 40)
