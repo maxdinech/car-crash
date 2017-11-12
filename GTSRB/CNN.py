@@ -139,14 +139,14 @@ for e in range(epochs):
     for i in range(len(train_labels) / 100):
         images = train_images[i : min(i+100, nb_train)]
         labels = train_labels[i : min(i+100, nb_train)]
-        predictions_justes += (model.forward(images.max(1)[1] == labels).data.sum()
+        predictions_justes += (model.forward(images).max(1)[1] == labels).data.sum()
     acc = 100 * predictions_justes / len(train_labels)
 
     predictions_justes = 0
     for i in range(len(test_labels) / 100):
         images = test_images[i : min(i+100, nb_val)]
         labels = test_labels[i : min(i+100, nb_val)]
-        predictions_justes += (model.forward(images.max(1)[1] == labels).data.sum()
+        predictions_justes += (model.forward(images).max(1)[1] == labels).data.sum()
     acc = 100 * predictions_justes / len(test_labels)
 
     print("└─ ({0}/{0}) {1} ".format(nb_batches, '▰'*20), end='')
