@@ -21,7 +21,7 @@ import gtsrb_loader
 # Hyperparamètres
 # ---------------
 couleur = 'grey'
-eta = sys.argv[1]
+eta = float(sys.argv[1])
 epochs = 100
 batch_size = 128
 nb_train = 39209
