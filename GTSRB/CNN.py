@@ -120,19 +120,38 @@ for e in range(epochs):
         loss.backward()
         optimizer.step()
 
-    # Calcul de l'erreur totale et de la précision sur la base d'entraînement
-    y_pred = model.forward(train_images)
-    acc = accuracy(y_pred, train_labels)
-    loss = loss_fn(y_pred, train_labels).data[0]
+    # # Calcul de l'erreur totale et de la précision sur la base d'entraînement
+    # y_pred = model.forward(train_images)
+    # acc = accuracy(y_pred, train_labels)
+    # loss = loss_fn(y_pred, train_labels).data[0]
+
+    # # Calcul de l'erreur totale et de la précision sur la base de validation
+    # y_pred = model.forward(test_images)
+    # val_acc = accuracy(y_pred, test_labels)
+    # val_loss = loss_fn(y_pred, test_labels).data[0]
+
+    # print("└─ ({0}/{0}) {1} ".format(nb_batches, '▰'*20), end='')
+    # print("loss: {:6.4f} - acc: {:5.2f}%  ─  ".format(loss, acc), end='')
+    # print("val_loss: {:6.4f} - val_acc: {:5.2f}%".format(val_loss, val_acc))
     
-    # Calcul de l'erreur totale et de la précision sur la base de validation
-    y_pred = model.forward(test_images)
-    val_acc = accuracy(y_pred, test_labels)
-    val_loss = loss_fn(y_pred, test_labels).data[0]
+
+    predictions_justes = 0
+    for image, label in zip(train_images, train_labels):
+        image = image.view(1, 1, 40, 40)
+        if model.forward(i.view(1, 1, 40, 40)).max(1)[1] == label:
+            predictions_justes += 1
+    acc = predictions_justes / len(train_labels)
+
+    predictions_justes = 0
+    for image, label in zip(test_images, test_labels):
+        image = image.view(1, 1, 40, 40)
+        if model.forward(i.view(1, 1, 40, 40)).max(1)[1] == label:
+            predictions_justes += 1
+    val_acc = predictions_justes / len(test_labels)
 
     print("└─ ({0}/{0}) {1} ".format(nb_batches, '▰'*20), end='')
-    print("loss: {:6.4f} - acc: {:5.2f}%  ─  ".format(loss, acc), end='')
-    print("val_loss: {:6.4f} - val_acc: {:5.2f}%".format(val_loss, val_acc))
+    print("acc: {:5.4f} - val_acc: {:5.2f}%  ─  ".format(acc, val_acc))
+
 
 
 # Enregistrement du réseau
