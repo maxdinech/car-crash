@@ -15,13 +15,14 @@ from torch.autograd import Variable
 from torch.utils.data import DataLoader, TensorDataset
 import torch.nn.functional as F
 import mnist_loader
+import architectures
 
 
 # Hyperparamètres
 # ---------------
 eta = 0.0003
 epochs = 30
-batch_size = 128
+batch_size = 32
 nb_train = 60000
 nb_val = 10000
 
@@ -51,29 +52,9 @@ test_images = to_Var(test_images)
 test_labels = to_Var(test_labels)
 
 
-# Définition du modèle : CNN à deux convolutions
-class CNN(nn.Module):
-    def __init__(self):
-        super(CNN, self).__init__()
-        # convolutions : nb_canaux_entree, nb_canaux_sortie, dim_kernel
-        self.conv1 = nn.Conv2d(1, 20, 5)
-        self.pool1 = nn.MaxPool2d(2)
-        self.conv2 = nn.Conv2d(20, 40, 3)
-        self.pool2 = nn.MaxPool2d(2)
-        self.fc1 = nn.Linear(5*5*40, 120)
-        self.fc2 = nn.Linear(120, 10)
-
-    def forward(self, x):
-        x = self.pool1(F.relu(self.conv1(x)))
-        x = self.pool2(F.relu(self.conv2(x)))
-        x = x.view(len(x), -1)  # Flatten
-        x = F.relu(self.fc1(x))
-        x = F.softmax(self.fc2(x))
-        return x
-
-
 # Génération d'un CNN initialisé aléatoirement
-model = CNN()
+# (la classe CNN est définie dans `architectures.py`)
+model = architectures.CNN()
 
 # Déplacement vers le GPU si possible
 if torch.cuda.is_available():
