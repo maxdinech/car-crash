@@ -32,9 +32,14 @@ class CNN(nn.Module):
 
 # Importation du modèle
 try:
-    model = torch.load('model.pt')
+    if torch.cuda.is_available():
+        model = torch.load('model.pt').cuda()
+    else:
+        torch.load('model.pt', map_location=lambda storage, loc: storage)
 except FileNotFoundError:
     print("Pas de modèle existant !")
 
 
 # Sélection d'une image aléatoire dans la base de données
+
+image, label = mnist_loader.train(1)
