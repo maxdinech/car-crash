@@ -1,6 +1,8 @@
 """
 Charge la base de données GTSRB
 
+
+TODO: Enregistrer au format Bytes et diviser par 255 à l'appel (comme MNIST)
 """
 
 
@@ -110,7 +112,7 @@ def save_test(images, labels, couleur):
 
 # Chargement des tenseurs 
 
-def train(couleur, nb_train=39209):
+def train(couleur, nb_train=39209):  # Couleur : 'rgb', 'grey', 'clahe'
     if not os.path.exists('data/' + couleur + '/train.pt'):
         get_train_folder()
         chemins_images = glob.glob(os.path.join('data/Final_Training/Images/', '*/*.ppm'))
@@ -126,6 +128,7 @@ def train(couleur, nb_train=39209):
     images, labels = torch.load('data/' + couleur + '/train.pt')
     images, labels = images[:nb_train], labels[:nb_train]
     return images, labels
+
 
 def test(couleur, nb_val=12630):
     if not os.path.exists('data/' + couleur + '/test.pt'):
