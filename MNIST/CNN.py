@@ -3,8 +3,7 @@ CNN avec PyTorch sur MNIST.
 
 Résultats attendus : 99.5 %
 
-TODO:
-    - Mettre en place un dropout après chaque Dense.
+TODO: Mettre en place un dropout après chaque Dense.
 
 """
 
@@ -14,6 +13,7 @@ from torch import nn
 from torch.autograd import Variable
 from torch.utils.data import DataLoader, TensorDataset
 import torch.nn.functional as F
+from tqdm import tqdm
 import mnist_loader
 import architectures
 
@@ -73,23 +73,20 @@ optimizer = torch.optim.Adam(model.parameters(), lr=eta)
 def accuracy(y_pred, y):
     return 100 * (y_pred.max(1)[1] == y).data.sum() / len(y)
 
-
+# Affichage des HP et bare de progression
 print("Train on {} samples, validate on {} samples.".format(nb_train, nb_val))
 print("Epochs: {}, batch_size: {}, eta: {}\n".format(epochs, batch_size, eta))
+def bar(data, e):
+    epoch = "Epoch {}/{}".format(e+1, epochs)
+    bar_format = "{desc}: {percentage:3.0f}% |{bar}| {elapsed} - ETA:{remaining} - {rate_fmt}"
+    return tqdm(data, desc=epoch, ncols=100, unit='b', bar_format=bar_format)
 
 
 # Boucle principale sur chaque epoch
 for e in range(epochs):
 
-    print("Epoch {}/{}".format(e+1, epochs))
-
     # Boucle secondaire sur chaque mini-batch
-    for i, (x, y) in enumerate(train_loader):
-
-        batch = str((i+1)).zfill(len(str(nb_batches)))
-        print("└─ ({}/{}) ".format(batch, nb_batches), end='')
-        p = int(20 * i / nb_batches)
-        print('▰'*p + '▱'*(20-p), end='\r')
+    for (x, y) in bar(train_loader, e):
         
         # Propagation dans le réseau et calcul de l'erreur
         y_pred = model.forward(to_Var(x))
@@ -110,13 +107,12 @@ for e in range(epochs):
     val_acc = accuracy(y_pred, test_labels)
     val_loss = loss_fn(y_pred, test_labels).data[0]
 
-    print("└─ ({0}/{0}) {1} ".format(nb_batches, '▰'*20), end='')
-    print("loss: {:6.4f} - acc: {:5.2f}%  ─  ".format(loss, acc), end='')
+    print("    └─ loss: {:6.4f} - acc: {:5.2f}%  ─  ".format(loss, acc), end='')
     print("val_loss: {:6.4f} - val_acc: {:5.2f}%".format(val_loss, val_acc))
 
 
 # Enregistrement du réseau
-torch.save(model, 'model.pt')
+# torch.save(model, 'model.pt')
 
 
 def ascii_print(image):

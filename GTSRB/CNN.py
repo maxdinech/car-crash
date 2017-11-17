@@ -15,13 +15,14 @@ from torch import nn
 from torch.autograd import Variable
 from torch.utils.data import DataLoader, TensorDataset
 import torch.nn.functional as F
+from tqdm import tqdm
 import gtsrb_loader
 
 
 # Hyperparamètres
 # ---------------
 couleur = 'grey'
-eta = float(sys.argv[1])
+eta = float(sys.argv[1])  # 1e-5 marche bien
 epochs = 100
 batch_size = 128
 nb_train = 39209
@@ -97,18 +98,21 @@ def accuracy(y_pred, y):
     return 100 * (y_pred.max(1)[1] == y).data.sum() / len(y)
 
 
+# Affichage des HP et bare de progression
 print("Train on {} samples, validate on {} samples.".format(nb_train, nb_val))
 print("Epochs: {}, batch_size: {}, eta: {}\n".format(epochs, batch_size, eta))
+def bar(data, e):
+    epoch = "Epoch {}/{}".format(e+1, epochs)
+    bar_format = "{desc}: {percentage:3.0f}% |{bar}| {elapsed} - ETA:{remaining} - {rate_fmt}"
+    return tqdm(data, desc=epoch, ncols=100, unit='b', bar_format=bar_format)
 
 
 # Boucle principale sur chaque epoch
 for e in range(epochs):
 
-    print("Epoch {}/{}".format(e+1, epochs))
-
     # Boucle secondaire sur chaque mini-batch
-    for i, (x, y) in enumerate(train_loader):
-
+    for (x, y) in bar(train_loader, e):
+ 
         batch = str((i+1)).zfill(len(str(nb_batches)))
         print("└─ ({}/{}) ".format(batch, nb_batches), end='')
         p = int(20 * i / nb_batches)
@@ -155,11 +159,6 @@ for e in range(epochs):
 
     print("└─ ({0}/{0}) {1} ".format(nb_batches, '▰'*20), end='')
     print("acc: {:5.2f}% - val_acc: {:5.2f}%  ─  ".format(acc, val_acc))
-
-
-
-# Enregistrement du réseau
-torch.save(model, 'model.pt')
 
 
 def ascii_print(image):
