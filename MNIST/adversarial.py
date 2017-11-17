@@ -1,4 +1,8 @@
-"""Génération d'examples adversaires sur PyTorch"""
+"""
+Génération d'examples adversaires sur PyTorch
+
+"""
+
 
 
 import torch
@@ -7,27 +11,15 @@ from torch.autograd import Variable
 from torch.utils.data import TensorDataset, DataLoader
 import torch.nn.functional as F
 import mnist_loader
+import matplotlib.pyplot as plt
 
 
-# Définition du modèle : CNN à deux convolutions
-class CNN(nn.Module):
-    def __init__(self):
-        super(CNN, self).__init__()
-        # convolutions : nb_canaux_entree, nb_canaux_sortie, dim_kernel
-        self.conv1 = nn.Conv2d(1, 20, 5)
-        self.pool1 = nn.MaxPool2d(2)
-        self.conv2 = nn.Conv2d(20, 40, 3)
-        self.pool2 = nn.MaxPool2d(2)
-        self.fc1 = nn.Linear(5*5*40, 120)
-        self.fc2 = nn.Linear(120, 10)
 
-    def forward(self, x):
-        x = self.pool1(F.relu(self.conv1(x)))
-        x = self.pool2(F.relu(self.conv2(x)))
-        x = x.view(len(x), -1)  # Flatten
-        x = F.relu(self.fc1(x))
-        x = F.softmax(self.fc2(x))
-        return x
+# Création de variable sur GPU si possible, CPU sinon
+def to_Var(x, requires_grad=False):
+    if torch.cuda.is_available():
+        x = x.cuda()
+    return Variable(x, requires_grad=requires_grad)
 
 
 # Importation du modèle
@@ -35,11 +27,84 @@ try:
     if torch.cuda.is_available():
         model = torch.load('model.pt').cuda()
     else:
-        torch.load('model.pt', map_location=lambda storage, loc: storage)
+        model = torch.load('model.pt', map_location=lambda storage, loc: storage)
 except FileNotFoundError:
-    print("Pas de modèle existant !")
+    print("Pas de modèle trouvé !")
 
 
-# Sélection d'une image aléatoire dans la base de données
+def compare(image1, image2):
+    fig = plt.figure()
+    ax1 = fig.add_subplot(1,2,1)
+    ax1.imshow(image1.data.view(28, 28).numpy(), cmap='gray')
+    plt.title("Prédiction : {}".format(prediction(image1)))
+    ax2 = fig.add_subplot(1,2,2)
+    ax2.imshow(image2.data.view(28, 28).numpy(), cmap='gray')
+    plt.title("Prédiction : {}".format(prediction(image2)))
+    plt.show()
 
-image, label = mnist_loader.train(1)
+def affiche(image):
+    plt.imshow(image.clamp(0, 1).data.view(28, 28).numpy(), cmap='gray')
+    plt.show()
+
+# Sélection d'une image dans la base de données (la première : un chiffre 5)
+
+
+# Première méthode d'attaque : exploration du voisinage de l'image en cherchant
+# à avoir une grande erreur tout en restant assez près On cherche la direction
+# la plus favorable par calcul du gradient
+#   1. On calcule et trie les gradients
+#   2. On modifie l'image
+# Jusqu'à obtenir une prédiction incorrecte
+
+
+def charge_image(n):
+    images, _ = mnist_loader.train(n+1)
+    return to_Var(images[n].view(1, 1, 28, 28))
+
+
+def prediction(image):
+    return model.forward(image.clamp(0, 1)).max(1)[1].data[0]
+
+
+def attaque(n, eta=0.005):
+    image = charge_image(n)
+    chiffre = prediction(image)
+    r = to_Var(torch.zeros(1, 1, 28, 28), requires_grad=True)
+    image_adv = (image + r).clamp(0, 1)
+    i = 0
+    while prediction(image_adv) == chiffre:
+        loss = model.forward(image_adv)[0,chiffre]
+        loss.backward()
+        print(loss.data[0])
+        r.data -= eta * r.grad.data / r.grad.data.abs().max()
+        r.grad.data.zero_()
+        image_adv = (image + r).clamp(0, 1)
+        i += 1
+        if i > 1000:
+            break
+    compare(image, image_adv)
+
+
+def attaque_2(n, eta=0.005):
+    image = charge_image(n)
+    chiffre = prediction(image)
+    r = to_Var(torch.zeros(1, 1, 28, 28), requires_grad=True)
+    demis = to_Var(torch.ones(1, 1, 28, 28) / 2)
+    image_adv = (1 - r.clamp(0, 1)) * image + r.clamp(0, 1) * demis
+    i = 0
+    while prediction(image_adv) == chiffre:
+        loss = model.forward(image_adv)[0,chiffre]
+        loss.backward()
+        print(loss.data[0])
+        r.data -= eta * r.grad.data / r.grad.data.abs().max()
+        r.grad.data.zero_()
+        image_adv = (1 - r.clamp(0, 1)) * image + r.clamp(0, 1) * demis
+        i += 1
+        if i > 1000:
+            break
+    compare(image, image_adv)
+
+
+def attaques(eta=0.005):
+    for n in range(1000):
+        attaque(n, eta)
