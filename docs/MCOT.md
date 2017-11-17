@@ -8,6 +8,7 @@
     4. Objectifs du TIPE (100 mots)
     5. Liste de références bibliographiques (2 à 10 références) -->
 
+
 ## 1. Positionnements thématiques et mots-clés
 
 <!-- Le positionnement thématique du TIPE doit être défini par le candidat par la sélection d'un à trois thèmes dans une liste proposée lors de la saisie. Ce positionnement assurera une mise en correspondance du contenu scientifique du TIPE avec les compétences du binôme d'examinateurs qui auront à évaluer le travail du candidat.
@@ -21,15 +22,16 @@ Le choix de 5 mots-clés en français (et en anglais) incite le candidat à pren
 
 ### Mots clés
 
-- Apprentissage profond
+- Apprentissage automatique
 - Réseaux de neurones
 - Vision par ordinateur
 
-- Deep learning
+- Machine learning
 - Neural networks
 - Computer vision
 
-## 2.  Bibliographie commentée
+
+## 2.  Bibliographie commentée (650 mots)
 
 <!-- Un travail efficace du candidat satisfaisant aux critères d'évaluation de l'épreuve du TIPE suppose obligatoirement une connaissance préalable de travaux antérieurs « balisant » le domaine choisi.
 
@@ -46,9 +48,23 @@ Dans le cas d'un travail de groupe, cette bibliographie devra être commune et i
 - De nouvelles améliorations tous les jours encore ajd (ReLU, dropout, Capsules...)
 - Des usages qui se diversifient : GANs
 
+## Problématique retenue (50 mots)
+
+<!-- Dans cette partie, le candidat doit clairement dégager un phénomène à étudier, une propriété à mesurer, à établir ou démontrer... La finalité est de définir une problématique mise en évidence dans la bibliographie commentée et présentant un regard ou une approche personnels, soit dans des domaines classiques, soit dans des domaines insuffisamment traités au vu de la littérature consultée. Dans tous les cas, la problématique retenue devra traduire la capacité du candidat à faire preuve d’initiative. Dans le cas d’un travail de groupe, cette problématique devra être commune et issue d’un choix collectif. -->
+
+*L’efficacité exceptionnelle des réseaux de neurones étend leur utilisation à de nombreux domaines, en particulier celui de la conduite autonome. Pourtant, certains travaux remettent en cause leur fiabilité : des attaques ciblées malveillantes les trompent avec succès. En quoi (technique à insérer) permet-elle de se prémunir contre ces attaques ?*
+
+
 ## 4. Objectifs du travail
 
 <!-- Le candidat, ayant clairement délimité sa problématique sur la base de sa bibliographie commentée, doit ensuite, de manière concise, énoncer les objectifs qu'il se propose d'atteindre à l’issue de son travail en réponse à sa problématique. Spécifique à chaque membre d'un éventuel groupe, cette quatrième partie permet de positionner individuellement le travail de TIPE du candidat. -->
+
+### Répartition provisoire des tâches
+
+Pierre-Louis : Reconaissance (prog)
+Jean : Reconaissance (théorie)
+Max : Attaque des NN (+ défenses ?)
+
 
 ## 5. Liste des références bibliographiques
 
@@ -67,12 +83,14 @@ Dans le cas d'un travail de groupe, cette bibliographie devra être commune et i
 
 ### Publications
 
-- [N°3] Yann LeCun, Yoshua Bengio & Geoffrey Hinton - Nature, **Deep Learning**, Volume 521 (2015), Pages 436-444
+- [N°3] Y. LeCun, Y. Bengio & G. Hinton - Nature, **Deep Learning**, Volume 521 (2015), Pages 436-444
 
-- [N°4] Alex Krizhevsky, Ilya Sutskever & Geoffrey Hinton - NIPS'12 Proceedings, **ImageNet Classification with Deep Convolutional Neural Networks** - Volume 1 (2012), Pages 1097-1105 
+- [N°4] A. Krizhevsky, I. Sutskever & G. Hinton - NIPS'12 Proceedings, **ImageNet Classification with Deep Convolutional Neural Networks** - Volume 1 (2012), Pages 1097-1105
 
-- [N°5] Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky & al. - Journal of Machine Learning Research, **Dropout: A Simple Way to Prevent Neural Networks from Overfitting** - Volume 15 (2014), Pages 1929-1958
+- [N°5] N. Srivastava, G. Hinton, A. Krizhevsky & al. - Journal of Machine Learning Research, **Dropout: A Simple Way to Prevent Neural Networks from Overfitting** - Volume 15 (2014), Pages 1929-1958
 
-- [N°6] Ian Goodfellow & al. - NIPS'14 Proceedings, **Generative adversarial nets** - Volume 2 (2014), Pages 2672-2680 
+- [N°6] I. Goodfellow & al. - NIPS'14 Proceedings, **Generative adversarial nets** - Volume 2 (2014), Pages 2672-2680 
 
-- [N°7] Sara Sabour, Nicholas Frosst & Geoffrey Hinton - NIPS'17 Proceedings, **Dynamic Routing Between Capsules** - Volume ? (2017), Pages ?-?
+- [N°7] S. Sabour, N. Frosst & G. Hinton - NIPS'17 Proceedings, **Dynamic Routing Between Capsules** - Volume ? (2017), Pages ?-?
+
+- [N°8] C. Szegedy, I. Goodfellow & al. - ICLR 2014, **Intriguing Properties of Neural Networks** - 
