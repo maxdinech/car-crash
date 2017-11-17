@@ -2,6 +2,7 @@
 *.zip
 *.pyc
 *.npy
+*.patch
 data
 logs
 __pycache__
