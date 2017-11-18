@@ -6,10 +6,7 @@ Génération d'examples adversaires sur PyTorch
 
 
 import torch
-from torch import nn
 from torch.autograd import Variable
-from torch.utils.data import TensorDataset, DataLoader
-import torch.nn.functional as F
 import mnist_loader
 import matplotlib.pyplot as plt
 
@@ -32,13 +29,16 @@ except FileNotFoundError:
     print("Pas de modèle trouvé !")
 
 
-def compare(image1, image2):
+def compare(image1, r, image2):
     fig = plt.figure()
-    ax1 = fig.add_subplot(1,2,1)
+    ax1 = fig.add_subplot(1,3,1)
     ax1.imshow(image1.data.view(28, 28).numpy(), cmap='gray')
     plt.title("Prédiction : {}".format(prediction(image1)))
-    ax2 = fig.add_subplot(1,2,2)
-    ax2.imshow(image2.data.view(28, 28).numpy(), cmap='gray')
+    ax2 = fig.add_subplot(1,3,2)
+    ax2.imshow(r.data.view(28, 28).numpy(), cmap='RdBu')
+    plt.title("Perturbation")
+    ax3 = fig.add_subplot(1,3,3)
+    ax3.imshow(image2.data.view(28, 28).numpy(), cmap='gray')
     plt.title("Prédiction : {}".format(prediction(image2)))
     plt.show()
 
@@ -66,45 +66,59 @@ def prediction(image):
     return model.forward(image.clamp(0, 1)).max(1)[1].data[0]
 
 
-def attaque(n, eta=0.005):
+def attaque_1(n, lr=0.005, div=-0.2):
     image = charge_image(n)
     chiffre = prediction(image)
     r = to_Var(torch.zeros(1, 1, 28, 28), requires_grad=True)
-    image_adv = (image + r).clamp(0, 1)
+    image_adv = (image + r.clamp(-div, div)).clamp(0, 1)
     i = 0
     while prediction(image_adv) == chiffre:
         loss = model.forward(image_adv)[0,chiffre]
         loss.backward()
-        print(loss.data[0])
-        r.data -= eta * r.grad.data / r.grad.data.abs().max()
+        print(str(i).zfill(3), loss.data[0], end='\r')
+        r.data -= lr * r.grad.data / r.grad.data.abs().max()
         r.grad.data.zero_()
-        image_adv = (image + r).clamp(0, 1)
+        image_adv = (image + r.clamp(-div, div)).clamp(0, 1)
         i += 1
-        if i > 1000:
+        if i >= 300:
             break
-    compare(image, image_adv)
+    return (i < 300), image, r, image_adv
 
 
-def attaque_2(n, eta=0.005):
+def attaque_2(n, lr=0.005, div=0.2):
     image = charge_image(n)
     chiffre = prediction(image)
     r = to_Var(torch.zeros(1, 1, 28, 28), requires_grad=True)
-    demis = to_Var(torch.ones(1, 1, 28, 28) / 2)
-    image_adv = (1 - r.clamp(0, 1)) * image + r.clamp(0, 1) * demis
+    image_adv = (image + (r * div / (1e-5 + r.norm()))).clamp(0, 1)
     i = 0
     while prediction(image_adv) == chiffre:
         loss = model.forward(image_adv)[0,chiffre]
         loss.backward()
-        print(loss.data[0])
-        r.data -= eta * r.grad.data / r.grad.data.abs().max()
+        print(str(i).zfill(3), loss.data[0], end='\r')
+        r.data -= lr * r.grad.data / r.grad.data.abs().max()
         r.grad.data.zero_()
-        image_adv = (1 - r.clamp(0, 1)) * image + r.clamp(0, 1) * demis
+        image_adv = (image + (r * div / (1e-5 + r.norm()))).clamp(0, 1)
         i += 1
-        if i > 1000:
+        if i >= 300:
             break
-    compare(image, image_adv)
+    return (i < 300), image, r, image_adv
 
 
-def attaques(eta=0.005):
+def attaque_optimale(n, a=0, b=5, lr=0.005):
+    if b-a < 0.01:
+        print("\n\nValeur minimale approchée : ", b)
+        succes, image, r, image_adv = attaque_2(n, lr, b)
+        compare(image, r, image_adv)
+    else:
+        c = (a+b)/2
+        print("\n\n", c, "\n")
+        succes, _, _, _ = attaque_2(n, lr, c)
+        if succes:
+            attaque_optimale(n, a, c, lr)
+        else:
+            attaque_optimale(n, c, b, lr)
+
+
+def attaques(lr=0.005):
     for n in range(1000):
-        attaque(n, eta)
+        attaque(n, lr)
