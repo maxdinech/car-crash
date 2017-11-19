@@ -16,6 +16,8 @@ from matplotlib import rc, rcParams
 # Importation du modèle
 try:
     model = torch.load('model.pt', map_location=lambda storage, loc: storage)
+    if torch.cuda.is_available():
+        model = model.cuda()
 except FileNotFoundError:
     print("Pas de modèle trouvé !")
 
@@ -26,15 +28,15 @@ def compare(image1, r, image2, num, p, norme):
     rcParams['axes.titlepad'] = 10
     fig = plt.figure()
     ax1 = fig.add_subplot(1,3,1)
-    ax1.imshow(image1.data.view(28, 28).numpy(), cmap='gray')
+    ax1.imshow(image1.data.view(28, 28).cpu().numpy(), cmap='gray')
     plt.title("$\\textrm{{Prediction : }} {}$".format(prediction(image1)))
     plt.axis('off')
     ax2 = fig.add_subplot(1,3,2)
-    ax2.imshow(r.data.view(28, 28).numpy(), cmap='RdBu')
+    ax2.imshow(r.data.view(28, 28).cpu().numpy(), cmap='RdBu')
     plt.title("$\\textrm{{Perturbation : }} \\Vert r \\Vert_{{{}}} = {}$".format(p, round(norme, 3)))
     plt.axis('off')
     ax3 = fig.add_subplot(1,3,3)
-    ax3.imshow(image2.data.view(28, 28).numpy(), cmap='gray')
+    ax3.imshow(image2.data.view(28, 28).cpu().numpy(), cmap='gray')
     plt.title("$\\textrm{{Prediction : }} {}$".format(prediction(image2)))
     plt.axis('off')
     plt.subplots_adjust(left=0.05, right=0.95, top=0.95, bottom=0.05)
@@ -57,8 +59,7 @@ def affiche(image):
 
 def charge_image(num):
     images, _ = mnist_loader.train(num+1)
-    image = images[num].view(1, 1, 28, 28).cpu()
-    return Variable(image)
+    return Variable(images[num].view(1, 1, 28, 28))
 
 
 def prediction(image):
