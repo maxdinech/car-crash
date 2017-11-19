@@ -68,7 +68,7 @@ def prediction(image):
 def attaque(num, lr=0.001, div=0.2, p=2):
     image = charge_image(num)
     chiffre = prediction(image)
-    r = Variable(torch.zeros(1, 1, 28, 28), requires_grad=True)
+    r = Variable(torch.rand(1, 1, 28, 28), requires_grad=True)
     adv = lambda image, r: (image + (r * div / (1e-5 + r.norm(p)))).clamp(0, 1)
     image_adv = adv(image, r)
     i = 0
