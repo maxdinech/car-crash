@@ -13,6 +13,13 @@ import matplotlib.pyplot as plt
 from matplotlib import rc, rcParams
 
 
+# Création de variable sur GPU si possible, CPU sinon
+def to_Var(x, requires_grad=False):
+    if torch.cuda.is_available():
+        x = x.cuda()
+    return Variable(x, requires_grad=requires_grad)
+
+
 # Importation du modèle
 try:
     model = torch.load('model.pt', map_location=lambda storage, loc: storage)
@@ -59,7 +66,7 @@ def affiche(image):
 
 def charge_image(num):
     images, _ = mnist_loader.train(num+1)
-    return Variable(images[num].view(1, 1, 28, 28))
+    return to_Var(images[num].view(1, 1, 28, 28))
 
 
 def prediction(image):
@@ -69,7 +76,7 @@ def prediction(image):
 def attaque(num, lr=0.001, div=0.2, p=2):
     image = charge_image(num)
     chiffre = prediction(image)
-    r = Variable(torch.rand(1, 1, 28, 28), requires_grad=True)
+    r = to_Var(torch.rand(1, 1, 28, 28), requires_grad=True)
     adv = lambda image, r: (image + (r * div / (1e-5 + r.norm(p)))).clamp(0, 1)
     image_adv = adv(image, r)
     i = 0
