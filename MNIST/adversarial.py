@@ -108,6 +108,7 @@ def attaque_optimale(num, a=0, b=5, p=2, lr=0.005):
             attaque_optimale(num, c, b, p, lr)
 
 
-def attaques(num):
-    for p in [2, 3, 5, 10, 100]:
-        attaque_optimale(num, 0, 5, p)
+def attaques():
+    for num in range(20):
+        for p in [2, 3, 5, 10]:
+            attaque_optimale(num, 0, 5, p)
