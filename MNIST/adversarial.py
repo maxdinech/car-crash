@@ -20,6 +20,7 @@ except FileNotFoundError:
 
 
 def compare(image1, r, image2, num, p, norme):
+    matplotlib.use('Agg')
     rc('text', usetex=True)
     rcParams['axes.titlepad'] = 10
     fig = plt.figure()
@@ -73,7 +74,7 @@ def attaque(num, lr=0.001, div=0.2, p=2):
     while prediction(image_adv) == chiffre:
         loss = model.forward(image_adv)[0,chiffre]
         loss.backward()
-        print(str(i).zfill(3), loss.data[0], end='\r')
+        print(str(i).zfill(4), loss.data[0], end='\r')
         r.data -= lr * r.grad.data / r.grad.data.abs().max()
         r.grad.data.zero_()
         image_adv = adv(image, r)
