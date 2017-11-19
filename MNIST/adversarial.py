@@ -8,6 +8,7 @@ Génération d'examples adversaires sur PyTorch
 import torch
 from torch.autograd import Variable
 import mnist_loader
+import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import rc, rcParams
 
