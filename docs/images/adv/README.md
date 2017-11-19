@@ -13,7 +13,7 @@ On cherche à tromper la prédiction du réseau suivant :
 ![image 0, norme 5](adv_0_n5.png)
 ![image 0, norme 10](adv_0_n10.png)
 
----l
+---
 
 ![image 1, norme 2](adv_0_n2.png)
 ![image 1, norme 3](adv_0_n3.png)
