@@ -21,10 +21,7 @@ def to_Var(x, requires_grad=False):
 
 # Importation du modèle
 try:
-    if torch.cuda.is_available():
-        model = torch.load('model.pt').cuda()
-    else:
-        model = torch.load('model.pt', map_location=lambda storage, loc: storage)
+    model = torch.load('model.pt', map_location=lambda storage, loc: storage)
 except FileNotFoundError:
     print("Pas de modèle trouvé !")
 
