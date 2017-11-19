@@ -4,7 +4,7 @@
 
 On cherche à tromper la prédiction du réseau suivant :
 
-![CNN à deux convolution](../docs/images/CNN2_small.png)
+![CNN à deux convolution](../CNN2_small.png)
 
 ## Résultats
 
