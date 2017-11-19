@@ -94,18 +94,16 @@ def attaque(num, lr=0.005, div=0.2, p=2):
 
 
 def attaque_optimale(num, a=0, b=5, p=2, lr=0.005):
-    if b-a < 0.001:
-        print("\n\nValeur minimale approchée : ", b)
-        succes, image, r, image_adv = attaque(num, lr, b, p)
-        compare(image, r, image_adv, num, p, b)
-    else:
+    while b-a >= 0.001:
         c = (a+b)/2
         print("\n\n", c, "\n")
-        succes, _, _, _ = attaque(num, lr, c, p)
+        succes, i, r, a = attaque(num, lr, c, p)
         if succes:
-            attaque_optimale(num, a, c, p, lr)
+            b = c
         else:
-            attaque_optimale(num, c, b, p, lr)
+            a = c
+    print("\n\nValeur minimale approchée : ", b)
+    compare(i, r,a , num, p, b)
 
 
 def attaques():
