@@ -73,7 +73,7 @@ def prediction(image):
     return model.forward(image.clamp(0, 1)).max(1)[1].data[0]
 
 
-def attaque(num, lr=0.002, div=0.2, p=2):
+def attaque(num, lr=0.005, div=0.2, p=2):
     image = charge_image(num)
     chiffre = prediction(image)
     r = to_Var(torch.rand(1, 1, 28, 28), requires_grad=True)
@@ -93,7 +93,7 @@ def attaque(num, lr=0.002, div=0.2, p=2):
     return (i < 1000), image, (image_adv-image), image_adv
 
 
-def attaque_optimale(num, a=0, b=5, p=2, lr=0.002):
+def attaque_optimale(num, a=0, b=5, p=2, lr=0.005):
     if b-a < 0.001:
         print("\n\nValeur minimale approchée : ", b)
         succes, image, r, image_adv = attaque(num, lr, b, p)
