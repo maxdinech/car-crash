@@ -55,7 +55,8 @@ def affiche(image):
 
 def charge_image(num):
     images, _ = mnist_loader.train(num+1)
-    return Variable(images[num].view(1, 1, 28, 28))
+    image = images[num].view(1, 1, 28, 28).cpu()
+    return Variable(image)
 
 
 def prediction(image):
