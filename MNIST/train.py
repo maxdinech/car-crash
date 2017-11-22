@@ -5,9 +5,9 @@ Les réseaux sont définis dans architectures.py
 
 Résultats attendus :
 
-    - MLP     :
+    - MLP     : train 98.8% - test 97.4%
     - MLP_d   :
-    - CNN     : 99.5 %
+    - CNN     : train 99.5 % - test __._%
     - CNN_d   :
 
 TODO: Gestion du momentum.
@@ -16,23 +16,24 @@ TODO: Gestion du momentum.
 
 import sys
 import torch
-from torch import nn
 from torch.autograd import Variable
 from torch.utils.data import DataLoader, TensorDataset
-import torch.nn.functional as F
 from tqdm import tqdm
 import mnist_loader
 import architectures
 
 
+# Paramètres passés
+nom_modele = sys.argv[1]
+enregistrement = (sys.argv + [False])[2]  # False par défaut
+
 # Hyperparamètres
 # ---------------
-nb_train = -1
-nb_test = -1
+nb_train = 50000
+nb_test = 10000
 
 
 # Importation du modèle, déplacement sur GPU si possible
-nom_modele = sys.argv[1]
 model = getattr(architectures, nom_modele)()
 if torch.cuda.is_available():
     model = model.cuda()
@@ -87,6 +88,7 @@ def accuracy(images, labels):
 
 
 # Fonction de calcul de l'erreur sur beaucoup de données d'un coup
+# (pour éviter les dépassements de capacité)
 def big_loss(images, labels):
     data = TensorDataset(images.data, labels.data)
     loader = DataLoader(data, batch_size=500, shuffle=False)
@@ -98,19 +100,20 @@ def big_loss(images, labels):
     return compteur / len(images)
 
 
-
 # ENTRAINEMENT DU RÉSEAU
 # ----------------------
 
 # Affichage des HP
-print("Train on {} samples, validate on {} samples.".format(nb_train, nb_test))
+print("Train on {} samples, test on {} samples.".format(nb_train, nb_test))
 print("Epochs: {}, batch_size: {}, lr: {}\n".format(epochs, batch_size, lr))
 
 
 # Barre de progression
 def bar(data, e):
     epoch = "Epoch {}/{}".format(e+1, epochs)
-    bar_format = "{desc}: {percentage:3.0f}% |{bar}| {elapsed} - lr:{remaining} - {rate_fmt}"
+    left = "{desc}: {percentage:3.0f}%"
+    right = "{elapsed} - ETA:{remaining} - {rate_fmt}"
+    bar_format = left + " |{bar}| " + right
     return tqdm(data, desc=epoch, ncols=100, unit='b', bar_format=bar_format)
 
 
@@ -119,7 +122,7 @@ for e in range(epochs):
 
     # Boucle secondaire sur chaque mini-batch
     for (x, y) in bar(train_loader, e):
-        
+
         # Propagation dans le réseau et calcul de l'erreur
         y_pred = forward(to_Var(x))
         loss = loss_fn(y_pred, to_Var(y))
@@ -132,24 +135,27 @@ for e in range(epochs):
     # Calcul de l'erreur totale et de la précision sur la base d'entraînement
     acc = accuracy(train_images, train_labels)
     loss = big_loss(train_images, train_labels)
-    
+
     # Calcul de l'erreur totale et de la précision sur la base de test.
     test_acc = accuracy(test_images, test_labels)
     test_loss = big_loss(test_images, test_labels)
 
-    print("    └─ loss: {:6.4f} - acc: {:5.2f}%  ─  ".format(loss, acc), end='')
-    print("test_loss: {:6.4f} - test_acc: {:5.2f}%".format(test_loss, test_acc))
+    print("  └-> loss: {:6.4f} - acc: {:5.2f}%  ─  "
+          .format(loss, acc), end='')
+    print("test_loss: {:6.4f} - test_acc: {:5.2f}%"
+          .format(test_loss, test_acc))
 
 
 # Enregistrement du réseau
-# torch.save(model, 'modeles/' + nom_modele + '.pt')
+if enregistrement:
+    torch.save(model, 'modeles/' + nom_modele + '.pt')
 
 
 def ascii_print(image):
-    image = image.view(28,28)
+    image = image.view(28, 28)
     for ligne in image:
         for pix in ligne:
-            print(2*" ░▒▓█"[int(pix*4.999)%5], end='')
+            print(2*" ░▒▓█"[int(pix*4.999) % 5], end='')
         print('')
 
 
@@ -166,8 +172,9 @@ def prediction_img(img):
     ascii_print(img.data)
 
 
-import random, time
 def affichages():
+    import random
+    import time
     while True:
         print("\033[H\033[J")
         prediction(random.randrange(1000))
