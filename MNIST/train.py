@@ -1,0 +1,174 @@
+"""
+Entraînement de reseaux PyTorch sur MNIST.
+
+Les réseaux sont définis dans architectures.py
+
+Résultats attendus :
+
+    - MLP     :
+    - MLP_d   :
+    - CNN     : 99.5 %
+    - CNN_d   :
+
+TODO: Gestion du momentum.
+
+"""
+
+import sys
+import torch
+from torch import nn
+from torch.autograd import Variable
+from torch.utils.data import DataLoader, TensorDataset
+import torch.nn.functional as F
+from tqdm import tqdm
+import mnist_loader
+import architectures
+
+
+# Hyperparamètres
+# ---------------
+nb_train = -1
+nb_test = -1
+
+
+# Importation du modèle, déplacement sur GPU si possible
+nom_modele = sys.argv[1]
+model = getattr(architectures, nom_modele)()
+if torch.cuda.is_available():
+    model = model.cuda()
+
+
+# Import des paramètres du modèle
+batch_size = model.batch_size
+lr = model.lr
+epochs = model.epochs
+
+# Import des fonctions du modèle
+forward = model.forward
+loss_fn = model.loss_fn
+optimizer = model.optimizer
+
+
+# Fonction de création de variable sur GPU si possible, CPU sinon
+def to_Var(x, requires_grad=False):
+    if torch.cuda.is_available():
+        x = x.cuda()
+    return Variable(x, requires_grad=requires_grad)
+
+
+# Chargement des bases de données
+train_images, train_labels = mnist_loader.train(nb_train)
+test_images, test_labels = mnist_loader.test(nb_test)
+
+# Création du DataLoader
+train_loader = DataLoader(TensorDataset(train_images, train_labels),
+                          batch_size=batch_size,
+                          shuffle=True)
+
+nb_batches = len(train_loader)
+
+# Conversion des BDD en Variables
+train_images = to_Var(train_images)
+train_labels = to_Var(train_labels)
+test_images = to_Var(test_images)
+test_labels = to_Var(test_labels)
+
+
+# Fonction de calcul de la précision du réseau
+def accuracy(images, labels):
+    data = TensorDataset(images.data, labels.data)
+    loader = DataLoader(data, batch_size=500, shuffle=False)
+    compteur = 0
+    for (x, y) in loader:
+        y, y_pred = to_Var(y), forward(to_Var(x))
+        compteur += (y_pred.max(1)[1] == y).double().data.sum()
+        # .double() parce que sinon on a un ByteTensor de sum() limitée à 256 !
+    return 100 * compteur / len(images)
+
+
+# Fonction de calcul de l'erreur sur beaucoup de données d'un coup
+def big_loss(images, labels):
+    data = TensorDataset(images.data, labels.data)
+    loader = DataLoader(data, batch_size=500, shuffle=False)
+    compteur = 0
+    for (x, y) in loader:
+        y, y_pred = to_Var(y), forward(to_Var(x))
+        compteur += len(x) * loss_fn(y_pred, y).data[0]
+        # .double() parce que sinon on a un ByteTensor de sum() limitée à 256 !
+    return compteur / len(images)
+
+
+
+# ENTRAINEMENT DU RÉSEAU
+# ----------------------
+
+# Affichage des HP
+print("Train on {} samples, validate on {} samples.".format(nb_train, nb_test))
+print("Epochs: {}, batch_size: {}, lr: {}\n".format(epochs, batch_size, lr))
+
+
+# Barre de progression
+def bar(data, e):
+    epoch = "Epoch {}/{}".format(e+1, epochs)
+    bar_format = "{desc}: {percentage:3.0f}% |{bar}| {elapsed} - lr:{remaining} - {rate_fmt}"
+    return tqdm(data, desc=epoch, ncols=100, unit='b', bar_format=bar_format)
+
+
+# Boucle principale sur chaque epoch
+for e in range(epochs):
+
+    # Boucle secondaire sur chaque mini-batch
+    for (x, y) in bar(train_loader, e):
+        
+        # Propagation dans le réseau et calcul de l'erreur
+        y_pred = forward(to_Var(x))
+        loss = loss_fn(y_pred, to_Var(y))
+
+        # Ajustement des paramètres
+        model.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+    # Calcul de l'erreur totale et de la précision sur la base d'entraînement
+    acc = accuracy(train_images, train_labels)
+    loss = big_loss(train_images, train_labels)
+    
+    # Calcul de l'erreur totale et de la précision sur la base de test.
+    test_acc = accuracy(test_images, test_labels)
+    test_loss = big_loss(test_images, test_labels)
+
+    print("    └─ loss: {:6.4f} - acc: {:5.2f}%  ─  ".format(loss, acc), end='')
+    print("test_loss: {:6.4f} - test_acc: {:5.2f}%".format(test_loss, test_acc))
+
+
+# Enregistrement du réseau
+# torch.save(model, 'modeles/' + nom_modele + '.pt')
+
+
+def ascii_print(image):
+    image = image.view(28,28)
+    for ligne in image:
+        for pix in ligne:
+            print(2*" ░▒▓█"[int(pix*4.999)%5], end='')
+        print('')
+
+
+def prediction(n):
+    img = test_images[n].view(1, 1, 28, 28)
+    pred = model.forward(img)
+    print("prédiction :", pred.max(1)[1].data[0])
+    ascii_print(img.data)
+
+
+def prediction_img(img):
+    pred = model.forward(img)
+    print("prédiction :", pred.max(0)[1].data[0])
+    ascii_print(img.data)
+
+
+import random, time
+def affichages():
+    while True:
+        print("\033[H\033[J")
+        prediction(random.randrange(1000))
+        time.sleep(0.7)
