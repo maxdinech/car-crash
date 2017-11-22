@@ -5,10 +5,11 @@ Les réseaux sont définis dans architectures.py
 
 Résultats obtenus :
 
-    - MLP     : train 91.10% - test 97.49%
-    - MLP_d   : 98.35% - 97.03%
+    - MLP     : train 99.10% - test 97.49%
+    - MLP_d   : train 99.11% - test 97.52% -> essayer avec plus de D et moins de lr ?
     - CNN     : train 99.5 % - test __._%
     - CNN_d   :
+
 
 TODO: Gestion du momentum.
 
