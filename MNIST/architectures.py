@@ -18,8 +18,6 @@ from torch import nn
 import torch.nn.functional as F
 
 
-
-
 # MLP à deux couches cachées (28*28 -> 128 -> 128 -> 10)
 class MLP(nn.Module):
     def __init__(self):
@@ -40,6 +38,34 @@ class MLP(nn.Module):
         x = x.view(len(x), -1)  # Flatten
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
+        x = F.softmax(self.fc3(x))
+        return x
+
+
+# MLP à deux couches cachées (avec dropout) (28*28 -> 128 -> 128 -> 10)
+class MLP_d(nn.Module):
+    def __init__(self):
+        super(MLP_d, self).__init__()
+        # Hyperparamètres d'entrainement
+        self.lr = 3e-4
+        self.epochs = 30
+        self.batch_size = 32
+        # Définition des couches du modèle
+        self.fc1 = nn.Linear(28*28, 120)
+        self.drop1 = nn.Dropout(p=0.2)
+        self.fc2 = nn.Linear(120, 120)
+        self.drop2 = nn.Dropout(p=0.2)
+        self.fc3 = nn.Linear(120, 10)
+        # fonctions d'erreur et optimiseur
+        self.optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
+        self.loss_fn = nn.CrossEntropyLoss()
+
+    def forward(self, x):
+        x = x.view(len(x), -1)  # Flatten
+        x = F.relu(self.fc1(x))
+        x = self.drop1(x)
+        x = F.relu(self.fc2(x))
+        x = self.drop2(x)
         x = F.softmax(self.fc3(x))
         return x
 
