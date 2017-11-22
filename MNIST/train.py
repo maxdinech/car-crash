@@ -78,7 +78,7 @@ test_labels = to_Var(test_labels)
 # Fonction de calcul de la précision du réseau
 def accuracy(images, labels):
     data = TensorDataset(images.data, labels.data)
-    loader = DataLoader(data, batch_size=500, shuffle=False)
+    loader = DataLoader(data, batch_size=5000, shuffle=False)
     compteur = 0
     for (x, y) in loader:
         y, y_pred = to_Var(y), forward(to_Var(x))
@@ -105,8 +105,9 @@ def big_loss(images, labels):
 
 # Affichage des HP
 print("Train on {} samples, test on {} samples.".format(nb_train, nb_test))
-print("Epochs: {}, batch_size: {}, lr: {}\n".format(epochs, batch_size, lr))
-print("Enregistrement :", enregistrement)
+print("Epochs: {}, batch_size: {}, lr: {}".format(epochs, batch_size, lr))
+print("Enregistrement : {}\n".format(enregistrement))
+
 
 # Barre de progression
 def bar(data, e):
@@ -148,7 +149,7 @@ for e in range(epochs):
 
 # Enregistrement du réseau
 if enregistrement:
-    torch.save(model, 'modeles/' + nom_modele + '.pt')
+    torch.save(model, 'models/' + nom_modele + '.pt')
 
 
 def ascii_print(image):
