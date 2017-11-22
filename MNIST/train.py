@@ -3,10 +3,10 @@ Entraînement de reseaux PyTorch sur MNIST.
 
 Les réseaux sont définis dans architectures.py
 
-Résultats attendus :
+Résultats obtenus :
 
-    - MLP     : train 98.8% - test 97.4%
-    - MLP_d   :
+    - MLP     : train 91.10% - test 97.49%
+    - MLP_d   : 98.35% - 97.03%
     - CNN     : train 99.5 % - test __._%
     - CNN_d   :
 
@@ -45,7 +45,8 @@ lr = model.lr
 epochs = model.epochs
 
 # Import des fonctions du modèle
-forward = model.forward
+train_forward = model.train().forward
+eval_forward = model.eval().forward
 loss_fn = model.loss_fn
 optimizer = model.optimizer
 
@@ -81,7 +82,7 @@ def accuracy(images, labels):
     loader = DataLoader(data, batch_size=5000, shuffle=False)
     compteur = 0
     for (x, y) in loader:
-        y, y_pred = to_Var(y), forward(to_Var(x))
+        y, y_pred = to_Var(y), eval_forward(to_Var(x))
         compteur += (y_pred.max(1)[1] == y).double().data.sum()
         # .double() parce que sinon on a un ByteTensor de sum() limitée à 256 !
     return 100 * compteur / len(images)
@@ -94,7 +95,7 @@ def big_loss(images, labels):
     loader = DataLoader(data, batch_size=500, shuffle=False)
     compteur = 0
     for (x, y) in loader:
-        y, y_pred = to_Var(y), forward(to_Var(x))
+        y, y_pred = to_Var(y), eval_forward(to_Var(x))
         compteur += len(x) * loss_fn(y_pred, y).data[0]
         # .double() parce que sinon on a un ByteTensor de sum() limitée à 256 !
     return compteur / len(images)
@@ -125,7 +126,7 @@ for e in range(epochs):
     for (x, y) in bar(train_loader, e):
 
         # Propagation dans le réseau et calcul de l'erreur
-        y_pred = forward(to_Var(x))
+        y_pred = train_forward(to_Var(x))
         loss = loss_fn(y_pred, to_Var(y))
 
         # Ajustement des paramètres
@@ -162,13 +163,13 @@ def ascii_print(image):
 
 def prediction(n):
     img = test_images[n].view(1, 1, 28, 28)
-    pred = model.forward(img)
+    pred = model.eval_forward(img)
     print("prédiction :", pred.max(1)[1].data[0])
     ascii_print(img.data)
 
 
 def prediction_img(img):
-    pred = model.forward(img)
+    pred = model.eval_forward(img)
     print("prédiction :", pred.max(0)[1].data[0])
     ascii_print(img.data)
 
