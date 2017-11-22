@@ -135,18 +135,19 @@ for e in range(epochs):
         loss.backward()
         optimizer.step()
 
-    # Calcul de l'erreur totale et de la précision sur la base d'entraînement
-    acc = accuracy(train_images, train_labels)
-    loss = big_loss(train_images, train_labels)
+    if (e + 1) % 10 == 0:
+        # Calcul de l'erreur totale et de la précision sur la base d'entraînement
+        acc = accuracy(train_images, train_labels)
+        loss = big_loss(train_images, train_labels)
 
-    # Calcul de l'erreur totale et de la précision sur la base de test.
-    test_acc = accuracy(test_images, test_labels)
-    test_loss = big_loss(test_images, test_labels)
+        # Calcul de l'erreur totale et de la précision sur la base de test.
+        test_acc = accuracy(test_images, test_labels)
+        test_loss = big_loss(test_images, test_labels)
 
-    print("  └-> loss: {:6.4f} - acc: {:5.2f}%  ─  "
-          .format(loss, acc), end='')
-    print("test_loss: {:6.4f} - test_acc: {:5.2f}%"
-          .format(test_loss, test_acc))
+        print("  └-> loss: {:6.4f} - acc: {:5.2f}%  ─  "
+              .format(loss, acc), end='')
+        print("test_loss: {:6.4f} - test_acc: {:5.2f}%"
+              .format(test_loss, test_acc))
 
 
 # Enregistrement du réseau
