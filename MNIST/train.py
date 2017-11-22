@@ -25,7 +25,7 @@ import architectures
 
 # Paramètres passés
 nom_modele = sys.argv[1]
-enregistrement = (sys.argv + [False])[2]  # False par défaut
+enregistrement = ((sys.argv + ["False"])[2] == "True")
 
 # Hyperparamètres
 # ---------------
@@ -106,7 +106,7 @@ def big_loss(images, labels):
 # Affichage des HP
 print("Train on {} samples, test on {} samples.".format(nb_train, nb_test))
 print("Epochs: {}, batch_size: {}, lr: {}\n".format(epochs, batch_size, lr))
-
+print("Enregistrement :", enregistrement)
 
 # Barre de progression
 def bar(data, e):
