@@ -6,7 +6,7 @@
 
 Il s'agit d'une base de donées de chiffres manuscrits : 50.000 qui servent d'entrainement, 10.000 qui servent de test et 10.000 qui servent de validation.
 
-> NOTE : Les données de validation ne sont à utiliser qu'à la toute fin, par souci d'honnêteté intellectuelle. (Pour éviter de faire de l'overfitting des HP sur les images de validations !)
+> :heavy_exclamation_mark: Les données de validation ne sont à utiliser qu'à la toute fin, par souci d'honnêteté intellectuelle. (Pour éviter de faire de l'overfitting des HP sur les images de validations !)
 
 Les images sont des tenseurs de la forme `1x28x28` (le 1 représente les couches de couleur), et les labels sont représentés par des scalaires entiers. La base de données est contenue dans les fichiers `train.py`, `test.py` et `val.py`, chacun sous la forme d'un couple de tenseurs `(images, labels)`.
 
@@ -18,9 +18,9 @@ Ce fichier permet de créer automatiquement si nécessaire et d'importer facilem
 images, labels = mnist_loader.train(nb_éléments)
 ```
 
-Même syntaxe poir `test` et `val`
+Même syntaxe pour `test` et `val`
 
----
+
 
 ## 2. Définition et entrainement des modèles
 
@@ -79,10 +79,10 @@ Le fichier `train.py` prend en paramètre le nom de la classe de modèle à entr
 
 ### Résultats obtenus
 
-| Réseau   |  MLP  | MLP_d |  CNN  | CNN_d |
-|:---------|:-----:|:-----:|:-----:|:-----:|
-| acc      | 98.79 | 97.88 | 99.64 | 99.35 |
-| test_acc | 97.23 | 97.24 | 98.95 | 99.10 |
+|   Réseau |  MLP   | MLP_d  |  CNN   | CNN_d  |
+|---------:|:------:|:------:|:------:|:------:|
+|      acc | 98.79% | 97.88% | 99.64% | 99.35% |
+| test_acc | 97.23% | 97.24% | 98.95% | 99.10% |
 
 
 ## 2. Attaques adversaires
