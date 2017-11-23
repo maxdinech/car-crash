@@ -4,13 +4,17 @@ Génération d'examples adversaires sur PyTorch
 """
 
 
-
+import sys
 import torch
 from torch.autograd import Variable
 import mnist_loader
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import rc, rcParams
+
+
+# Paramètres passés
+nom_modele = sys.argv[1]
 
 
 # Création de variable sur GPU si possible, CPU sinon
@@ -22,7 +26,8 @@ def to_Var(x, requires_grad=False):
 
 # Importation du modèle
 try:
-    model = torch.load('model.pt', map_location=lambda storage, loc: storage)
+    model = torch.load("models/" + nom_modele + ".pt",
+                       map_location=lambda storage, loc: storage)
     if torch.cuda.is_available():
         model = model.cuda()
 except FileNotFoundError:
@@ -34,20 +39,23 @@ def compare(image1, r, image2, num, p, norme):
     rc('text', usetex=True)
     rcParams['axes.titlepad'] = 10
     fig = plt.figure()
-    ax1 = fig.add_subplot(1,3,1)
+    ax1 = fig.add_subplot(1, 3, 1)
     ax1.imshow(image1.data.view(28, 28).cpu().numpy(), cmap='gray')
     plt.title("$\\textrm{{Prediction : }} {}$".format(prediction(image1)))
     plt.axis('off')
-    ax2 = fig.add_subplot(1,3,2)
+    ax2 = fig.add_subplot(1, 3, 2)
     ax2.imshow(r.data.view(28, 28).cpu().numpy(), cmap='RdBu')
-    plt.title("$\\textrm{{Perturbation : }} \\Vert r \\Vert_{{{}}} = {}$".format(p, round(norme, 3)))
+    plt.title("$\\textrm{{Perturbation : }} \\Vert r \\Vert_{{{}}} = {}$"
+              .format(p, round(norme, 3)))
     plt.axis('off')
-    ax3 = fig.add_subplot(1,3,3)
+    ax3 = fig.add_subplot(1, 3, 3)
     ax3.imshow(image2.data.view(28, 28).cpu().numpy(), cmap='gray')
     plt.title("$\\textrm{{Prediction : }} {}$".format(prediction(image2)))
     plt.axis('off')
     plt.subplots_adjust(left=0.05, right=0.95, top=0.95, bottom=0.05)
-    plt.savefig("../docs/images/adv/adv_{}_n{}.png".format(num, p), bbox_inches='tight')
+    plt.savefig("../docs/images/adv/adv_{}_n{}.png"
+                .format(num, p), bbox_inches='tight')
+
 
 def affiche(image):
     plt.imshow(image.clamp(0, 1).data.view(28, 28).numpy(), cmap='gray')
@@ -81,7 +89,7 @@ def attaque(num, lr=0.005, div=0.2, p=2):
     image_adv = adv(image, r)
     i = 0
     while prediction(image_adv) == chiffre:
-        loss = model.forward(image_adv)[0,chiffre]
+        loss = model.forward(image_adv)[0, chiffre]
         loss.backward()
         print(str(i).zfill(4), loss.data[0], end='\r')
         r.data -= lr * r.grad.data / r.grad.data.abs().max()
@@ -103,7 +111,7 @@ def attaque_optimale(num, a=0, b=5, p=2, lr=0.005):
         else:
             a = c
     print("\n\nValeur minimale approchée : ", b)
-    compare(i, r,a , num, p, b)
+    compare(i, r, a, num, p, b)
 
 
 def attaques():
