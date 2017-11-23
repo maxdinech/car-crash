@@ -28,8 +28,8 @@ enregistrement = ((sys.argv + ["False"])[2] == "True")
 
 # Hyperparamètres
 # ---------------
-nb_train = 5000
-nb_test = 1000
+nb_train = 50000
+nb_test = 10000
 
 
 # Importation du modèle, déplacement sur GPU si possible
