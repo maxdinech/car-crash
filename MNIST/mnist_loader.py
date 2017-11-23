@@ -1,8 +1,8 @@
 """
-Charge la base de données MNIST
+Crée automatiquement si besoin et charge la base de données MNIST
 
+La base de données est découpée en train, test et val (voir README.md)
 """
-
 
 
 import torch
@@ -19,12 +19,12 @@ else:
     dtype = torch.FloatTensor
 
 
-# Création des fichiers train.pt et test.pt de MNIST
-def create_MNIST():
-    _ = dsets.MNIST(root='data/',
-                    train=True, 
-                    transform=transforms.ToTensor(),
-                    download=True)
+# Création des fichiers train.pt, test.pt et val.pt de MNIST
+def create():
+    dsets.MNIST(root='data/',
+                train=True,
+                transform=transforms.ToTensor(),
+                download=True)
     # On appelle `val` les images de `test`
     shutil.move('data/processed/test.pt', 'data/val.pt')
     # On divise `training` en `train` et `test`
@@ -38,31 +38,19 @@ def create_MNIST():
     shutil.rmtree('data/processed')
 
 
-def train(nb_train=50000):
-    if not os.path.exists('data/train.pt'):
-        create_MNIST()
-    images, labels = torch.load('data/train.pt')
-    images, labels = images[:nb_train], labels[:nb_train]
+def load(nom, nb_elements):
+    url = "data/" + nom + ".pt"
+    if not os.path.exists(url):
+        create()
+    images, labels = torch.load(url)
+    images, labels = images[:nb_elements], labels[:nb_elements]
     images = images.type(dtype) / 255
     images = images.view(len(images), 1, 28, 28)
     return images, labels
 
 
-def test(nb_test=10000):
-    if not os.path.exists('data/test.pt'):
-        create_MNIST()
-    images, labels = torch.load('data/test.pt')
-    images, labels = images[:nb_test], labels[:nb_test]
-    images = images.type(dtype) / 255
-    images = images.view(len(images), 1, 28, 28)
-    return images, labels
+train = lambda nb_train=50000: load('train', nb_train)
 
+test = lambda nb_test=10000: load('test', nb_test)
 
-def val(nb_val=10000):
-    if not os.path.exists('data/val.pt'):
-        create_MNIST()
-    images, labels = torch.load('data/val.pt')
-    images, labels = images[:nb_val], labels[:nb_val]
-    images = images.type(dtype) / 255
-    images = images.view(len(images), 1, 28, 28)
-    return images, labels
+val = lambda nb_val=10000: load('val', nb_val)
