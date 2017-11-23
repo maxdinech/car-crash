@@ -8,19 +8,15 @@ Il s'agit d'une base de donées de chiffres manuscrits : 50.000 qui servent d'en
 
 > NOTE : Les données de validation ne sont à utiliser qu'à la toute fin, par souci d'honnêteté intellectuelle. (Pour éviter de faire de l'overfitting des HP sur les images de validations !)
 
-Les images sont des tenseurs de la forme `1x28x28` (le 1 représente les couches de couleur).
-
-Les labels sont représentés par des scalaires entiers.
-
-La base de données est contenue dans les fichiers `train.py`, `test.py` et `val.py`
-
-Chacun de ces fichiers est sous la forme d'un couple de tenseurs `(images, labels)`, que l'on importe avec :
+Les images sont des tenseurs de la forme `1x28x28` (le 1 représente les couches de couleur), et les labels sont représentés par des scalaires entiers. La base de données est contenue dans les fichiers `train.py`, `test.py` et `val.py`, chacun sous la forme d'un couple de tenseurs `(images, labels)`.
 
 ### Importation avec mnist_loader.py
 
-Ce fichier permet d'importer facilement les bases de données train, test et val, de la manière suivante :
+Ce fichier permet de créer automatiquement si nécessaire et d'importer facilement les bases de données `train`, `test` et `val`, de la manière suivante :
 
-    images, labels = mnist_loader.train(nb_éléments)
+```Python
+images, labels = mnist_loader.train(nb_éléments)
+```
 
 Même syntaxe poir `test` et `val`
 
