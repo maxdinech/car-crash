@@ -8,9 +8,8 @@ import sys
 import torch
 from torch.autograd import Variable
 import mnist_loader
-import matplotlib
 import matplotlib.pyplot as plt
-from matplotlib import rc, rcParams
+from matplotlib import rcParams
 
 
 # Paramètres passés
@@ -35,26 +34,32 @@ except FileNotFoundError:
 
 
 def compare(image1, r, image2, num, p, norme):
-    matplotlib.use('Agg')
-    rc('text', usetex=True)
+    rcParams['text.usetex'] = True
+    rcParams['text.latex.unicode'] = True
     rcParams['axes.titlepad'] = 10
-    fig = plt.figure()
+    rcParams['font.family'] = "serif"
+    rcParams['font.serif'] = "cm"
+    fig = plt.figure(figsize=(7, 2.5), dpi=200)
     ax1 = fig.add_subplot(1, 3, 1)
     ax1.imshow(image1.data.view(28, 28).cpu().numpy(), cmap='gray')
-    plt.title("$\\textrm{{Prediction : }} {}$".format(prediction(image1)))
+    plt.title("\\texttt{{{}(img)}} = {}"
+              .format(nom_modele, prediction(image1)))
     plt.axis('off')
     ax2 = fig.add_subplot(1, 3, 2)
     ax2.imshow(r.data.view(28, 28).cpu().numpy(), cmap='RdBu')
-    plt.title("$\\textrm{{Perturbation : }} \\Vert r \\Vert_{{{}}} = {}$"
+    plt.title("Perturbation : $\\Vert r \\Vert_{{{}}} = {}$"
               .format(p, round(norme, 3)))
     plt.axis('off')
     ax3 = fig.add_subplot(1, 3, 3)
     ax3.imshow(image2.data.view(28, 28).cpu().numpy(), cmap='gray')
-    plt.title("$\\textrm{{Prediction : }} {}$".format(prediction(image2)))
+    plt.title("\\texttt{{{}(img + r)}} = {}"
+              .format(nom_modele, prediction(image2)))
     plt.axis('off')
-    plt.subplots_adjust(left=0.05, right=0.95, top=0.95, bottom=0.05)
-    plt.savefig("../docs/images/adv/adv_{}_n{}.png"
-                .format(num, p), bbox_inches='tight')
+    fig.tight_layout(pad=1)
+    plt.subplots_adjust(left=0.05, right=0.95, top=0.80, bottom=0.05)
+    nom_image = "resultats/" + nom_modele + "_adv{}_n{}.png".format(num, p)
+    plt.savefig(nom_image, transparent=True)
+    # plt.show()
 
 
 def affiche(image):
@@ -84,7 +89,7 @@ def prediction(image):
 def attaque(num, lr=0.005, div=0.2, p=2):
     image = charge_image(num)
     chiffre = prediction(image)
-    r = to_Var(torch.rand(1, 1, 28, 28), requires_grad=True)
+    r = to_Var(torch.zeros(1, 1, 28, 28), requires_grad=True)
     adv = lambda image, r: (image + (r * div / (1e-5 + r.norm(p)))).clamp(0, 1)
     image_adv = adv(image, r)
     i = 0
@@ -101,20 +106,20 @@ def attaque(num, lr=0.005, div=0.2, p=2):
     return (i < 1000), image, (image_adv-image), image_adv
 
 
-def attaque_optimale(num, a=0, b=5, p=2, lr=0.005):
+def attaque_optimale(num, p=2, a=0, b=4, lr=0.005):
     while b-a >= 0.001:
         c = (a+b)/2
-        print("\n\n", c, "\n")
-        succes, i, r, a = attaque(num, lr, c, p)
+        print("\n\nImage : {}, norme_{}(r) = {}\n".format(num, p, c))
+        succes, img, r, adv = attaque(num, lr, c, p)
         if succes:
             b = c
         else:
             a = c
     print("\n\nValeur minimale approchée : ", b)
-    compare(i, r, a, num, p, b)
+    compare(img, r, adv, num, p, b)
 
 
 def attaques():
-    for num in range(20):
+    for num in range(10):
         for p in [2, 3, 5, 10]:
-            attaque_optimale(num, 0, 5, p)
+            attaque_optimale(num, p, 0, 5)
