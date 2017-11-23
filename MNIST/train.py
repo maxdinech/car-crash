@@ -1,15 +1,9 @@
 """
 Entraînement de reseaux PyTorch sur MNIST.
 
+Syntaxe : python -i train.py CNN
+
 Les réseaux sont définis dans architectures.py
-
-Résultats obtenus :
-
-    - MLP     : acc: 98.96%  ─ test_acc: 97.31%
-    - MLP_d   :
-    - CNN     : acc: 99.73%  ─ test_acc: 99.14%
-    - CNN_d   :
-
 """
 
 
@@ -66,17 +60,11 @@ train_loader = DataLoader(TensorDataset(train_images, train_labels),
 
 nb_batches = len(train_loader)
 
-# Conversion des BDD en Variables
-train_images = to_Var(train_images)
-train_labels = to_Var(train_labels)
-test_images = to_Var(test_images)
-test_labels = to_Var(test_labels)
-
 
 # Fonction de calcul de la précision du réseau
 def accuracy(images, labels):
-    data = TensorDataset(images.data, labels.data)
-    loader = DataLoader(data, batch_size=5000, shuffle=False)
+    data = TensorDataset(images, labels)
+    loader = DataLoader(data, batch_size=1000, shuffle=False)
     compteur = 0
     for (x, y) in loader:
         y, y_pred = to_Var(y), model.eval()(to_Var(x))
@@ -88,8 +76,8 @@ def accuracy(images, labels):
 # Fonction de calcul de l'erreur sur beaucoup de données d'un coup
 # (pour éviter les dépassements de capacité)
 def big_loss(images, labels):
-    data = TensorDataset(images.data, labels.data)
-    loader = DataLoader(data, batch_size=500, shuffle=False)
+    data = TensorDataset(images, labels)
+    loader = DataLoader(data, batch_size=1000, shuffle=False)
     compteur = 0
     for (x, y) in loader:
         y, y_pred = to_Var(y), model.eval()(to_Var(x))
@@ -102,8 +90,12 @@ def big_loss(images, labels):
 # ----------------------
 
 # Affichage des HP
-print("Train on {} samples, test on {} samples.".format(nb_train, nb_test))
-print("Epochs: {}, batch_size: {}, lr: {}".format(epochs, batch_size, lr))
+print("Train sur {} éléments, test sur {} éléments.".format(nb_train, nb_test))
+print("Epochs: {}, Batch size: {}".format(epochs, batch_size))
+optimizer_name = type(optimizer).__name__
+print("Optimiseur: {}, lr: {}".format(optimizer_name, lr))
+nb_parametres = sum(param.numel() for param in model.parameters())
+print("Paramètres: {}".format(nb_parametres))
 print("Enregistrement : {}\n".format(enregistrement))
 
 
@@ -161,13 +153,13 @@ def ascii_print(image):
 
 def prediction(n):
     img = test_images[n].view(1, 1, 28, 28)
-    pred = model.model.eval()(img)
+    pred = model.eval()(img)
     print("prédiction :", pred.max(1)[1].data[0])
     ascii_print(img.data)
 
 
 def prediction_img(img):
-    pred = model.model.eval()(img)
+    pred = model.eval()(img)
     print("prédiction :", pred.max(0)[1].data[0])
     ascii_print(img.data)
 
