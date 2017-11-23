@@ -5,13 +5,10 @@ Les réseaux sont définis dans architectures.py
 
 Résultats obtenus :
 
-    - MLP     : train 99.10% - test 97.49%
-    - MLP_d   : train 99.11% - test 97.52% -> essayer avec plus de D et moins de lr ?
-    - CNN     : train 99.5 % - test __._%
+    - MLP     :
+    - MLP_d   :
+    - CNN     :
     - CNN_d   :
-
-
-TODO: Gestion du momentum.
 
 """
 
@@ -136,7 +133,7 @@ for e in range(epochs):
         optimizer.step()
 
     if (e + 1) % 10 == 0:
-        # Calcul de l'erreur totale et de la précision sur la base d'entraînement
+        # Calcul de l'erreur totale et de la précision sur la base de train.
         acc = accuracy(train_images, train_labels)
         loss = big_loss(train_images, train_labels)
 
