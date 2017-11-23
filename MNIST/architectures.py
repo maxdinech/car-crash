@@ -23,7 +23,7 @@ class MLP(nn.Module):
     def __init__(self):
         super(MLP, self).__init__()
         # Hyperparamètres d'entrainement
-        self.lr = 3e-4
+        self.lr = 2e-4
         self.epochs = 30
         self.batch_size = 32
         # Définition des couches du modèle
@@ -47,14 +47,14 @@ class MLP_d(nn.Module):
     def __init__(self):
         super(MLP_d, self).__init__()
         # Hyperparamètres d'entrainement
-        self.lr = 3e-4
+        self.lr = 2e-4
         self.epochs = 30
         self.batch_size = 32
         # Définition des couches du modèle
         self.fc1 = nn.Linear(28*28, 120)
-        self.drop1 = nn.Dropout(p=0.2)
+        self.drop1 = nn.Dropout(p=0.4)
         self.fc2 = nn.Linear(120, 120)
-        self.drop2 = nn.Dropout(p=0.2)
+        self.drop2 = nn.Dropout(p=0.4)
         self.fc3 = nn.Linear(120, 10)
         # fonctions d'erreur et optimiseur
         self.optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
@@ -75,7 +75,7 @@ class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
         # Hyperparamètres d'entrainement
-        self.lr = 3e-4
+        self.lr = 2e-4
         self.epochs = 30
         self.batch_size = 32
         # Définition des couches du modèle
@@ -103,7 +103,7 @@ class CNN_d(nn.Module):
     def __init__(self):
         super(CNN_d, self).__init__()
         # Hyperparamètres d'entrainement
-        self.lr = 3e-4
+        self.lr = 2e-4
         self.epochs = 30
         self.batch_size = 32
         # Définition des couches du modèle
@@ -112,9 +112,9 @@ class CNN_d(nn.Module):
         self.conv2 = nn.Conv2d(20, 40, 3)
         self.pool2 = nn.MaxPool2d(2)
         self.fc1 = nn.Linear(5*5*40, 120)
-        self.drop1 = nn.Dropout(p=0.2)
+        self.drop1 = nn.Dropout(p=0.4)
         self.fc2 = nn.Linear(120, 10)
-        self.drop2 = nn.Dropout(p=0.2)
+        self.drop2 = nn.Dropout(p=0.4)
         # fonctions d'erreur et optimiseur
         self.optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
         self.loss_fn = nn.CrossEntropyLoss()
