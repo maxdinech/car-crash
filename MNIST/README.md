@@ -30,12 +30,14 @@ Même syntaxe poir `test` et `val`
 
 ### Description des modèles
 
-#### MLP à deux couches cachées
+#### MLP à deux couches cachées (`MLP` et `MLP_d`)
 
 Couches :
 
 - **fc:** 748 -> 128 (ReLU)
+- (**Dropout:** p=0.4)
 - **fc:** 128 -> 128 (ReLU)
+- (**Dropout:** p=0.4)
 - **fc:** 128 -> 10 (softmax)
 
 Hyperparamètres :
@@ -44,7 +46,7 @@ Hyperparamètres :
 - batch_size = 32
 - Optimiseur : Adam(lr = 3e-4)
 
-#### CNN à deux convolutions
+#### CNN à deux convolutions (`CNN` et `CNN_d`)
 
 ![CNN à deux convolution](../docs/images/CNN2_small.png)
 
@@ -54,7 +56,9 @@ Couches :
 - **MaxPool:** noyau 2x2
 - **Conv:** noyau 3x3, 20 -> 40 layers
 - **MaxPool:** noyau 2x2
+- (**Dropout:** p=0.4)
 - **fc:** 5x5x40 -> 120 (ReLU)
+- (**Dropout:** p=0.4)
 - **fc:** 120 -> 10 (softmax)
 
 Hyperparamètres :
@@ -68,7 +72,7 @@ Hyperparamètres :
 
 Les modèles utilisés sont entièrement définis par leurs classes, dans `architectures.py`.
 
-On ajoute à chaque modèle ses hyperparamètres, sa fonction d'erreur et son optimiseur, ce qui permet de jongler beaucoup plus facilement entre les modèles.
+On ajoute à chaque modèle ses hyperparamètres (`lr`, `epochs` et `batch_size`), sa fonction d'erreur (`loss_fn`) et son optimiseur (`optimizer`), ce qui permet de jongler beaucoup plus facilement entre les modèles.
 
 
 ### Entrainement des modèles : `train.py`
@@ -78,6 +82,12 @@ Le fichier `train.py` prend en paramètre le nom de la classe de modèle à entr
     python train.py CNN True
 
 ### Résultats obtenus
+
+| Réseau   |  MLP  | MLP_d |  CNN  | CNN_d |
+|:---------|:-----:|:-----:|:-----:|:-----:|
+| acc      | 98.79 | 97.88 | 99.64 | 99.35 |
+| test_acc | 97.23 | 97.24 | 98.95 | 99.10 |
+
 
 ## 2. Attaques adversaires
 
