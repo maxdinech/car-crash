@@ -10,19 +10,19 @@
 
 ## Livres et publications "générales"
 
-- Michael Nielsen. **Neural Networks and Deep Learning** (2015)
+Michael Nielsen. **Neural Networks and Deep Learning** (2015)
 [[web]](http://neuralnetworksanddeeplearning.com)
 
-Une bonne introduction au Deep Learning, pour débutants. La plupart des concepts présentés sont expliqués en profondeur et **démontrés** clairement. Chapitres intéressant : démonstration du fonctionnement de la descente de gradient (Ch. 2) et techniques d'ajustement des hyperparamètres (Ch. 4 ?).
+> Une bonne introduction au Deep Learning, pour débutants. La plupart des concepts présentés sont expliqués en profondeur et **démontrés** clairement. Chapitres intéressant : démonstration du fonctionnement de la descente de gradient (Ch. 2) et techniques d'ajustement des hyperparamètres (Ch. 4 ?).
 
-- Ian Goodfellow, Yoshua Bengio & Aaron Courville. **Deep Learning** (2016)
+Ian Goodfellow, Yoshua Bengio & Aaron Courville. **Deep Learning** (2016)
 [[web]](http://deeplearningbook.org)
 
-Un livre qui se veut un r"sumé des domaines importants du Deep Learning, une très grosse référence. Il est écrit par trois des plus grands spécialistes du domaine. Très (trop ?) poussé, sert à se renseigner sur un point précis, pas fait pour apprendre.
+> Un livre qui se veut un r"sumé des domaines importants du Deep Learning, une très grosse référence. Il est écrit par trois des plus grands spécialistes du domaine. Très (trop ?) poussé, sert à se renseigner sur un point précis, pas fait pour apprendre.
 
-- [**3**] **Deep Learning**, *Nature* (2015), Yann LeCun, Yoshua Bengio & Geoffrey Hinton [[pdf]](http://pages.cs.wisc.edu/~dyer/cs540/handouts/deep-learning-nature2015.pdf)
+[**3**] **Deep Learning**, *Nature* (2015), Yann LeCun, Yoshua Bengio & Geoffrey Hinton [[pdf]](http://pages.cs.wisc.edu/~dyer/cs540/handouts/deep-learning-nature2015.pdf)
 
-Une rapide présentation Deep Learning (backprop, MLP, CNN, RNN, LSTM), dans la prestigieuse revue Nature.
+> Une rapide présentation Deep Learning (backprop, MLP, CNN, RNN, LSTM), dans la prestigieuse revue Nature.
 
 
 # Séries de publications sur des thèmes précis
