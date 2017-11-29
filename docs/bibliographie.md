@@ -49,19 +49,45 @@ D. Kingma, J. Ba. **Adam: A method for stochastic optimization** (2015)
 
 > Publications à venir...
 
-## Classification d'images et concours ImageNet
+## Classification d'images
 
-A. Krizhevsky, I. Sutskever, and G.E. Hinton. **ImageNet classification with Deep Convolutional Neural Networks** (2012)
+A. Krizhevsky, I. Sutskever and G.E. Hinton. **ImageNet classification with Deep Convolutional Neural Networks** (2012)
 [[pdf]](http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf)
 
-> Cette publication explique comment un CNN, l'architecture *AlexNet*, a pulvérisé le concours annuel de classification d'images *ImageNet* en 2012. Depuis, les CNNs sont les leaders dans ce domaine de la vision par ordinateur.
+> Cette publication explique comment un CNN, l'architecture **AlexNet**, a pulvérisé le concours annuel de classification d'images *ImageNet* en 2012. Depuis, les CNNs sont les leaders dans ce domaine de la vision par ordinateur.
 
 > Beaucoup de choses intéressantes :
 >	- Première "vraie" utilisation de la technique du Dropout
 > 	- Première "vraie" utilisation de la fonction de transfert ReLU
 > 	- Intérêt de l'augmentation de données
 
+M.D. Zeiler and R. Fergus. **Visualizing and Understanding Convolutional Networks** (2013)
+[arXiv](https://arxiv.org/abs/1311.2901)
 
+> Le réseau qui a gagné le concours l'année suivante, **ZF Net**.
+
+> Ce réseau n'est pas fondamentalement beaucoup plus intéressant que *AlexNet*, mais cette publication va beaucoup plus loin en proposant des méthodes pour comprendre l'intuition derrière le fonctinnement des CNNs, et des techniques de visualisation des *feature maps* produites par les convolutions (*DeConvNet*).
+
+K. Simonyan and A. Zisserman. **Very Deep Convolutional Networks for Large-Scale Image Recognition** (2014)
+[arXiv](https://arxiv.org/abs/1409.1556)
+
+> Un réseau encore plus performant que le précédent : **VGG Net**.
+
+> Les auteurs expliquent comment ils ont gagné en performance: En faisant plus simple et plus profond. Au lieu des convolutions 11x11 de *AlexNet* ou 7x7 de *ZF Net*, ce réseau est entièrement constitué de convolutions 3x3 en cascades (avec des maxpool intercalés).
+
+C. Szegedy et al. **Going Deeper with Convolutions** (2014)
+[arXiv](https://arxiv.org/abs/1409.4842)
+
+> Ce papier introduit une nouvelle architecture de réseaux, **Inception**. En particulier **GoogleNet**, profond de 22 couches, gagnant du concours *ILSVRC* 2014. (top 5: 6.7%)
+
+> Ce réseau va à l'enconte de tout ce qui était fait jusqu'alors : Au lieu d'empiler des convolutions, des pooling et des couches denses, l'architecture proposée est beaucoup plus compiquée, s'organisant en modules mis bouts à bout.
+
+K. He et al. **Deep Residual Learning for Image Recognition** (2105)
+[arXiv](https://arxiv.org/abs/1512.03385)
+
+> Cette publication introduit le réseau **ResNet**, proposé par Microsoft. Gagnant du concours ILSVRC 2015 (top 5: 3.6%).
+
+> 152 couches...
 
 ## Réseaux adversaires génératifs
 
