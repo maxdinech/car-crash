@@ -2,11 +2,11 @@
 
 ## 1. Quelques noms à connaître
 
-- **Geoffrey Hinton:**
-- **Yann Le Cun:**
+- **Geoffrey Hinton:** Le Dropout, les capsules, ...
+- **Yann Le Cun:** Les CNN
 - **Yoshua Bengio:**
-- **Ian Goodfellow:**
-- **Alex Krievshki:**
+- **Ian Goodfellow:** Les GAN
+- **Alex Krievshki:** AlexNet
 
 ## Livres et publications "générales"
 
@@ -18,9 +18,10 @@ Michael Nielsen. **Neural Networks and Deep Learning** (2015)
 Ian Goodfellow, Yoshua Bengio & Aaron Courville. **Deep Learning** (2016)
 [[web]](http://deeplearningbook.org)
 
-> Un livre qui se veut un r"sumé des domaines importants du Deep Learning, une très grosse référence. Il est écrit par trois des plus grands spécialistes du domaine. Très (trop ?) poussé, sert à se renseigner sur un point précis, pas fait pour apprendre.
+> Un livre qui parcourt tous les domaines les plus importants du Deep Learning, une très grosse référence. Il est écrit par trois des plus grands spécialistes en la matière. Très (trop ?) poussé, sert à se renseigner sur un point précis, pas fait pour apprendre.
 
-[**3**] **Deep Learning**, *Nature* (2015), Yann LeCun, Yoshua Bengio & Geoffrey Hinton [[pdf]](http://pages.cs.wisc.edu/~dyer/cs540/handouts/deep-learning-nature2015.pdf)
+Yann LeCun, Yoshua Bengio & Geoffrey Hinton. **Deep Learning**, *Nature* (2015)
+[[pdf]](http://pages.cs.wisc.edu/~dyer/cs540/handouts/deep-learning-nature2015.pdf)
 
 > Une rapide présentation Deep Learning (backprop, MLP, CNN, RNN, LSTM), dans la prestigieuse revue Nature.
 
@@ -29,18 +30,20 @@ Ian Goodfellow, Yoshua Bengio & Aaron Courville. **Deep Learning** (2016)
 
 ## Dropout
 
-- G.E. Hinton, N. Srivastava, A. Krizhevsky & al. **Improving neural networks by preventing co-adaptation of feature detectors** (2012) [[arXiv]](https://arxiv.org/abs/1207.0580)
+G.E. Hinton, N. Srivastava, A. Krizhevsky & al. **Improving neural networks by preventing co-adaptation of feature detectors** (2012)
+[[arXiv]](https://arxiv.org/abs/1207.0580)
 
-Première introduction du concept de *"dropout"*, défini comme une manière de réduire l'*overfitting*. Cette technique est utilisée pour la première fois, peu après, par les mêmes auteurs pour concevoir *AlexNet*.
+> Première introduction du concept de *"dropout"*, défini comme une manière de réduire l'*overfitting*. Cette technique est utilisée pour la première fois, peu après, par les mêmes auteurs pour concevoir *AlexNet*.
 
-- N. Srivastava, G. Hinton, A. Krizhevsky & al. **Dropout: A Simple Way to Prevent Neural Networks from Overfitting** (2014) [[pdf]](http://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf)
+N. Srivastava, G. Hinton, A. Krizhevsky & al. **Dropout: A Simple Way to Prevent Neural Networks from Overfitting** (2014)
+[[pdf]](http://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf)
 
-Cette publication démontre plus formellement la correction et l'efficacité du *dropout*.
+> Cette publication démontre plus formellement la correction et l'efficacité du *dropout*.
 
 
 ## Optimiseurs (à compléter)
 
-- **Adam: A method for stochastic optimization** (2015), D. Kingma, J. Ba
+D. Kingma, J. Ba. **Adam: A method for stochastic optimization** (2015)
 
 ## BatchNorm
 
@@ -48,25 +51,26 @@ Cette publication démontre plus formellement la correction et l'efficacité du 
 
 ## Classification d'images et concours ImageNet
 
-- A. Krizhevsky, I. Sutskever, and G.E. Hinton. **ImageNet classification with Deep Convolutional Neural Networks** (2012)
+A. Krizhevsky, I. Sutskever, and G.E. Hinton. **ImageNet classification with Deep Convolutional Neural Networks** (2012)
 [[pdf]](http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf)
 
-Cette publication explique comment un CNN, l'architecture *AlexNet*, a pulvérisé le concours annuel de classification d'images *ImageNet* en 2012. Depuis, les CNNs sont les leaders dans ce domaine de la vision par ordinateur.
+> Cette publication explique comment un CNN, l'architecture *AlexNet*, a pulvérisé le concours annuel de classification d'images *ImageNet* en 2012. Depuis, les CNNs sont les leaders dans ce domaine de la vision par ordinateur.
 
-Beaucoup de choses intéressantes :
-	- Première "vraie" utilisation de la technique du Dropout
- 	- Première "vraie" utilisation de la fonction de transfert ReLU
- 	- Intérêt de l'augmentation de données
+> Beaucoup de choses intéressantes :
+>	- Première "vraie" utilisation de la technique du Dropout
+> 	- Première "vraie" utilisation de la fonction de transfert ReLU
+> 	- Intérêt de l'augmentation de données
 
 
 
 ## Réseaux adversaires génératifs
 
-- [**6**] **Generative adversarial nets** (2014), I. Goodfellow & al. [[pdf]](http://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf)
+I. Goodfellow & al. **Generative adversarial nets** (2014)
+[[pdf]](http://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf)
 
-Une publication d'une importance capitale, qui a lancé l'étude des **GANs** (que Yann Le Cun décrit tout de même comme la plus grosse avancée des 10 dernières années en Deep Learning !).
+> Une publication d'une importance capitale, qui a lancé l'étude des **GANs** (que Yann Le Cun décrit tout de même comme la plus grosse avancée des 10 dernières années en Deep Learning !).
 
-Cette technique permet d'utiliser les réseaux de neurones comme générateurs d'images, en entraînant en parallèle un réseau *Générateur* et un réseau *Discriminateur*.
+> Cette technique permet d'utiliser les réseaux de neurones comme générateurs d'images, en entraînant en parallèle un réseau *Générateur* et un réseau *Discriminateur*.
 
 
 ### Sources complémentaires
