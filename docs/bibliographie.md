@@ -13,7 +13,7 @@
 > Michael Nielsen. **Neural Networks and Deep Learning** (2015)
 [[web]](http://neuralnetworksanddeeplearning.com)
 
-> Une bonne introduction au Deep Learning, pour débutants. La plupart des concepts présentés sont expliqués en profondeur et **démontrés** clairement. Chapitres intéressant : démonstration du fonctionnement de la descente de gradient (Ch. 2) et techniques d'ajustement des hyperparamètres (Ch. 4 ?).
+Une bonne introduction au Deep Learning, pour débutants. La plupart des concepts présentés sont expliqués en profondeur et **démontrés** clairement. Chapitres intéressant : démonstration du fonctionnement de la descente de gradient (Ch. 2) et techniques d'ajustement des hyperparamètres (Ch. 4 ?).
 
 Ian Goodfellow, Yoshua Bengio & Aaron Courville. **Deep Learning** (2016)
 
@@ -140,5 +140,5 @@ Enfin, ils observent un autre phénomène : une même perturbation peut induire 
 
 > Papier où est essayée l'attaque de panneaux STOP.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk4Njk5MDkzM119
+eyJoaXN0b3J5IjpbMTgxOTc5ODMxXX0=
 -->
