@@ -140,3 +140,6 @@ Enfin, ils observent un autre phénomène : une même perturbation peut induire 
 [[pdf]](https://arxiv.org/pdf/1707.08945.pdf)
 
 > Papier où est essayée l'attaque de panneaux STOP.
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbNDg0MTczNTcxXX0=
+-->
