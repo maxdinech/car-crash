@@ -10,16 +10,16 @@
 
 ## Livres et publications "générales"
 
-> Michael Nielsen. **Neural Networks and Deep Learning** (2015)
+→ Michael Nielsen. **Neural Networks and Deep Learning** (2015)
 [[web]](http://neuralnetworksanddeeplearning.com)
 
-Une bonne introduction au Deep Learning, pour débutants. La plupart des concepts présentés sont expliqués en profondeur et **démontrés** clairement. Chapitres intéressant : démonstration du fonctionnement de la descente de gradient (Ch. 2) et techniques d'ajustement des hyperparamètres (Ch. 4 ?).
+> Une bonne introduction au Deep Learning, pour débutants. La plupart des concepts présentés sont expliqués en profondeur et **démontrés** clairement. Chapitres intéressant : démonstration du fonctionnement de la descente de gradient (Ch. 2) et techniques d'ajustement des hyperparamètres (Ch. 4 ?).
 
-Ian Goodfellow, Yoshua Bengio & Aaron Courville. **Deep Learning** (2016)
+→ Ian Goodfellow, Yoshua Bengio & Aaron Courville. **Deep Learning** (2016)
 
 > Un livre qui parcourt tous les domaines les plus importants du Deep Learning, une très grosse référence. Il est écrit par trois des plus grands spécialistes en la matière. Très (trop ?) poussé, sert à se renseigner sur un point précis, pas fait pour apprendre.
 
-Yann LeCun, Yoshua Bengio & Geoffrey Hinton. **Deep Learning**, *Nature* (2015)
+→ Yann LeCun, Yoshua Bengio & Geoffrey Hinton. **Deep Learning**, *Nature* (2015)
 [[pdf]](http://pages.cs.wisc.edu/~dyer/cs540/handouts/deep-learning-nature2015.pdf)
 
 > Une rapide présentation Deep Learning (backprop, MLP, CNN, RNN, LSTM), dans la prestigieuse revue Nature.
@@ -140,5 +140,5 @@ Enfin, ils observent un autre phénomène : une même perturbation peut induire 
 
 > Papier où est essayée l'attaque de panneaux STOP.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgxOTc5ODMxXX0=
+eyJoaXN0b3J5IjpbMTUwMDE4ODUyMV19
 -->
