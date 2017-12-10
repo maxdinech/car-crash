@@ -126,6 +126,6 @@ C. Szegedy, I. Goodfellow & al. **Intriguing Properties of Neural Networks** (20
 
 **Robust Physical-World Attacks on Machine Learning Models** (2017) [[arXiv]](https://arxiv.org/abs/1707.08945)
 
-> Attaque de panneaux STOP$_i$.
+> Attaque de panneaux STOP$_{i+1}$.
 
 $$\int \oint \sum \prod$$
