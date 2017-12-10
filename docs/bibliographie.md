@@ -126,4 +126,6 @@ C. Szegedy, I. Goodfellow & al. **Intriguing Properties of Neural Networks** (20
 
 **Robust Physical-World Attacks on Machine Learning Models** (2017) [[arXiv]](https://arxiv.org/abs/1707.08945)
 
-> Attaque de panneaux STOP.
+> Attaque de panneaux STOP<img src="https://rawgit.com/maxdinech/car-crash/master//docs/tex/b8a900f16c4a61e75061bb335280746a.svg?invert_in_darkmode" align=middle width=21.294900000000002pt height=14.155350000000013pt/>.
+
+<p align="center"><img src="https://rawgit.com/maxdinech/car-crash/master//docs/tex/5e6ec08b2bc7d85541899592c8e4cc63.svg?invert_in_darkmode" align=middle width=85.844715pt height=36.53001pt/></p>
