@@ -30,7 +30,7 @@ Le choix de 5 mots-clés en français (et en anglais) incite le candidat à pren
 - Attaques adversaires (*Adversarial examples*)
 
 
-## 2.  Bibliographie commentée (650 mots)
+## 2.  Bibliographie commentée
 
 <!-- Un travail efficace du candidat satisfaisant aux critères d'évaluation de l'épreuve du TIPE suppose obligatoirement une connaissance préalable de travaux antérieurs « balisant » le domaine choisi.
 
@@ -39,6 +39,8 @@ L'objectif de cette partie est donc d'inciter le candidat à mettre en cohérenc
 Cette synthèse a pour objectif l'appropriation par le candidat de son sujet : les principes généraux, les expérimentations, les lois et concepts voire certaines questions restant en suspens ou des sujets controversés. Cette synthèse circonstanciée et factuelle doit permettre au candidat d'acquérir une vision plus globale du sujet choisi en faisant apparaître plusieurs problématiques en jeu dans le domaine dont celle qu'il aura choisi de traiter.
 
 Dans le cas d'un travail de groupe, cette bibliographie devra être commune et issue du travail collectif. -->
+
+<!-- 650 mots -->
 
 #### Introduction
 
@@ -74,9 +76,11 @@ La faiblesse des réseaux de neurones face aux attaques par exemples adversaires
 Il n'y a toujours pas aujourd'hui de solution satisfaisante à ce problème : régulièrement paraissent des publications qui proposent une solution, contredites peu de temps après.
 
 
-## 3. Problématique retenue (50 mots)
+## 3. Problématique retenue
 
 <!-- Dans cette partie, le candidat doit clairement dégager un phénomène à étudier, une propriété à mesurer, à établir ou démontrer... La finalité est de définir une problématique mise en évidence dans la bibliographie commentée et présentant un regard ou une approche personnels, soit dans des domaines classiques, soit dans des domaines insuffisamment traités au vu de la littérature consultée. Dans tous les cas, la problématique retenue devra traduire la capacité du candidat à faire preuve d’initiative. Dans le cas d’un travail de groupe, cette problématique devra être commune et issue d’un choix collectif. -->
+
+<!-- 50 mots -->
 
 L’efficacité exceptionnelle des réseaux de neurones étend leur utilisation à de nombreux domaines, en particulier celui de la conduite autonome. Pourtant, certains travaux remettent en cause leur fiabilité : des attaques ciblées malveillantes les trompent avec succès. En quoi (*technique à insérer*) permet-elle de se prémunir contre ces attaques ?
 
@@ -85,6 +89,9 @@ L’efficacité exceptionnelle des réseaux de neurones étend leur utilisation 
 
 <!-- Le candidat, ayant clairement délimité sa problématique sur la base de sa bibliographie commentée, doit ensuite, de manière concise, énoncer les objectifs qu'il se propose d'atteindre à l’issue de son travail en réponse à sa problématique. Spécifique à chaque membre d'un éventuel groupe, cette quatrième partie permet de positionner individuellement le travail de TIPE du candidat. -->
 
+<!-- 100 mots -->
+
+La mise au point de classificateurs performants étant effectuée par les autres membres de mon binôme, j'essaierai d'abord de mettre au point des algorithmes d'attaques adversaires, puis de voir quelles techniques permettent de réduire l'efficacité de ces attaques, avec pour objectif de maximiser la norme des perturbations minimales, c'est à dire d'obliger les exemples adversaires à se distinguer le plus possible de l'image originale.
 
 ## 5. Liste des références bibliographiques
 
