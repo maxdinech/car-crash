@@ -44,7 +44,7 @@ Dans le cas d'un travail de groupe, cette bibliographie devra être commune et i
 
 #### Introduction
 
-Introduits dès les années 50, les réseaux de neurones ont connu un déclin des années 80 aux années 2010, causé par leur énorme coût calculatoire, pour connaître ensuite un regain de popularité spectaculaire à partir de 2012, où ils se sont imposés comme leaders en classification d'images puis reconaissance de parole. Le livre *Deep Learning* [1] se veut une synthèse du domaine.
+Introduits dès les années 1950, les réseaux de neurones ont connu un déclin des années 80 aux années 2010, causé par leur énorme coût calculatoire, pour connaître ensuite un regain de popularité spectaculaire à partir de 2012, où ils se sont imposés comme leaders en classification d'images puis reconaissance vocale. Le livre *Deep Learning* [1] se veut une synthèse du domaine.
 
 #### I. L'entraînement d'un réseau de neurones
 
@@ -91,7 +91,7 @@ L’efficacité exceptionnelle des réseaux de neurones étend leur utilisation 
 
 <!-- 100 mots -->
 
-La mise au point de classificateurs performants étant effectuée par les autres membres de mon binôme, j'essaierai d'abord de mettre au point des algorithmes d'attaques adversaires, puis de voir quelles techniques permettent de réduire l'efficacité de ces attaques, avec pour objectif de maximiser la norme des perturbations minimales, c'est à dire d'obliger les exemples adversaires à se distinguer le plus possible de l'image originale.
+La mise au point de classificateurs performants étant effectuée par les autres membres de mon groupe, j'essaierai d'abord de mettre au point des algorithmes d'attaques adversaires, puis de voir quelles techniques permettent de réduire l'efficacité de ces attaques, avec pour objectif de maximiser la norme des perturbations minimales, c'est à dire d'obliger les exemples adversaires à se distinguer le plus possible de l'image originale.
 
 ## 5. Liste des références bibliographiques
 
