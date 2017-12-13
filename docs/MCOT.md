@@ -52,9 +52,9 @@ Introduits dès les années 50, les réseaux de neurones ont connu un déclin de
 
 Un réseau de neurones s'entraîne à partir d'une base de données étiquetée, c'est à dire pour laquelle on connaît déjà le résultat attendu. L'entraînement d'un réseau de neurones consiste alors à trouver les poids optimaux qui minimisent l'erreur commise par le réseau : On la diminue par des descente de gradient successive sur des petits lots d'images (*mini-batches*) choisis au hasard. Cette méthode s'appelle la descente stochastique de gradient (*SGD*), démontrée et explicité en détail dans le livre *Deep Learning and Neural Networks* [2].
 
-Plusieurs amélioration de cette méthode existent, la plus utilisée aujourd'hui étant *Adam* introduite en 2014 [3]. Enfin, la normalisation des sorties des neurones sur chaque mini-batch (*Batch Normalization*) [4] s'est révélée une technique efficace pour entraîner bien plus vite un réseau (c'est à dire en moins d'étapes).
+Plusieurs améliorations de cette méthode existent, la plus utilisée aujourd'hui étant *Adam* introduite en 2014 [3]. Enfin, la normalisation des sorties des neurones sur chaque mini-batch (*Batch Normalization*) [4] s'est révélée une technique efficace pour entraîner bien plus vite un réseau (c'est à dire en moins d'étapes).
 
-Tout l'enjeu des réseaux de neurones consiste à généraliser les résultats appris à de nouvelles entrées. On cherche donc cherche à  éviter la sur-adaptation (*overfitting*), phénomène où un réseau apprend trop les spécifités des images de sa base de données d'entraînement, au détriment de la généralisation de ses résultats à de nouvelles entrées. Pour pallier celà, le *Dropout* [5] est largement utilisé.
+Tout l'enjeu des réseaux de neurones consiste à généraliser les résultats appris à de nouvelles entrées. On cherche donc à  éviter la sur-adaptation (*overfitting*), phénomène où un réseau apprend trop les spécifités des images de sa base de données d'entraînement, au détriment de la généralisation de ses résultats à de nouvelles entrées. Pour pallier celà, le *Dropout* [5] est largement utilisé.
 
 
 #### II. La classification d'images
