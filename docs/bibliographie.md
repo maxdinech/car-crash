@@ -113,9 +113,11 @@ C. Szegedy, I. Goodfellow & al. **Intriguing Properties of Neural Networks** (20
 
 > Enfin, ils observent un autre phénomène : une même perturbation peut induire en erreur deux réseaux différents mais entraînés sur les mêmes images.
 
-**Explaining and Harnessing Adversarial Examples** (2015), I. Goodfellow & al. [[pdf]](https://arxiv.org/pdf/1412.6572.pdf)
+I. Goodfellow & al. **Explaining and Harnessing Adversarial Examples** (2015)
+[[pdf]](https://arxiv.org/pdf/1412.6572.pdf)
 
-**Practical Black-Box Attacks against Machine Learning** (2017), I. Goodfellow & al. [[pdf]](https://arxiv.org/pdf/1602.02697v4.pdf)
+I. Goodfellow & al. **Practical Black-Box Attacks against Machine Learning** (2017)
+[[pdf]](https://arxiv.org/pdf/1602.02697v4.pdf)
 
 ## 3. Panneaux routiers
 
