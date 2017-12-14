@@ -1,6 +1,6 @@
 % Mise en Cohérence des Objectifs du TIPE
 % Maximilien de Dinechin
-% Décembre 2017
+% 13 décembre 2017
 
 <!-- La Mise en Cohérence des Objectifs du TIPE est constituée de 5 parties liées entre elles, tout en étant différenciées, amenant le candidat à déboucher sur les objectifs de son travail. Elles seront saisies selon l'ordre suivant:
 
@@ -26,11 +26,12 @@ Le choix de 5 mots-clés en français (et en anglais) incite le candidat à pren
 
 - Apprentissage automatique (*Machine learning*)
 - Réseaux de neurones (*Neural networks*)
+- Conduite autonome (*Autonomous driving*)
 - Vision par ordinateur (*Computer vision*)
 - Attaques adversaires (*Adversarial examples*)
 
 
-## 2.  Bibliographie commentée
+## 2. Bibliographie commentée
 
 <!-- Un travail efficace du candidat satisfaisant aux critères d'évaluation de l'épreuve du TIPE suppose obligatoirement une connaissance préalable de travaux antérieurs « balisant » le domaine choisi.
 
@@ -44,13 +45,13 @@ Dans le cas d'un travail de groupe, cette bibliographie devra être commune et i
 
 #### Introduction
 
-Introduits dès les années 1950, les réseaux de neurones ont connu un déclin des années 80 aux années 2010, causé par leur énorme coût calculatoire, pour connaître ensuite un regain de popularité spectaculaire à partir de 2012, où ils se sont imposés comme leaders en classification d'images puis reconaissance vocale. Le livre *Deep Learning* [1] se veut une synthèse du domaine.
+Introduits dès les années 1950, les réseaux de neurones ont connu un déclin des années 1980 aux années 2010, causé par leur énorme coût calculatoire, pour connaître ensuite un regain de popularité spectaculaire à partir de 2012, où ils se sont imposés comme leaders en classification d'images puis reconaissance vocale. Le livre *Deep Learning* [1] se veut une synthèse du domaine.
 
 #### I. L'entraînement d'un réseau de neurones
 
 À l'image (simplifiée) du cerveau humain, un réseau de neurones est un assemblage de neurones formels reliées entre eux par des connexions pondérées. Chaque neurone réalise une opération simple : il calcule la somme de ses entrées, pondérées par les poids des connexion, lui applique ensuite une fonction de transfert, et transmet l'information aux neurones suivants auxquels il est rélié.
 
-Un réseau de neurones s'entraîne à partir d'une base de données étiquetée, c'est à dire pour laquelle on connaît déjà le résultat attendu. L'entraînement d'un réseau de neurones consiste alors à trouver les poids optimaux qui minimisent l'erreur commise par le réseau : On la diminue par des descente de gradient successive sur des petits lots d'images (*mini-batches*) choisis au hasard. Cette méthode s'appelle la descente stochastique de gradient (*SGD*), démontrée et explicité en détail dans le livre *Deep Learning and Neural Networks* [2].
+Un réseau de neurones s'entraîne à partir d'une base de données étiquetée, c'est à dire pour laquelle on connaît déjà le résultat attendu. L'entraînement d'un réseau de neurones consiste alors à trouver les poids optimaux qui minimisent l'erreur commise par le réseau : on la diminue par des descente de gradient successive sur des petits lots d'images (*mini-batches*) choisis au hasard. Cette méthode s'appelle la descente stochastique de gradient (*SGD*), démontrée et explicité en détail dans le livre *Deep Learning and Neural Networks* [2].
 
 Plusieurs améliorations de cette méthode existent, la plus utilisée aujourd'hui étant *Adam* introduite en 2014 [3]. Enfin, la normalisation des sorties des neurones sur chaque mini-batch (*Batch Normalization*) [4] s'est révélée une technique efficace pour entraîner bien plus vite un réseau (c'est à dire en moins d'étapes).
 
@@ -114,18 +115,18 @@ Determination Press, 2015
 
 [N°3]
 D. Kingma & J. Ba.
-**Adam: A method for stochastic optimization.**
-ICLR (2014)
+CoRR, **Adam: A method for stochastic optimization.**
+CoRR (Décembre 2014)
 
 [N°4]
 S. Ioffe & C. Szegedy.
-**Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift.**
-(2015)
+PMLR, **Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift.**
+Volume 37 (2015), Pages 448-456
 
 [N°5]
-G. Hinton, N. Srivastava, A. Krizhevsky & al.
-**Improving neural networks by preventing co-adaptation of feature detectors.**
-(2012)
+N. Srivastava, G. Hinton, A. Krizhevsky & al.
+JMLP, **Dropout: A Simple Way to Prevent Neural Networks from Overfitting.**
+Volume 15 (2014), Pages 1929-1958
 
 [N°6]
 A. Krizhevsky, I. Sutskever & G. Hinton.
@@ -133,15 +134,16 @@ NIPS'12 Proceedings, **ImageNet Classification with Deep Convolutional Neural Ne
 Volume 1 (2012), Pages 1097-1105
 
 [N°7]
-S. Sabour, N. Frosst & G. Hinton
+S. Sabour, N. Frosst & G. Hinton.
 NIPS'17 Proceedings, **Dynamic Routing Between Capsules.**
-Volume ? (2017), Pages ?-?
+Volume 1 (2017), Pages 3859-3869
 
 [N°8]
 C. Szegedy, I. Goodfellow & al.
-ICLR 2014, **Intriguing Properties of Neural Networks.**
+CoRR, **Intriguing Properties of Neural Networks.**
+(Décembre 2013)
 
 [N°9]
 I. Goodfellow & al.
-**Explaining and Harnessing Adversarial Examples.**
-(2015)
+CoRR, **Explaining and Harnessing Adversarial Examples.**
+(Décembre 2014)
