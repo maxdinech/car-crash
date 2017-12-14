@@ -55,14 +55,14 @@ Un réseau de neurones s'entraîne à partir d'une base de données étiquetée,
 
 Plusieurs améliorations de cette méthode existent, la plus utilisée aujourd'hui étant *Adam*, introduite en 2014 [3]. Enfin, la normalisation des sorties des neurones sur chaque mini-batch (*Batch Normalization*) [4] s'est révélée une technique efficace pour entraîner bien plus vite un réseau (c'est-à-dire en moins d'étapes).
 
-Tout l'enjeu des réseaux de neurones consiste à généraliser les résultats appris à de nouvelles entrées. On cherche donc à éviter la sur-adaptation (*overfitting*), phénomène où un réseau apprend trop les spécificités des images de sa base de données d'entraînement, au détriment de la généralisation de ses résultats à de nouvelles entrées. Pour pallier cela, le *dropout* [5] est largement utilisé.
+Tout l'enjeu des réseaux de neurones consiste à généraliser les résultats appris à de nouvelles entrées. On cherche donc à éviter la sur-adaptation (*overfitting*), phénomène où un réseau apprend trop les spécificités des images de sa base de données d'entraînement, au détriment de la généralisation de ses résultats à de nouvelles entrées. Pour pallier cela, le *Dropout* [5] est largement utilisé.
 
 
 #### II. La classification d'images
 
 Chaque année depuis 2010 est organisé le concours *ILSVRC*, qui consiste à concevoir un algorithme qui classifie correctement une image parmi 1000 catégories possibles. La performance est mesurée en *erreur Top 5*, qui correspond au pourcentage d'échec de l'algorithme à proposer la bonne étiquette parmi ses 5 prédictions possibles.
 
-Les réseaux de neurones n'y avaient jamais été efficaces, jusqu'en 2012, où le réseau *AlexNet* [6], premier réseau à utiliser le *dropout*, participe au concours et pulvérise la concurrence, avec une erreur Top 5 de 15.3% (par comparaison, le deuxième meilleur était à 26%).
+Les réseaux de neurones n'y avaient jamais été efficaces, jusqu'en 2012, où le réseau *AlexNet* [6], premier réseau à utiliser le *Dropout*, participe au concours et pulvérise la concurrence, avec une erreur Top 5 de 15.3% (par comparaison, le deuxième meilleur était à 26%).
 
 Ce coup de tonnerre provoque un bouleversement du domaine de la vision par ordinateur, qui adopte ces techniques très vite. Quatre ans plus tard, le réseau *ResNet* de Microsoft atteint 3% d'erreur sur ce concours, et ce résultat sera encore probablement amélioré dans le futur, par exemple grâce récente innovation majeure, les *Capsule Networks* [7].
 
