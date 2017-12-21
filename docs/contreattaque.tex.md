@@ -64,7 +64,7 @@ Ce réseau est entraîné sur les images de $\texttt{train}$, et on travaillera 
 
 Sur les $10000$ images de $\texttt{test}$, toutes sauf $89$ sont classifiées correctement par le réseau.
 
-# 2. Les corrections adversaires
+## 2. Les corrections adversaires
 
 On un phénomène intéressant : si une attaque adversaire cherche à tromper le réseau, une attaque adversaire sur une image incorrectement classifiée va, le plus souvent, produire une image qui sera correctement classifiée ! On parlera alors de *correction adversaire*.
 
@@ -72,7 +72,7 @@ Sur la base de $\texttt{test}$, sur les $89$ erreurs de classification commises 
 
 On essaiera cependant d'aller plus loin, et de réduire directement l'erreur Top 1. Pour cela, on cherchera à identifier les images bien ou mal classifiées (évidemment sans connaître au préalable la vraie catégorie de l'image).
 
-# 3. La résistance à une attaque
+## 3. La résistance à une attaque
 
 ### 3.1 Images "faciles" et "difficiles" à attaquer
 
@@ -165,7 +165,7 @@ En appliquand les méthodes précédentes à l'ensemble de $10000$ images de $\t
 
 Ceci s'explique simplement : le nombre d'erreurs initial est proportionnellement trop faible (moins de 1%), et donc les faux positifs (images bien classées, mais considérées comme des erreurs par le critère), même si peu fréquents, vont annuler tout le gain obtenu.
 
-# 5. Réseau discriminateur
+## 5. Réseau discriminateur
 
 Le choix arbitraire d'un critère et la représentation de la résistance par une seule valeur ne sont donc pas des méthodes efficaces pour réduire l'erreur du réseau. Essayons alors d'affiner la distinction entre les images correctement ou incorrectement prédites.
 
