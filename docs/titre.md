@@ -9,16 +9,12 @@
 
 ## Ancrage au thème
 
-<!-- 49/50 mots -->
+<!-- 50/50 mots -->
 
-Rendre la voiture quasi-autonome au sein de son **milieu** nécessite une **interaction** avec son environement, comme la lecture des paneaux.
-
-La meilleure **interface** de compréhension d'images, les réseaux de neurones, présente cependant une faiblesse : des **ruptures** dans leur représenation de l'espace des données permet de les tromper.
+Rendre la voiture quasi-autonome au sein de son **milieu** nécessite une **interaction** avec son environnement, comme la lecture des panneaux routiers. La meilleure **interface** de compréhension d'images, les réseaux de neurones, présente cependant une faiblesse : des **ruptures** dans leur représentation de l'espace des données permet de les tromper.
 
 ## Motivation du choix de l'étude
 
 <!-- 50 mots -->
 
-Le domaine des réseaux de neurones, en pleine expansion, m'a tout de suite plu par son aspect inachevé : chaque mois paraissent de nouvelles avancées.
-
-Extrèmement performants, ils s'imposent dans un algorithme de conduite autonome, et c'est pourquoi il m'a paru intéressant d'explorer leurs faiblesses.
+J'ai choisi de travailler sur les réseaux de neurones pour deux raisons : l'efficacité exceptionnelle de ces méthodes en fait un outil passionnant ; et le domaine de l’apprentissage profond étant un sujet sur lequel la recherche est active, ce TIPE me donne un aperçu de la recherche scientifique. 
