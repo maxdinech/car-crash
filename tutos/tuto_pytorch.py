@@ -12,31 +12,30 @@ Sommaire:
 
 """
 
-
-#======================== 1. Manipulation des tenseurs ========================#
+#======================== 1. Manipulation des tenseurs =======================#
 
 import torch
 
 # On peut définir un tenseur depuis un tableau
 x = torch.Tensor([2])
-y = torch.Tensor([[1,2], [3,4]])
+y = torch.Tensor([[1, 2], [3, 4]])
 
 
 # Ou bien le définir uniquement par ses dimensions : 
 # matrice 5x3 non initialisée (valeurs VRAIMENT aléatoires)
-x = torch.Tensor(5,3)
+x = torch.Tensor(5, 3)
 print(x)
 
 
 # Ou encore : matrice 5x3 aléatoire (valeurs entre 0 et 1)
-x = torch.rand(5,3)
+x = torch.rand(5, 3)
 print(x)
 
 
 # Opérations sur les tenseurs
-x = torch.rand(5,3)
-y = torch.rand(5,3)
-z = torch.rand(3,5)
+x = torch.rand(5, 3)
+y = torch.rand(5, 3)
+z = torch.rand(3, 5)
 print(x + y)  # addition. on aurait pu écrire torch.add(x, y)
 print(x * y)  # produit de Hadamard (terme à terme)
 print(x @ z)  # produit matriciel
@@ -65,14 +64,13 @@ print(x)
 print(x.view(4, 4))
 
 
-
-#========================= 2. Variables et gradients ==========================#
+#========================= 2. Variables et gradients =========================#
 
 from torch.autograd import Variable
 
-# Les variable ressemblent aux tenseurs, mais permettent en plus de calculer les
-# gradients de manière automatisée
-x = Variable(torch.rand(3,5))
+# Les variable ressemblent aux tenseurs, mais permettent en plus de calculer
+# les gradients de manière automatisée
+x = Variable(torch.rand(3, 5))
 print(x)
 
 
@@ -116,8 +114,7 @@ print("x =", x.data[0])
 #             - ATTENTION : Il est primordial d'effacer les anciens gradients !
 
 
-
-#======================= 3. Définition d'un MLP simple  =======================#
+#======================= 3. Définition d'un MLP simple  ======================#
 
 # On applique les mêmes principes que précedemment pour optimiser un réseau MLP
 # à 1000 entrées, une couche cachée de 100 neurones et 10 sorties.
@@ -173,14 +170,12 @@ for t in range(500):
     b2.grad.data.zero_()
 
 
-
-#======================= 4. MLP avec le module torch.nn =======================#
+#======================= 4. MLP avec le module torch.nn ======================#
 
 # On se simplifie la vie en utilisant le module torch.nn, et on définit la
 # classe Net du réseau voulu comme sous-classe de nn.Module. Par exemple :
 
 class Net(nn.Module):
-
     def __init__(self, e, c, s):
         super(Net, self).__init__()
         # convolutions : nb_canaux_entree, nb_canaux_sortie, dim_kernel
